@@ -28,6 +28,7 @@ body {
     align-items: center;
     padding: 15px 40px;
     height: 80px;
+    gap: 50px;
 }
 
 /* Logo Alanı */
@@ -35,8 +36,11 @@ body {
 .logo-container {
     flex: 0 1 auto; /* flex-grow, flex-shrink, flex-basis değerlerini değiştirdik */
     margin-right: 50px; /* Logoyu sola itmek için */
-    padding-left: 0px; /* Sol taraftan boşluk ekledik */
+    padding-left: 0; /* Sol taraftan boşluk ekledik */
+   
+  
 }
+
 
 .logo {
     height: 150px;
