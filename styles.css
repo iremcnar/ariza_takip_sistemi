@@ -73,12 +73,15 @@ body {
 }
 
 .login-btn {
-    color: #206896;
+    color: #028b87;
     font-size: 16px;
     font-weight: 700;
     text-decoration: none;
     padding: 8px 20px;
+    display: inline-block;
+    white-space: nowrap;
 }
+
 
 .register-btn {
     background-color: #028b87;
@@ -177,7 +180,7 @@ body {
 .yenikayit-container h2 {
     font-size: 28px;
     margin-bottom: 30px;
-    color: #395299;
+    color: #028b87;
 }
 
 /* Form Etiketleri */
@@ -185,7 +188,7 @@ body {
     display: block;
     font-weight: 700;
     margin-bottom: 8px;
-    color: #333333;
+    color: #555;
     text-align: left;
 }
 
@@ -210,7 +213,7 @@ body {
 .yenikayit-form input[type="text"]:focus,
 .yenikayit-form textarea:focus {
     outline: none;
-    border-color: #206896;
+    border-color: #028b87;
 }
 
 
@@ -225,7 +228,7 @@ body {
 
 .radio-group label {
     font-weight: 600;
-    color: #555555;
+    color: #555;
     cursor: pointer;
 }
 
@@ -244,7 +247,7 @@ body {
 
 /* Gönder Butonu */
 .submit-btn {
-    background-color: #1E88E5;
+    background-color: #028b87;
     color: white;
     border: none;
     padding: 15px 35px;
@@ -256,7 +259,7 @@ body {
 }
 
 .submit-btn:hover {
-    background-color: #3B4971;
+    background-color: #02736c;
 }
 
 /* Responsive */
@@ -304,14 +307,14 @@ body {
 /* Başlık */
 .destek-container h2 {
     font-size: 26px;
-    color: #395299;
+    color: #028b87;
     margin-bottom: 10px;
 }
 
 /* Açıklama */
 .destek-aciklama {
     font-size: 16px;
-    color: #555555;
+    color: #555;
     margin-bottom: 25px;
 }
 
@@ -329,12 +332,12 @@ body {
 
 .destek-form textarea:focus {
     outline: none;
-    border-color: #1E88E5;
+    border-color: #028b87;
 }
 
 /* Gönder Butonu */
 .destek-submit-btn {
-    background-color: #1E88E5;
+    background-color: #028b87;
     color: white;
     border: none;
     padding: 14px 35px;
@@ -346,7 +349,7 @@ body {
 }
 
 .destek-submit-btn:hover {
-    background-color: #395299;
+    background-color: #02736c;
 }
 
 /* Responsive */
@@ -547,4 +550,64 @@ body {
     text-align: center;
     margin-top: -5px;
     margin-bottom: 10px;
+}
+
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Göz checkbox'ı görünmez yap */
+.password-wrapper input[type="checkbox"] {
+  display: none;
+}
+
+/* Şifre inputları */
+.password-wrapper input[type="password"],
+.password-wrapper input[type="text"] {
+  width: 100%;
+  padding: 10px 40px 10px 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+/* Göz ikonu için label */
+.toggle-label {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+}
+
+/* Göz açık */
+.password-wrapper input[type="checkbox"] + .toggle-label {
+  background-image: url('eye-open.png'); /* Açık göz ikonu */
+}
+
+/* Göz kapalı */
+.password-wrapper input[type="checkbox"]:checked + .toggle-label {
+  background-image: url('eye-closed.png'); /* Kapalı göz ikonu */
+}
+
+/* Şifre gizliyken sadece password input görünsün */
+.password-wrapper input[type="checkbox"]:checked ~ .password {
+  display: none;
+}
+
+/* Şifre gösteriliyken text input görünsün */
+.password-wrapper input[type="checkbox"]:checked ~ .text {
+  display: inline-block;
+}
+
+/* Başlangıçta text input gizli */
+.text {
+  display: none;
 }
