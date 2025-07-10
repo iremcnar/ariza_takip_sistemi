@@ -587,27 +587,4 @@ body {
   opacity: 0.6;
 }
 
-/* Göz açık */
-.password-wrapper input[type="checkbox"] + .toggle-label {
-  background-image: url('eye-open.png'); /* Açık göz ikonu */
-}
 
-/* Göz kapalı */
-.password-wrapper input[type="checkbox"]:checked + .toggle-label {
-  background-image: url('eye-closed.png'); /* Kapalı göz ikonu */
-}
-
-/* Şifre gizliyken sadece password input görünsün */
-.password-wrapper input[type="checkbox"]:checked ~ .password {
-  display: none;
-}
-
-/* Şifre gösteriliyken text input görünsün */
-.password-wrapper input[type="checkbox"]:checked ~ .text {
-  display: inline-block;
-}
-
-/* Başlangıçta text input gizli */
-.text {
-  display: none;
-}
