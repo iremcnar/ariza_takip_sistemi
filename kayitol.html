@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kayıt Ol</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+ <!-- Navbar - Aynı şekilde sabit kalacak -->
+  <div class="navbar-container">
+    <div class="navbar">
+      <div class="logo-container">
+        <a href="/">
+          <img class="logo" src="img/hayat-kimya.png" alt="Hayat Kimya Logo">
+        </a>
+      </div>
+
+      <div class="nav-menu">
+        <a href="/#yenikayit-section" class="nav-item">YENİ KAYIT</a>
+        <a href="kayitlarim.html" class="nav-item">KAYITLARIM</a>
+        <a href="/#destek-section" class="nav-item">DESTEK</a>
+      </div>
+
+      <div class="auth-buttons">
+        <a href="girisyap.html" class="login-btn">GİRİŞ YAP</a>
+        <a href="/kayitol" class="register-btn">KAYIT OL</a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Kayıt Ol Formu -->
+  <div class="kayit-form-container">
+    <form class="kayit-form" id="registerForm">
+      <h2>Kayıt Ol</h2>
+
+
+
+      <label for="name">İsim Soyisim <span class="required">*</span></label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">E-posta <span class="required">*</span></label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="password">Şifre (min. 6 karakter) <span class="required">*</span></label>
+      <input type="password" id="password" name="password" required minlength="6" />
+
+      <p class="error-message" id="errorMessage"></p>
+
+      <button type="submit" class="register-btn">Kayıt Ol</button>
+
+      <div class="login-link">
+        <span>Hesabınız var mı?</span>
+        <a href="girisyap.html" class="small-login-btn">Giriş Yap</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('registerForm');
+    const passwordInput = document.getElementById('password');
+    const errorMessage = document.getElementById('errorMessage');
+
+    form.addEventListener('submit', function (e) {
+      if (passwordInput.value.length < 6) {
+        e.preventDefault();
+        errorMessage.textContent = 'Şifre en az 6 karakter olmalıdır.';
+      }
+    });
+  </script>
+
+</body>
+</html>

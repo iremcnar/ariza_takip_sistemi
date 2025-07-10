@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kayıtlarım | Hayat Kimya</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navbar - Aynı şekilde sabit kalacak -->
+  <div class="navbar-container">
+    <div class="navbar">
+      <div class="logo-container">
+        <a href="/">
+          <img class="logo" src="img/hayat-kimya.png" alt="Hayat Kimya Logo">
+        </a>
+      </div>
+
+      <div class="nav-menu">
+        <a href="/#yenikayit-section" class="nav-item">YENİ KAYIT</a>
+        <a href="kayitlarim.html" class="nav-item">KAYITLARIM</a>
+        <a href="/#destek-section" class="nav-item">DESTEK</a>
+      </div>
+
+      <div class="auth-buttons">
+        <a href="/girisyap" class="login-btn">GİRİŞ YAP</a>
+        <a href="/kayitol" class="register-btn">KAYIT OL</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kayıtlar Bölümü -->
+  <div class="kayitlarim-container">
+    <h2>Arıza Kayıtlarım</h2>
+
+    <!-- Örnek Kayıt Kartı -->
+    <div class="kayit-karti">
+      <h3>Konu: Yazıcı çalışmıyor</h3>
+      <p><strong>Açıklama:</strong> Ofis 2’deki yazıcı açılmıyor, ışık yanmıyor.</p>
+      <p><strong>Öncelik:</strong> Yüksek</p>
+      <p><strong>Dosya:</strong> <a href="uploads/yazici.jpg" target="_blank">Fotoğrafı Gör</a></p>
+      <p class="durum">Durum: <span class="etiket beklemede">Beklemede</span></p>
+    </div>
+
+    <div class="kayit-karti">
+      <h3>Konu: Bilgisayar açılmıyor</h3>
+      <p><strong>Açıklama:</strong> Mavi ekran hatası veriyor ve yeniden başlıyor.</p>
+      <p><strong>Öncelik:</strong> Orta</p>
+      <p><strong>Dosya:</strong> <a href="uploads/mavi_ekran.pdf" target="_blank">PDF Raporu</a></p>
+      <p class="durum">Durum: <span class="etiket islemede">İşleme Alındı</span></p>
+    </div>
+
+    <div class="kayit-karti">
+      <h3>Konu: Klavye bozuldu</h3>
+      <p><strong>Açıklama:</strong> Bazı tuşlar basmıyor.</p>
+      <p><strong>Öncelik:</strong> Düşük</p>
+      <p><strong>Dosya:</strong> Yok</p>
+      <p class="durum">Durum: <span class="etiket cozuldu">Çözüldü</span></p>
+    </div>
+
+  </div>
+
+</body>
+</html>

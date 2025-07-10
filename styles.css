@@ -27,18 +27,15 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
-    height: 80px;
+    height: 100px;
     gap: 50px;
 }
 
 /* Logo Alanı */
 /* Logo Alanı */
 .logo-container {
-    flex: 0 1 auto; /* flex-grow, flex-shrink, flex-basis değerlerini değiştirdik */
-    margin-right: 50px; /* Logoyu sola itmek için */
-    padding-left: 0; /* Sol taraftan boşluk ekledik */
-   
-  
+    margin-left: -90px;   /* Daha sola yaklaşması için sıfırla */
+    padding-left: 20px;  /* İsteğe bağlı biraz iç boşluk */
 }
 
 
@@ -51,14 +48,14 @@ body {
 /* Menü Öğeleri */
 .nav-menu {
     display: flex;
-    gap: 30px;
+    gap: 50px;
     margin: 0 50px;
 }
 
 .nav-item {
     color: #206896;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 800;
     text-decoration: none;
     text-transform: uppercase;
     transition: color 0.3s;
@@ -144,4 +141,410 @@ body {
     .main-image-container {
         height: 60vh;
     }
+}
+
+
+/* YENİ KAYIT SİSTEMİ */
+
+
+/* Temel Sıfırlama */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'InstrumentSans-Bold', sans-serif;
+    background-color: #F9FAFB;
+    overflow-x: hidden;
+}
+
+/* Navbar - önceden verdiğin kodlar geçerli */
+
+/* Yeni Kayıt Container */
+.yenikayit-container {
+    max-width: 600px;
+    margin: 150px auto 100px; /* Üstten biraz boşluk, ortalanmış */
+    background-color: #ffffff;
+    padding: 70px 30px;
+    border-radius: 30px; /* Oval köşeler */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Gölgeli dış görünüm */
+    text-align: center;
+}
+
+/* Başlık */
+.yenikayit-container h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #395299;
+}
+
+/* Form Etiketleri */
+.yenikayit-form label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #333333;
+    text-align: left;
+}
+
+/* Zorunlu Alan İşareti */
+.required {
+    color: #E53935;
+}
+
+/* Text Input */
+.yenikayit-form input[type="text"],
+.yenikayit-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #CCCCCC;
+    border-radius: 15px;
+    font-size: 16px;
+    margin-bottom: 25px;
+    resize: vertical;
+    transition: border-color 0.3s;
+}
+
+.yenikayit-form input[type="text"]:focus,
+.yenikayit-form textarea:focus {
+    outline: none;
+    border-color: #206896;
+}
+
+
+
+/* Radio Butonlar */
+.radio-group {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.radio-group label {
+    font-weight: 600;
+    color: #555555;
+    cursor: pointer;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+/* Dosya Yükleme */
+.yenikayit-form input[type="file"] {
+    display: block;
+    margin: 20px 0 30px 0;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Gönder Butonu */
+.submit-btn {
+    background-color: #1E88E5;
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #3B4971;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .yenikayit-container {
+        margin: 40px 20px 80px;
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 15px 0;
+    }
+}
+
+/* BANNER İMAGE BÖLÜMÜ */
+
+.banner-image-section {
+    width: 100vw;
+    overflow: hidden;
+    margin: 40px 0;
+}
+
+.banner-image {
+    width: 100%;
+    height: 220px; /* Daha kısa görünüm */
+    object-fit: cover;
+    object-position: center; /* Görselin ortasını göstermek için */
+    display: block;
+}
+
+
+/* DESTEK Bölümü */
+.destek-container {
+    max-width: 800px;
+    margin: 60px auto 100px;
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Başlık */
+.destek-container h2 {
+    font-size: 26px;
+    color: #395299;
+    margin-bottom: 10px;
+}
+
+/* Açıklama */
+.destek-aciklama {
+    font-size: 16px;
+    color: #555555;
+    margin-bottom: 25px;
+}
+
+/* Metin Kutusu */
+.destek-form textarea {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid #CCCCCC;
+    border-radius: 12px;
+    font-size: 16px;
+    resize: vertical;
+    transition: border-color 0.3s;
+    margin-bottom: 25px;
+}
+
+.destek-form textarea:focus {
+    outline: none;
+    border-color: #1E88E5;
+}
+
+/* Gönder Butonu */
+.destek-submit-btn {
+    background-color: #1E88E5;
+    color: white;
+    border: none;
+    padding: 14px 35px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.destek-submit-btn:hover {
+    background-color: #395299;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .destek-container {
+        margin: 40px 20px 80px;
+        padding: 30px 20px;
+    }
+
+    .destek-form textarea {
+        height: 200px;
+    }
+
+    .destek-submit-btn {
+        width: 100%;
+        padding: 14px 0;
+    }
+}
+
+/* Footer */
+.site-footer {
+    background-color: #f8f9fa;
+    padding: 25px 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    border-top: 1px solid #ddd;
+    margin-top: 60px;
+}
+
+.footer-icons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer-icon img {
+    width: 25px;
+    height: 25px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0.8;
+}
+
+.footer-icon img:hover {
+    transform: scale(1.15);
+    opacity: 1;
+}
+
+
+/*KAYITLARIM SAYFASI*/
+.kayitlarim-container {
+    max-width: 900px;
+    margin: 60px auto 100px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.kayitlarim-container h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+    color: #1E88E5;
+}
+
+/* Kayıt Kartı */
+.kayit-karti {
+    background-color: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+    padding: 25px 30px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.kayit-karti h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.kayit-karti p {
+    margin: 8px 0;
+    font-size: 15px;
+    color: #555;
+}
+
+.kayit-karti a {
+    color: #028b87;
+    text-decoration: underline;
+}
+
+.durum {
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+/* Etiketler */
+.etiket {
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+}
+
+.etiket.beklemede {
+    background-color: #fbc02d; /* Sarı */
+}
+
+.etiket.islemede {
+    background-color: #028b87; /* Mavi-yeşil */
+}
+
+.etiket.cozuldu {
+    background-color: #43a047; /* Yeşil */
+}
+
+
+/* Kayıt Ol Sayfası */
+.kayit-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f2f6fa;
+    padding: 40px 20px;
+}
+
+.kayit-form {
+    background-color: #fff;
+    padding: 40px 35px;
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: left;
+}
+
+.kayit-form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #028b87;
+}
+
+.kayit-form label {
+    display: block;
+    margin: 12px 0 6px;
+    font-size: 14px;
+    color: #333;
+}
+
+.kayit-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.register-btn {
+    width: 100%;
+    background-color: #028b87;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.register-btn:hover {
+    background-color: #02736c;
+}
+
+.login-link {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #555;
+}
+
+.small-login-btn {
+    font-size: 13px;
+    color: #028b87;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.small-login-btn:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    font-size: 13px;
+    text-align: center;
+    margin-top: -5px;
+    margin-bottom: 10px;
 }

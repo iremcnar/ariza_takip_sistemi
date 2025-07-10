@@ -1,39 +1,117 @@
 <!doctype html>
-<html dir="" lang="tr">
+<html lang="tr">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Hayat Kimya | Milyonlarca Evde Hayat Var!</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="/favicon.png" type="image/x-icon" />
 </head>
 <body>
+
     <!-- Navbar -->
     <div class="navbar-container">
         <div class="navbar">
             <div class="logo-container">
                 <a href="/">
-                    <img class="logo" src="img/hayat-kimya.png" alt="Hayat Kimya Logo">
+                    <img class="logo" src="img/hayat-kimya.png" alt="Hayat Kimya Logo" />
                 </a>
             </div>
-            
+
             <div class="nav-menu">
-                <a href="/yenikayit" class="nav-item">YENİ KAYIT</a>
-                <a href="/kayitlarim" class="nav-item">KAYITLARIM</a>
-                <a href="/destek" class="nav-item">DESTEK</a>
+                <!-- Navbar'daki 'YENİ KAYIT' bağlantısı, form bölümüne scroll yapacak -->
+                <a href="#yenikayit-section" class="nav-item">YENİ KAYIT</a>
+                <a href="kayitlarim.html" class="nav-item">KAYITLARIM</a>
+                <a href="#destek-section" class="nav-item">DESTEK</a>
+
+
             </div>
-            
+
             <div class="auth-buttons">
-                <a href="/girisyap" class="login-btn">GİRİŞ YAP</a>
-                <a href="/kayitol" class="register-btn">KAYIT OL</a>
+                <a href="girisyap.html" class="login-btn">GİRİŞ YAP</a>
+                <a href="kayitol.html" class="register-btn">KAYIT OL</a>
             </div>
         </div>
     </div>
 
     <!-- Ana Resim -->
     <div class="main-image-container">
-        <img src="img/main.jpg" alt="Hayat Kimya Ana Resim" class="main-image">
+        <img src="img/main.jpg" alt="Hayat Kimya Ana Resim" class="main-image" />
     </div>
+
+    <!-- Yeni Kayıt Formu Bölümü -->
+    <section id="yenikayit-section" class="yenikayit-container">
+        <h2>Yeni Arıza Kaydı</h2>
+
+        <form class="yenikayit-form" action="#" method="post" enctype="multipart/form-data">
+            <!-- Konu Başlığı -->
+            <label for="konuBasligi">Konu Başlığı <span class="required">*</span></label>
+            <input type="text" id="konuBasligi" name="konuBasligi" required placeholder="Konu başlığınızı yazınız" />
+
+            <!-- Açıklama -->
+            <label for="aciklama">Açıklama <span class="required">*</span></label>
+            <textarea id="aciklama" name="aciklama" rows="5" required placeholder="Sorununuzu detaylıca açıklayınız"></textarea>
+
+            <!-- Öncelik -->
+            <label>Öncelik <span class="required">*</span></label>
+            <div class="radio-group">
+                <label><input type="radio" name="oncelik" value="dusuk" required> Düşük</label>
+                <label><input type="radio" name="oncelik" value="orta"> Orta</label>
+                <label><input type="radio" name="oncelik" value="yuksek"> Yüksek</label>
+            </div>
+
+            <!-- Dosya Yükleme -->
+            <label for="dosyaYukle">Dosya Yükle (Fotoğraf, PDF)</label>
+            <input type="file" id="dosyaYukle" name="dosyaYukle" accept=".jpg,.jpeg,.png,.pdf" />
+
+            <!-- Gönder Butonu -->
+            <button type="submit" class="submit-btn">Gönder</button>
+        </form>
+    </section>
+
+    <!-- Banner Görsel -->
+<div class="banner-image-section">
+  <img src="img/banner.jpg" alt="Arıza ve Destek Geçiş Görseli" class="banner-image" />
+</div>
+
+
+    <!-- DESTEK Bölümü -->
+<section id="destek-section" class="destek-container">
+  <h2>Destek Talebi</h2>
+  <p class="destek-aciklama">İletmek istediğiniz mesajı aşağıya yazabilirsiniz.</p>
+
+  <form class="destek-form" action="#" method="post">
+    <textarea 
+      name="destekMesaj" 
+      id="destekMesaj" 
+      rows="6" 
+      placeholder="İletmek istediğiniz mesajı buraya yazın..." 
+      required></textarea>
+
+    <button type="submit" class="destek-submit-btn">Gönder</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <p>İrem Çınar tarafından hazırlanmıştır</p>
+  <div class="footer-icons">
+    <a href="https://www.youtube.com/channel/UClyqllOfTuPwk4X0z-fhqFA" target="_blank" class="footer-icon" title="YouTube">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube Icon">
+    </a>
+    <a href="https://www.instagram.com/hayatkimya/" target="_blank" class="footer-icon" title="Instagram">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram Icon">
+    </a>
+    <a href="https://www.linkedin.com/company/hayat-holding/posts/?feedView=all" target="_blank" class="footer-icon" title="LinkedIn">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384014.png" alt="LinkedIn Icon">
+    </a>
+    <a href="https://www.facebook.com/hayatkimya/" target="_blank" class="footer-icon" title="Facebook">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png" alt="Facebook Icon">
+    </a>
+  </div>
+</footer>
+
+
 </body>
 </html>
