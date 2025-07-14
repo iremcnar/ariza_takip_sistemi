@@ -36,11 +36,22 @@
 
             </div>
 
-            <div class="auth-buttons">
-                <a href="girisyap.html" class="login-btn">GİRİŞ YAP</a>
-                <a href="kayitol.html" class="register-btn">KAYIT OL</a>
-            </div>
-        </div>
+<div class="auth-buttons" id="authButtons">
+  <a href="girisyap.html" id="loginBtn" class="login-btn">GİRİŞ YAP</a>
+  <a href="kayitol.html" id="registerBtn" class="register-btn">KAYIT OL</a>
+</div>
+
+<!-- Kullanıcı adı buraya yazılacak -->
+<span id="usernameDisplay" style="display:none; font-weight:bold; margin-left:10px;"></span>
+
+
+
+  <!-- Giriş yapılınca bu kısım gösterilecek -->
+  <div id="userGreeting" style="display:none;">
+    Merhaba, <span id="userName"></span> | <a href="#" id="logoutBtn">Çıkış Yap</a>
+  </div>
+</div>
+
     </div>
 
     <!-- Ana Resim -->

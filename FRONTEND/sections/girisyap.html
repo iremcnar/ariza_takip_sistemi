@@ -94,8 +94,11 @@
       // Token'ı localStorage'da sakla
       localStorage.setItem("token", data.token);
 
-      alert("✅ Giriş başarılı! Anasayfaya yönlendiriliyorsunuz.");
-      window.location.href = "anasayfa.html"; // İstersen değiştirebilirsin
+alert("Giriş başarılı! Yönlendiriliyorsunuz...");
+setTimeout(() => {
+  window.location.href = "index.html";
+}, 100);
+
 
     } catch (error) {
       errorMessage.textContent = error.message;
