@@ -53,18 +53,57 @@
     </form>
   </div>
 
-  <script>
-    const loginForm = document.getElementById('loginForm');
-    const passwordInput = document.getElementById('password');
-    const errorMessage = document.getElementById('errorMessage');
+<script>
+  const loginForm = document.getElementById('loginForm');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const errorMessage = document.getElementById('errorMessage');
 
-    loginForm.addEventListener('submit', function (e) {
-      if (passwordInput.value.length < 6) {
-        e.preventDefault();
-        errorMessage.textContent = 'Şifre en az 6 karakter olmalıdır.';
+  loginForm.addEventListener('submit', async function (e) {
+    e.preventDefault(); // Sayfanın yenilenmesini engelle
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!email) {
+      errorMessage.textContent = "Email boş olamaz.";
+      errorMessage.style.color = "red";
+      return;
+    }
+    if (password.length < 6) {
+      errorMessage.textContent = "Şifre en az 6 karakter olmalıdır.";
+      errorMessage.style.color = "red";
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Giriş başarısız.");
       }
-    });
-  </script>
+
+      // Token'ı localStorage'da sakla
+      localStorage.setItem("token", data.token);
+
+      alert("✅ Giriş başarılı! Anasayfaya yönlendiriliyorsunuz.");
+      window.location.href = "anasayfa.html"; // İstersen değiştirebilirsin
+
+    } catch (error) {
+      errorMessage.textContent = error.message;
+      errorMessage.style.color = "red";
+    }
+  });
+</script>
+
 
 </body>
 </html>

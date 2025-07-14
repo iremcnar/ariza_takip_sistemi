@@ -1,0 +1,27 @@
+//MongoDB calıstırmak ıcın komut
+& "C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --dbpath "C:\data\db"
+
+
+/BACKEND
+  ├── .env
+  ├── .gitignore
+  ├── package.json
+  ├── server.js
+  ├── /config
+  │   └── db.js
+  ├── /models
+  │   ├── User.js
+  │   ├── Ariza.js
+  │   └── Destek.js
+  ├── /controllers
+  │   ├── authController.js
+  │   ├── arizaController.js
+  │   └── destekController.js
+  ├── /routes
+  │   ├── authRoutes.js
+  │   ├── arizaRoutes.js
+  │   └── destekRoutes.js
+  ├── /middleware
+  │   ├── auth.js
+  │   └── upload.js
+  └── /uploads

@@ -63,18 +63,45 @@
     </form>
   </div>
 
-  <script>
-    const form = document.getElementById('registerForm');
-    const passwordInput = document.getElementById('password');
-    const errorMessage = document.getElementById('errorMessage');
+ <script>
+  const form = document.getElementById('registerForm');
+  const errorMessage = document.getElementById('errorMessage');
 
-    form.addEventListener('submit', function (e) {
-      if (passwordInput.value.length < 6) {
-        e.preventDefault();
-        errorMessage.textContent = 'Şifre en az 6 karakter olmalıdır.';
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault(); // Sayfanın yenilenmesini engeller
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    if (password.length < 6) {
+      errorMessage.textContent = 'Şifre en az 6 karakter olmalıdır.';
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, password })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Kayıt başarısız');
       }
-    });
-  </script>
+
+      alert('Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz.');
+      window.location.href = 'girisyap.html';
+    } catch (error) {
+      errorMessage.textContent = error.message;
+    }
+  });
+</script>
+
 
 
 

@@ -1,5 +1,61 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // ... mevcut kodlar (hamburger, kayıt formu vb.) burada ...
+  // Hamburger Menü
+  const hamburger = document.querySelector(".hamburger");
+  const navMenu = document.querySelector(".nav-menu");
+  const authButtons = document.querySelector(".auth-buttons");
+
+  if (hamburger && navMenu && authButtons) {
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      navMenu.classList.toggle("active");
+      authButtons.classList.toggle("active");
+
+      const expanded = hamburger.getAttribute("aria-expanded") === "true";
+      hamburger.setAttribute("aria-expanded", !expanded);
+    });
+
+    // Menüden bir öğeye tıklanınca menüyü kapat
+    document.querySelectorAll(".nav-item").forEach(item => {
+      item.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        navMenu.classList.remove("active");
+        authButtons.classList.remove("active");
+        hamburger.setAttribute("aria-expanded", false);
+      });
+    });
+  }
+
+  // Yeni Kayıt Formu Kontrol
+  const form = document.querySelector(".yenikayit-form");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      const konu = document.getElementById("konuBasligi").value.trim();
+      const aciklama = document.getElementById("aciklama").value.trim();
+      const oncelik = document.querySelector('input[name="oncelik"]:checked');
+
+      if (!konu || !aciklama || !oncelik) {
+        alert("Lütfen tüm zorunlu alanları eksiksiz doldurun!");
+        e.preventDefault();
+      }
+    });
+  }
+
+  // Destek Formu Onay
+  const destekForm = document.querySelector(".destek-form");
+  if (destekForm) {
+    destekForm.addEventListener("submit", function (e) {
+      const onay = confirm("Mesajınızı göndermek istediğinize emin misiniz?");
+      if (!onay) {
+        e.preventDefault();
+      }
+    });
+  }
+
+  // Fade-in animasyonu
+  const mainImage = document.querySelector(".main-image");
+  if (mainImage) {
+    mainImage.classList.add("fade-in");
+  }
 
   // Kayıt Formu Validasyon ve Backend'e Veri Gönderimi
   const registerForm = document.getElementById("registerForm");
@@ -54,52 +110,4 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-
-  // *** GİRİŞ FORMU KODU ***
-
-  const loginForm = document.getElementById("loginForm");
-  if (loginForm) {
-    const loginEmailInput = document.getElementById("loginEmail");
-    const loginPasswordInput = document.getElementById("loginPassword");
-    const loginErrorMessage = document.getElementById("loginErrorMessage");
-
-    loginForm.addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const email = loginEmailInput.value.trim();
-      const password = loginPasswordInput.value;
-
-      if (!email || !password) {
-        loginErrorMessage.textContent = "Email ve şifre boş olamaz.";
-        loginErrorMessage.style.color = "red";
-        return;
-      }
-
-      try {
-        const response = await fetch("http://localhost:5000/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ email, password })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.message || "Giriş başarısız.");
-        }
-
-        // Token'ı localStorage'da sakla
-        localStorage.setItem("token", data.token);
-
-        alert("✅ Giriş başarılı! Anasayfaya yönlendiriliyorsunuz.");
-        window.location.href = "index.html";
-      } catch (error) {
-        loginErrorMessage.textContent = error.message;
-        loginErrorMessage.style.color = "red";
-      }
-    });
-  }
 });
-
