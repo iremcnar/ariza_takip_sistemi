@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Arıza Kayıtları</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="admin-navbar">
+  <ul>
+    <li><a href="admin-dashboard.html">Ana Sayfa</a></li>
+    <li><a href="admin-users.html">Kullanıcılar</a></li>
+    <li><a href="admin-records.html">Kayıtlar</a></li>
+    <li><a href="admin-support.html">Destek</a></li>
+    <li><a href="admin-login.html">Çıkış</a></li>
+  </ul>
+</nav>
+
+<main class="records-content">
+  <h1>Arıza Kayıtları</h1>
+
+  <table class="record-table">
+    <thead>
+      <tr>
+        <th>Kullanıcı</th>
+        <th>Başlık</th>
+        <th>Açıklama</th>
+        <th>Tarih</th>
+        <th>Durum</th>
+        <th>İşlem</th>
+      </tr>
+    </thead>
+    <tbody id="recordTableBody">
+      <!-- Kayıt verileri JS ile buraya gelecek -->
+    </tbody>
+  </table>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

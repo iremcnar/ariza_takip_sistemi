@@ -1,7 +1,10 @@
 //MongoDB calıstırmak ıcın komut
 & "C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --dbpath "C:\data\db"
+cd BACKEND
 node server.js 
 
+//POSTMAN İLE POST ISTEGI 
+post http://localhost:5000/api/auth/login  //giriş için
 
 /BACKEND
   ├── .env

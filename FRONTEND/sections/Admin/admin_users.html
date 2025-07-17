@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kullanıcılar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="admin-navbar">
+  <ul>
+    <li><a href="admin-dashboard.html">Ana Sayfa</a></li>
+    <li><a href="admin-users.html">Kullanıcılar</a></li>
+    <li><a href="admin-records.html">Kayıtlar</a></li>
+    <li><a href="admin-support.html">Destek</a></li>
+    <li><a href="admin-login.html">Çıkış</a></li>
+  </ul>
+</nav>
+
+<main class="users-content">
+  <h1>Kullanıcı Listesi</h1>
+
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Ad</th>
+        <th>Soyad</th>
+        <th>E-posta</th>
+        <th>Üyelik Tarihi</th>
+        <th>Rol</th>
+      </tr>
+    </thead>
+    <tbody id="userTableBody">
+      <!-- Kullanıcı verileri buraya JS ile eklenecek -->
+    </tbody>
+  </table>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
