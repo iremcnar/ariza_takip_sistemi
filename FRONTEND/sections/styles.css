@@ -88,8 +88,9 @@ body {
 }
 
 .nav-item:hover {
-    color: #667eea;
+    color: #fbfcfc;
     background: rgba(102, 126, 234, 0.08);
+    background: linear-gradient(45deg, #9EB5E3, #174196);
     transform: translateY(-1px);
 }
 
@@ -120,9 +121,10 @@ body {
 
 .login-btn:hover {
     color: white;
-    background: #667eea;
+    background: #020a2d;
     transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+    box-shadow: 0 4px 15px rgba(15, 23, 61, 0.2);
+    background: linear-gradient(45deg, #3d8db1, #342378);
 }
 
 .register-btn {
@@ -137,13 +139,14 @@ body {
     border: none;
     cursor: pointer;
     box-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
+    background: linear-gradient(45deg, #3d8db1, #342378);
   
 
 }
 
 .register-btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    background: linear-gradient(45deg, #10709f, #1b0f4e);
 }
 
 /* Admin Icon */
@@ -153,7 +156,8 @@ body {
     justify-content: center;
     width: 36px;
     height: 36px;
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    
+    background: linear-gradient(45deg, #b95151, #342378);
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -164,6 +168,8 @@ body {
 .admin-icon:hover {
     transform: translateY(-1px) scale(1.05);
     box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+
+    background: linear-gradient(45deg, #791b1b, #53409f);
 }
 
 .admin-icon svg {
@@ -247,12 +253,14 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     text-align: center;
     scroll-margin-top: 120px; 
+    
 }
 
 .yenikayit-container h2 {
     font-size: 1.75rem; /* 28px */
     margin-bottom: 30px;
     color: #4d699f;
+    
 }
 
 .yenikayit-form label {
@@ -320,11 +328,13 @@ body {
     border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.3s;
+    background: linear-gradient(45deg, #3d8db1, #342378);
    
 }
 
 .submit-btn:hover {
     background-color: #1d2d4d;
+    background: linear-gradient(45deg, #10709f, #1b0f4e);
 }
 
 /* ===== Banner Image Bölümü ===== */
@@ -395,11 +405,12 @@ body {
     font-weight: 700;
     border-radius: 30px;
     cursor: pointer;
+     background: linear-gradient(45deg, #3d8db1, #342378);
     transition: background-color 0.3s;
 }
 
 .destek-submit-btn:hover {
-    background-color: #1d2d4d;
+    background: linear-gradient(45deg, #10709f, #1b0f4e);
 }
 /* ===== Footer ===== */
 .site-footer {
