@@ -9,7 +9,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
   // Kullanıcı var mı kontrolü
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ email }); 
   if (userExists) {
     res.status(400);
     throw new Error('Bu email ile zaten kayıtlı bir kullanıcı var');

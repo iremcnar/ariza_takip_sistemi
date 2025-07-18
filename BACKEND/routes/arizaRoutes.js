@@ -1,3 +1,4 @@
+// Arıza kayıtları ile ilgili API rotalarını tanımlıyor.
 const express = require('express');
 const router = express.Router();
 const {
@@ -6,7 +7,7 @@ const {
   getArizalar,
   updateAriza
 } = require('../controllers/arizaController');
-const { protect, admin } = require('../middleware/auth');
+const { protect, admin } = require('../middleware/authMiddleware');
 const upload = require('../middleware/upload');
 
 router.route('/')

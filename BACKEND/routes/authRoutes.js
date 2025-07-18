@@ -9,7 +9,7 @@ const {
   loginUser,
   getMe
 } = require('../controllers/authController');
-const { protect } = require('../middleware/auth');
+const { protect } = require('../middleware/authMiddleware');
 
 // post isteği ile kullanıcı kaydı, giriş ve profil bilgilerini alma işlemlerini yöneten rotalar tanımlanır.
 // get isteği ile kullanıcı doğrulama işlemleri yapılır.

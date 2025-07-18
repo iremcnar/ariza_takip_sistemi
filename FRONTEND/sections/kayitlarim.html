@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kayıtlarım | Hayat Kimya</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="kayitlarim.css" />
 </head>
 <body>
 
-  <!-- Navbar - Aynı şekilde sabit kalacak -->
+  <!-- Navbar (fixed) -->
   <div class="navbar-container">
     <div class="navbar">
       <div class="logo-container">
         <a href="index.html">
-          <img class="logo" src="img/hayat-kimya.png" alt="Hayat Kimya Logo">
+          <img class="logo" src="img/dünya.png" alt="Dünyam Logo" />
         </a>
       </div>
-
       <div class="nav-menu">
         <a href="index.html#yenikayit-section" class="nav-item">YENİ KAYIT</a>
         <a href="kayitlarim.html" class="nav-item">KAYITLARIM</a>
         <a href="index.html#destek-section" class="nav-item">DESTEK</a>
-
       </div>
-
       <div class="auth-buttons">
         <a href="girisyap.html" class="login-btn">GİRİŞ YAP</a>
         <a href="kayitol.html" class="register-btn">KAYIT OL</a>
@@ -33,34 +30,26 @@
 
   <!-- Kayıtlar Bölümü -->
   <div class="kayitlarim-container">
-    <h2>Arıza Kayıtlarım</h2>
-
-    <!-- Örnek Kayıt Kartı -->
-    <div class="kayit-karti">
-      <h3>Konu: Yazıcı çalışmıyor</h3>
-      <p><strong>Açıklama:</strong> Ofis 2’deki yazıcı açılmıyor, ışık yanmıyor.</p>
-      <p><strong>Öncelik:</strong> Yüksek</p>
-      <p><strong>Dosya:</strong> <a href="uploads/yazici.jpg" target="_blank">Fotoğrafı Gör</a></p>
-      <p class="durum">Durum: <span class="etiket beklemede">Beklemede</span></p>
-    </div>
-
-    <div class="kayit-karti">
-      <h3>Konu: Bilgisayar açılmıyor</h3>
-      <p><strong>Açıklama:</strong> Mavi ekran hatası veriyor ve yeniden başlıyor.</p>
-      <p><strong>Öncelik:</strong> Orta</p>
-      <p><strong>Dosya:</strong> <a href="uploads/mavi_ekran.pdf" target="_blank">PDF Raporu</a></p>
-      <p class="durum">Durum: <span class="etiket islemede">İşleme Alındı</span></p>
-    </div>
-
-    <div class="kayit-karti">
-      <h3>Konu: Klavye bozuldu</h3>
-      <p><strong>Açıklama:</strong> Bazı tuşlar basmıyor.</p>
-      <p><strong>Öncelik:</strong> Düşük</p>
-      <p><strong>Dosya:</strong> Yok</p>
-      <p class="durum">Durum: <span class="etiket cozuldu">Çözüldü</span></p>
-    </div>
-
+    <div id="kayitlar-listesi"></div>
   </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>İrem Çınar tarafından hazırlanmıştır</p>
+    <div class="footer-icons">
+      <a href="https://www.linkedin.com/in/iremcnr/" target="_blank" class="footer-icon" title="LinkedIn">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384014.png" alt="LinkedIn Icon" />
+      </a>
+      <a href="https://github.com/iremcnar" target="_blank" class="footer-icon" title="GitHub">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub Icon" />
+      </a>
+    </div>
+  </footer>
+
+  <script src="kayitlarim.js"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>
+
+

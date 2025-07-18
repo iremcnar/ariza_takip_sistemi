@@ -1,3 +1,4 @@
+// Destek talepleri ile ilgili rotalar tanımlanır. Kullanıcıların destek talepleri oluşturması, listelemesi ve cevap eklemesi gibi işlemler için kullanılır.
 const express = require('express');
 const router = express.Router();
 const {
@@ -6,7 +7,7 @@ const {
   getDestekler,
   addCevap
 } = require('../controllers/destekController');
-const { protect, admin } = require('../middleware/auth');
+const { protect, admin } = require('../middleware/authMiddleware');
 
 router.route('/')
   .post(protect, createDestek)
