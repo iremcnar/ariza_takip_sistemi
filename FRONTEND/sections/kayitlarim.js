@@ -1,16 +1,19 @@
 const kayitlarListesi = document.getElementById('kayitlar-listesi');
 const token = localStorage.getItem('token');
 
+// 1. Kullanıcı giriş yapmış mı?
 if (!token) {
-  // Giriş yoksa mesaj ve buton göster
+  // Giriş yapılmamış, giriş mesajı + buton göster
   kayitlarListesi.innerHTML = `
-    <p id="no-kayit-mesaji">Lütfen giriş yapınız.</p>
+    <p style="font-size:1.2rem; text-align:center; margin-bottom:20px;">
+      Kayıtlarınıza bakmak için lütfen giriş yapınız.
+    </p>
     <div style="text-align:center;">
-      <a href="girisyap.html" class="btn">Giriş Yap</a>
+      <a href="girisyap.html" class="btn">GİRİŞ YAP</a>
     </div>
   `;
 } else {
-  // Giriş varsa kayıtları çek
+  // 2. Giriş yapılmış, kayıtları çek
   fetch('http://localhost:5000/api/ariza/myfaults', {
     headers: {
       'Authorization': 'Bearer ' + token,
@@ -22,9 +25,11 @@ if (!token) {
   })
   .then(faults => {
     if (faults.length === 0) {
-      // Kayıt yoksa farklı mesaj ve buton göster
+      // 3. Kayıt yoksa mesaj + kayıt butonu göster
       kayitlarListesi.innerHTML = `
-        <p id="no-kayit-mesaji">Henüz arıza kaydınız bulunmamaktadır.</p>
+        <p style="font-size:1.2rem; text-align:center; margin-bottom:20px;">
+          Henüz arıza kaydınız bulunmamaktadır.
+        </p>
         <div style="text-align:center;">
           <a href="index.html#yenikayit-section" class="btn">Arıza Kaydı Yap</a>
         </div>
@@ -32,10 +37,10 @@ if (!token) {
       return;
     }
 
-    // Kayıt varsa listele
+    // 4. Kayıt varsa listele
     kayitlarListesi.innerHTML = '';
     faults.forEach(fault => {
-      const durumClass = fault.status.toLowerCase().replace(' ', '');
+      const durumClass = fault.status.toLowerCase().replace(/ /g, '');
       kayitlarListesi.innerHTML += `
         <div class="kayit-karti">
           <h3>Konu: ${fault.subject}</h3>

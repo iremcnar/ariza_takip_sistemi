@@ -1,39 +1,79 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async () => {
+  const authButtons = document.getElementById("authButtons");
+  const usernameDisplay = document.getElementById("usernameDisplay");
+  const userGreeting = document.getElementById("userGreeting");
+  const userNameSpan = document.getElementById("userName");
+  const logoutBtn = document.getElementById("logoutBtn");
 
-  function updateNavbar() {
-    const username = localStorage.getItem("username");
+  // Navbar güncelleme fonksiyonu - backend'den kullanıcı adını alır
+  async function updateNavbar() {
+    const token = localStorage.getItem("token");
 
-    const loginBtn = document.getElementById("loginBtn");
-    const registerBtn = document.getElementById("registerBtn");
-    const authButtons = document.getElementById("authButtons");
-    const usernameDisplay = document.getElementById("usernameDisplay");
+    if (token) {
+      try {
+        const res = await fetch("http://localhost:5000/api/auth/me", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
 
-    if (username) {
-      // Giriş yapılmış: butonları gizle, adı göster
-      if (authButtons) authButtons.style.display = "none";
-      if (usernameDisplay) {
-        usernameDisplay.textContent = username;
-        usernameDisplay.style.display = "inline-block";
+        if (!res.ok) throw new Error("Kullanıcı bilgisi alınamadı.");
+
+        const data = await res.json();
+
+        if (authButtons) authButtons.style.display = "none";
+
+       if (usernameDisplay) {
+  usernameDisplay.textContent = data.name;
+  usernameDisplay.style.display = "inline-block";
+
+  // Buraya tıklama olayı ekle
+  usernameDisplay.style.cursor = "pointer"; // imleci el yapar
+  usernameDisplay.onclick = () => {
+    window.location.href = "hesabim.html";
+  };
+}
+        
+
+        if (userGreeting && userNameSpan) {
+          userNameSpan.textContent = data.name;
+          userGreeting.style.display = "inline-block";
+        }
+      } catch (error) {
+        console.error("Navbar güncellenemedi:", error);
+        // Token geçersiz ise temizle
+        localStorage.removeItem("token");
+        if (authButtons) authButtons.style.display = "flex";
+        if (usernameDisplay) usernameDisplay.style.display = "none";
+        if (userGreeting) userGreeting.style.display = "none";
       }
     } else {
-      // Giriş yok: butonları göster, adı gizle
       if (authButtons) authButtons.style.display = "flex";
       if (usernameDisplay) usernameDisplay.style.display = "none";
+      if (userGreeting) userGreeting.style.display = "none";
     }
   }
 
   updateNavbar();
 
+  // Logout butonu işlemi (hesabim.html sayfasında)
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      window.location.href = "girisyap.html";
+    });
+  }
+
   // Hamburger Menü
   const hamburger = document.querySelector(".hamburger");
   const navMenu = document.querySelector(".nav-menu");
-  const authButtons = document.querySelector(".auth-buttons");
 
-  if (hamburger && navMenu && authButtons) {
+  if (hamburger && navMenu) {
     hamburger.addEventListener("click", () => {
       hamburger.classList.toggle("active");
       navMenu.classList.toggle("active");
-      authButtons.classList.toggle("active");
 
       const expanded = hamburger.getAttribute("aria-expanded") === "true";
       hamburger.setAttribute("aria-expanded", !expanded);
@@ -43,13 +83,12 @@ document.addEventListener("DOMContentLoaded", function () {
       item.addEventListener("click", () => {
         hamburger.classList.remove("active");
         navMenu.classList.remove("active");
-        authButtons.classList.remove("active");
         hamburger.setAttribute("aria-expanded", false);
       });
     });
   }
 
-  // --- Kayıt Formu ---
+  // --- Kayıt Formu (kayitol.html için) ---
   const registerForm = document.getElementById("registerForm");
   if (registerForm) {
     registerForm.addEventListener("submit", async function (e) {
@@ -92,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // --- Giriş Formu ---
+  // --- Giriş Formu (girisyap.html için) ---
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
     loginForm.addEventListener("submit", async function (e) {
@@ -118,9 +157,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const data = await response.json();
         if (!response.ok) throw new Error(data.message || "Giriş başarısız.");
 
-        // Token ve ad localStorage'a kaydedilir
+        // Token localStorage'a kaydedilir
         localStorage.setItem("token", data.token);
-        localStorage.setItem("username", data.name);
 
         alert("✅ Giriş başarılı! Anasayfaya yönlendiriliyorsunuz.");
         window.location.href = "index.html";
@@ -130,5 +168,4 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-
 });

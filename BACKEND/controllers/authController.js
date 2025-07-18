@@ -64,14 +64,14 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   GET /api/auth/me
 // @access  Private
 const getMe = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id).select('-password');
-  res.status(200).json(user);
+  // req.user middleware ile atanmış, burada direkt dönüyoruz
+  res.status(200).json(req.user);
 });
 
-// JWT Token oluşturma
+// JWT Token oluşturma fonksiyonu
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d',
+    expiresIn: '30d'
   });
 };
 

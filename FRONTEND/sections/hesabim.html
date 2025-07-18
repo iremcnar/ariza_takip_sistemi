@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hesabım</title>
+  <link rel="stylesheet" href="hesabim.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Hesabım</h2>
+
+    <div class="user-info">
+      <label>Ad:</label>
+      <input type="text" id="name" disabled />
+      
+      <label>Email:</label>
+      <input type="email" id="email" disabled />
+      
+      <label>Şifre Değiştir:</label>
+      <input type="password" id="password" placeholder="Yeni şifre" />
+    </div>
+
+    <div class="buttons">
+      <button id="editBtn">Bilgileri Düzenle</button>
+      <button id="saveBtn" style="display:none">Kaydet</button>
+      <button id="deleteBtn" class="danger">Hesabı Sil</button>
+      <button id="logoutBtn">Çıkış Yap</button>
+    </div>
+  </div>
+
+  <script src="hesabim.js"></script>
+</body>
+</html>

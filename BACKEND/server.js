@@ -31,11 +31,15 @@ const authRoutes = require('./routes/authRoutes'); // Kullanıcı kayıt, giriş
 const arizaRoutes = require('./routes/arizaRoutes'); //  Arıza kaydı oluşturma, listeleme işlemleri
 const destekRoutes = require('./routes/destekRoutes'); // Destek talepleri oluşturma.
 const faultRoutes = require('./routes/faultRoutes');
+const meRoute = require('./me')
+const userRoutes = require("./routes/userRoutes");
 
 app.use('/api/auth', authRoutes);
 app.use('/api/ariza', arizaRoutes);
 app.use('/api/destek', destekRoutes);
 app.use('/api/ariza', faultRoutes);
+app.use('/api/auth', meRoute); 
+app.use("/api/user", userRoutes);
 
 const PORT = process.env.PORT || 5000; // PORT değişkeni .env dosyasından alınır, eğer yoksa 5000 olarak ayarlanır.
 app.listen(PORT, () => console.log(`Sunucu ${PORT} portunda çalışıyor`));
