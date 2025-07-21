@@ -169,3 +169,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 });
+
+// Fare hareketiyle tilt efektini tamamen kaldırın
+// Bu kodu silin veya yorum satırı yapın
+/*
+document.querySelector('.yenikayit-container').addEventListener('mousemove', (e) => {
+    // Tilt kodu burada
+});
+*/
+
+// Sadece hover efekti için basit JavaScript
+document.querySelector('.yenikayit-container').addEventListener('mouseenter', (e) => {
+    e.currentTarget.style.transform = 'translateY(-5px)';
+});
+
+document.querySelector('.yenikayit-container').addEventListener('mouseleave', (e) => {
+    e.currentTarget.style.transform = 'translateY(0)';
+});
