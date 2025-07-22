@@ -2,109 +2,131 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kayıt Ol</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kayıt Ol - Arıza Takip Sistemi</title>
+  <!-- Font Awesome ikonlar -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <!-- CSS dosyası -->
+  <link rel="stylesheet" href="kayitol.css" />
 </head>
 <body>
+  <div class="login-container">
+    <div class="login-header">
+      <i class="fas fa-user-plus"></i>
+      <h1>Kayıt Ol</h1>
+      <p>Yeni kullanıcı oluşturun</p>
+    </div>
 
- <!-- Navbar - Aynı şekilde sabit kalacak -->
-  <div class="navbar-container">
-    <div class="navbar">
-      <div class="logo-container">
-        <a href="index.html">
-          <img class="logo" src="img/dünya.png" alt="Hayat Kimya Logo">
-        </a>
+    <div id="alertContainer"></div>
+
+    <form id="registerForm" novalidate>
+      <div class="form-group">
+        <i class="fas fa-user"></i>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-control"
+          placeholder="İsim Soyisim"
+          autocomplete="name"
+          required
+        />
       </div>
 
-      <div class="nav-menu">
-        <a href="index.html#yenikayit-section" class="nav-item">YENİ KAYIT</a>
-        <a href="kayitlarim.html" class="nav-item">KAYITLARIM</a>
-        <a href="index.html#destek-section" class="nav-item">DESTEK</a>
+      <div class="form-group">
+        <i class="fas fa-envelope"></i>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          placeholder="E-posta"
+          autocomplete="email"
+          required
+        />
       </div>
 
-      <div class="auth-buttons">
-        <a href="girisyap.html" class="login-btn">GİRİŞ YAP</a>
-        <a href="kayitol.html" class="register-btn">KAYIT OL</a>
+      <div class="form-group">
+        <i class="fas fa-lock"></i>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          placeholder="Şifre (min. 6 karakter)"
+          minlength="6"
+          autocomplete="new-password"
+          required
+        />
       </div>
+
+      <button type="submit" class="btn-login" id="registerBtn">
+        Kayıt Ol
+      </button>
+    </form>
+
+    <div class="back-to-home" style="margin-top: 20px; text-align: center;">
+      <span>Hesabınız var mı?</span>
+      <a href="girisyap.html" class="small-login-btn" style="margin-left: 6px;">
+        Giriş Yap
+      </a>
     </div>
   </div>
 
+  <script>
+    const form = document.getElementById('registerForm');
+    const alertContainer = document.getElementById('alertContainer');
 
-  <!-- Kayıt Ol Formu -->
-  <div class="kayit-form-container">
-    <form class="kayit-form" id="registerForm">
-      <h2>Kayıt Ol</h2>
-
-
-
-      <label for="name">İsim Soyisim <span class="required">*</span></label>
-      <input type="text" id="name" name="name" required />
-
-      <label for="email">E-posta <span class="required">*</span></label>
-      <input type="email" id="email" name="email" required />
-
-<label for="password">Şifre (min. 6 karakter) <span class="required">*</span></label>
-<div class="password-wrapper">
-  <input type="password" id="password" name="password" required minlength="6" />
- 
-</div>
-
-
-
-      <p class="error-message" id="errorMessage"></p>
-
-      <button type="submit" class="register-btn">Kayıt Ol</button>
-
-      <div class="login-link">
-        <span>Hesabınız var mı?</span>
-        <a href="girisyap.html" class="small-login-btn">Giriş Yap</a>
-      </div>
-    </form>
-  </div>
-
- <script>
-  const form = document.getElementById('registerForm');
-  const errorMessage = document.getElementById('errorMessage');
-
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault(); // Sayfanın yenilenmesini engeller
-
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    if (password.length < 6) {
-      errorMessage.textContent = 'Şifre en az 6 karakter olmalıdır.';
-      return;
+    function showAlert(message, type) {
+      alertContainer.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
     }
 
-    try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, email, password })
-      });
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertContainer.innerHTML = '';
 
-      const data = await response.json();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const password = form.password.value;
 
-      if (!response.ok) {
-        throw new Error(data.message || 'Kayıt başarısız');
+      if (!name) {
+        showAlert('İsim Soyisim zorunludur.', 'error');
+        return;
+      }
+      if (!email) {
+        showAlert('E-posta zorunludur.', 'error');
+        return;
+      }
+      if (password.length < 6) {
+        showAlert('Şifre en az 6 karakter olmalıdır.', 'error');
+        return;
       }
 
-      alert('Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz.');
-      window.location.href = 'girisyap.html';
-    } catch (error) {
-      errorMessage.textContent = error.message;
-    }
-  });
-</script>
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, password }),
+        });
 
+        const data = await response.json();
 
+        if (!response.ok) {
+          throw new Error(data.message || 'Kayıt başarısız.');
+        }
 
+        showAlert('Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz...', 'success');
 
-
+        setTimeout(() => {
+          window.location.href = 'girisyap.html';
+        }, 2000);
+      } catch (error) {
+        showAlert(error.message, 'error');
+      }
+    });
+  </script>
 </body>
 </html>
+<!-- Unutma yönlendırme sureısnı bıraz kısaltıcaz-->

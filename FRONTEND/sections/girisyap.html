@@ -2,111 +2,121 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Giriş Yap</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kullanıcı Girişi</title>
+  <link rel="stylesheet" href="girisyap.css" />
+  <!-- Font Awesome ikonları için -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    /* Ek CSS düzenlemeleri */
+    .form-group i {
+      top: 42px; /* İkonları input alanına daha iyi hizalamak için */
+    }
+    .register-link {
+      margin-top: 25px; /* Kayıt ol bağlantısını biraz daha aşağı almak için */
+    }
+    .forgot-password {
+      margin: 5px 0 15px 0; /* Şifremi unuttum linkini daha iyi konumlandırmak için */
+    }
+  </style>
 </head>
 <body>
 
-
- <!-- Navbar - Aynı şekilde sabit kalacak -->
-  <div class="navbar-container">
-    <div class="navbar">
-      <div class="logo-container">
-        <a href="index.html">
-          <img class="logo" src="img/dünya.png" alt="Hayat Kimya Logo">
-        </a>
-      </div>
-
-      <div class="nav-menu">
-        <a href="index.html#yenikayit-section" class="nav-item">YENİ KAYIT</a>
-        <a href="kayitlarim.html" class="nav-item">KAYITLARIM</a>
-        <a href="index.html#destek-section" class="nav-item">DESTEK</a>
-      </div>
-
-      <div class="auth-buttons">
-        <a href="girisyap.html" class="login-btn">GİRİŞ YAP</a>
-        <a href="kayitol.html" class="register-btn">KAYIT OL</a>
-      </div>
+  <!-- Kullanıcı Giriş Formu -->
+  <div class="login-container">
+    <div class="login-header">
+      <i class="fas fa-user-circle"></i>
+      <h2>Hesabınıza Giriş Yapın</h2>
+      <p>Lütfen bilgilerinizi girerek devam edin</p>
     </div>
-  </div>
 
-  <!-- Giriş Yap Formu -->
-  <div class="kayit-form-container">
-    <form class="kayit-form" id="loginForm">
-      <h2>Giriş Yap</h2>
+    <form id="loginForm" novalidate>
+      <div class="form-group">
+        <label for="email">E-posta Adresiniz <span class="required">*</span></label>
+        <div class="input-with-icon">
+          <i class="fas fa-envelope"></i>
+          <input type="email" id="email" name="email" placeholder="ornek@email.com" required />
+        </div>
+      </div>
 
-      <label for="email">E-posta <span class="required">*</span></label>
-      <input type="email" id="email" name="email" required />
+      <div class="form-group">
+        <label for="password">Şifreniz <span class="required">*</span></label>
+        <div class="input-with-icon">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="password" name="password" placeholder="Şifreniz" required />
+        </div>
+      </div>
 
-      <label for="password">Şifre <span class="required">*</span></label>
-      <input type="password" id="password" name="password" required />
+      <div class="forgot-password">
+        <a href="sifremiunuttum.html">Şifremi Unuttum?</a>
+      </div>
 
       <p class="error-message" id="errorMessage"></p>
 
-      <button type="submit" class="register-btn">Giriş Yap</button>
+      <button type="submit" class="btn-login">
+        <span>Giriş Yap</span>
+      </button>
 
-      <div class="login-link">
+      <div class="register-link">
         <span>Hesabınız yok mu?</span>
-        <a href="kayitol.html" class="small-login-btn">Kayıt Ol</a>
+        <a href="kayitol.html" class="small-login-btn">Hemen Kayıt Olun</a>
       </div>
     </form>
   </div>
 
-<script>
-  const loginForm = document.getElementById('loginForm');
-  const emailInput = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
-  const errorMessage = document.getElementById('errorMessage');
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const errorMessage = document.getElementById('errorMessage');
 
-  loginForm.addEventListener('submit', async function (e) {
-    e.preventDefault(); // Sayfanın yenilenmesini engelle
+    loginForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
 
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
 
-    if (!email) {
-      errorMessage.textContent = "Email boş olamaz.";
-      errorMessage.style.color = "red";
-      return;
-    }
-    if (password.length < 6) {
-      errorMessage.textContent = "Şifre en az 6 karakter olmalıdır.";
-      errorMessage.style.color = "red";
-      return;
-    }
+      errorMessage.textContent = "";
+      errorMessage.classList.remove("active");
 
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Giriş başarısız.");
+      if (!email) {
+        errorMessage.textContent = "Lütfen e-posta adresinizi giriniz.";
+        errorMessage.classList.add("active");
+        return;
+      }
+      if (password.length < 6) {
+        errorMessage.textContent = "Şifre en az 6 karakter olmalıdır.";
+        errorMessage.classList.add("active");
+        return;
       }
 
-      // Token'ı localStorage'da sakla
-      localStorage.setItem("token", data.token);
+      try {
+        const response = await fetch("http://localhost:5000/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email, password })
+        });
 
-alert("Giriş başarılı! Yönlendiriliyorsunuz...");
-setTimeout(() => {
-  window.location.href = "index.html";
-}, 100);
+        const data = await response.json();
 
+        if (!response.ok) {
+          throw new Error(data.message || "Giriş başarısız. Bilgilerinizi kontrol edin.");
+        }
 
-    } catch (error) {
-      errorMessage.textContent = error.message;
-      errorMessage.style.color = "red";
-    }
-  });
-</script>
+        localStorage.setItem("token", data.token);
 
+        alert("Giriş başarılı! Yönlendiriliyorsunuz...");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 100);
 
+      } catch (error) {
+        errorMessage.textContent = error.message;
+        errorMessage.classList.add("active");
+      }
+    });
+  </script>
 </body>
 </html>
