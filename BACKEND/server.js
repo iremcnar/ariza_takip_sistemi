@@ -1,6 +1,7 @@
 // Bu dosyanın amacı backend sunucusunu başlatmak ve yapılandırmaktır. (Apı oluşturma)
 // HTTP isteklerini dinler, MongoDB veritabanına bağlanır ve gerekli rotaları tanımlar.
 // Route(yol) yönetimi, middleware kullanımı ve MongoDB bağlantısı gibi temel işlevleri içerir.
+const path = require('path');
 
 require('dotenv').config(); //.env dosyasından bilgileri almamıza yarar. Bu sayede gizli bilgileri kodda direkt yazmamış oluruz.
 const express = require('express'); // Web sunucusu oluşturmak için
@@ -33,13 +34,17 @@ const destekRoutes = require('./routes/destekRoutes'); // Destek talepleri oluş
 const faultRoutes = require('./routes/faultRoutes');
 const meRoute = require('./me')
 const userRoutes = require("./routes/userRoutes");
+const adminRoutes = require('./routes/adminRoutes'); // Admin işlemleri için gerekli.
 
+app.use(express.static(path.join(__dirname, 'FRONTEND')));
+app.use('/api/faults', faultRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/ariza', arizaRoutes);
 app.use('/api/destek', destekRoutes);
-app.use('/api/ariza', faultRoutes);
+
 app.use('/api/auth', meRoute); 
 app.use("/api/user", userRoutes);
+app.use('/api/admin', adminRoutes); // Admin işlemleri için gerekli.
 
 const PORT = process.env.PORT || 5000; // PORT değişkeni .env dosyasından alınır, eğer yoksa 5000 olarak ayarlanır.
 app.listen(PORT, () => console.log(`Sunucu ${PORT} portunda çalışıyor`));

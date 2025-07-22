@@ -1,26 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Kullanıcılar</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dünyam | Arıza Kayıt Sistemi - Kullanıcılar</title>
+  <link rel="stylesheet" href="./admin_index.css" />
+  <link rel="icon" href="/favicon.png" type="image/x-icon" />
 </head>
 <body>
 
-<nav class="admin-navbar">
-  <ul>
-    <li><a href="admin-dashboard.html">Ana Sayfa</a></li>
-    <li><a href="admin-users.html">Kullanıcılar</a></li>
-    <li><a href="admin-records.html">Kayıtlar</a></li>
-    <li><a href="admin-support.html">Destek</a></li>
-    <li><a href="admin-login.html">Çıkış</a></li>
-  </ul>
-</nav>
+<!-- Navbar -->
+<div class="navbar-container">
+  <div class="navbar">
+    <!-- Logo -->
+    <div class="logo-container">
+      <a href="index.html">
+        <img class="logo" src="img/dünya.png" alt="Dünya Logo" />
+      </a>
+    </div>
+
+    <!-- Menü -->
+    <div class="nav-menu">
+      <a href="./admin_users.html" class="nav-item">ÜYELER</a>
+      <a href="./admin_records.html" class="nav-item">KAYITLAR</a>
+      <a href="./admin_support.html" class="nav-item">DESTEK</a>
+    </div>
+
+    <!-- Hamburger Menü (mobil için) -->
+    <button class="hamburger" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+</div>
 
 <main class="users-content">
   <h1>Kullanıcı Listesi</h1>
 
-  <table class="user-table">
+  <table class="user-table" aria-label="Kullanıcı Listesi">
     <thead>
       <tr>
         <th>Ad</th>
@@ -36,6 +55,6 @@
   </table>
 </main>
 
-<script src="script.js"></script>
+<script src="./admin_users.js"></script>
 </body>
 </html>

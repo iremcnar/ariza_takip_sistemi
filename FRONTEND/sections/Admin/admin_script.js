@@ -1,101 +1,152 @@
-// Giriş işlemi (admin-login.html)
-const loginForm = document.getElementById('adminLoginForm');
+// ========== TOKEN KONTROLÜ ==========
+function checkAdminAuth() {
+  const token = localStorage.getItem("adminToken");
+  if (!token) {
+    alert("Yetkisiz erişim! Lütfen admin olarak giriş yapın.");
+    window.location.href = "admin-login.html";
+  }
+  return token;
+}
 
+// ========== ADMIN GİRİŞ ==========
+const loginForm = document.getElementById("adminLoginForm");
 if (loginForm) {
-  loginForm.addEventListener('submit', function (e) {
-    e.preventDefault();
+  loginForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
+    // Burada id'ler HTML ile uyumlu şekilde değiştirildi
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-    const adminUser = "admin";
-    const adminPass = "admin123";
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
 
-    if (username === adminUser && password === adminPass) {
-      window.location.href = "admin-dashboard.html";
-    } else {
-      document.getElementById("errorMsg").innerText = "Kullanıcı adı veya şifre hatalı!";
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Giriş başarısız");
+      }
+
+      if (data.role !== "admin") {
+        throw new Error("Bu alana yalnızca admin kullanıcılar giriş yapabilir.");
+      }
+
+      localStorage.setItem("adminToken", data.token);
+      window.location.href = "admin_index.html";
+
+    } catch (error) {
+      const errorElement = document.getElementById("errorMsg");
+      if (errorElement) {
+        errorElement.innerText = error.message;
+      } else {
+        alert(error.message);
+      }
     }
   });
 }
 
-// Kullanıcı listesi (admin-users.html)
+// ========== KULLANICI LİSTESİ ==========
 const userTable = document.getElementById("userTableBody");
 if (userTable) {
-  const users = [
-    { ad: "İrem", soyad: "Çınar", email: "irem@example.com", tarih: "2024-01-12", rol: "kullanıcı" },
-    { ad: "Mert", soyad: "Yılmaz", email: "mert@example.com", tarih: "2023-12-01", rol: "admin" }
-  ];
+  const token = checkAdminAuth();
 
-  users.forEach(user => {
-    const row = `
-      <tr>
-        <td>${user.ad}</td>
-        <td>${user.soyad}</td>
-        <td>${user.email}</td>
-        <td>${user.tarih}</td>
-        <td>${user.rol}</td>
-      </tr>
-    `;
-    userTable.innerHTML += row;
-  });
+  fetch("http://localhost:5000/api/admin/users", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(res => {
+      if (!res.ok) throw new Error("Kullanıcılar yüklenirken hata oluştu.");
+      return res.json();
+    })
+    .then(users => {
+      users.forEach(user => {
+        const row = `
+          <tr>
+            <td>${user.firstName || "-"}</td>
+            <td>${user.lastName || "-"}</td>
+            <td>${user.email}</td>
+            <td>${new Date(user.createdAt).toLocaleDateString()}</td>
+            <td>${user.role}</td>
+          </tr>
+        `;
+        userTable.innerHTML += row;
+      });
+    })
+    .catch(err => {
+      alert("Kullanıcılar yüklenemedi: " + err.message);
+    });
 }
 
-// Arıza kayıtları (admin-records.html)
+// ========== ARIZA KAYITLARI ==========
 const recordTable = document.getElementById("recordTableBody");
 if (recordTable) {
-  const records = [
-    { kullanici: "İrem Çınar", baslik: "İnternet Kesintisi", aciklama: "İnternet bağlantısı yok.", tarih: "2025-07-15", durum: "Açık" },
-    { kullanici: "Mert Yılmaz", baslik: "Elektrik Sorunu", aciklama: "Fiş çalışmıyor.", tarih: "2025-07-10", durum: "Kapalı" }
-  ];
+  const token = checkAdminAuth();
 
-  records.forEach(r => {
-    const row = `
-      <tr>
-        <td>${r.kullanici}</td>
-        <td>${r.baslik}</td>
-        <td>${r.aciklama}</td>
-        <td>${r.tarih}</td>
-        <td>${r.durum}</td>
-        <td><button>Düzenle</button></td>
-      </tr>
-    `;
-    recordTable.innerHTML += row;
-  });
+  fetch("http://localhost:5000/api/admin/records", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(res => {
+      if (!res.ok) throw new Error("Arıza kayıtları yüklenirken hata oluştu.");
+      return res.json();
+    })
+    .then(records => {
+      records.forEach(r => {
+        const row = `
+          <tr>
+            <td>${r.kullanici}</td>
+            <td>${r.baslik}</td>
+            <td>${r.aciklama}</td>
+            <td>${new Date(r.tarih).toLocaleDateString()}</td>
+            <td>${r.durum}</td>
+            <td><button>Düzenle</button></td>
+          </tr>
+        `;
+        recordTable.innerHTML += row;
+      });
+    })
+    .catch(err => {
+      alert("Arıza kayıtları yüklenemedi: " + err.message);
+    });
 }
 
-// Destek talepleri (admin-support.html)
+// ========== DESTEK TALEPLERİ ==========
 const supportTable = document.getElementById("supportTableBody");
 if (supportTable) {
-  const supports = [
-    { kullanici: "İrem Çınar", mesaj: "Hesabımda sorun var.", tarih: "2025-07-14", durum: "Bekliyor" },
-    { kullanici: "Mert Yılmaz", mesaj: "Kayıt silinmiyor.", tarih: "2025-07-13", durum: "Cevaplandı" }
-  ];
+  const token = checkAdminAuth();
 
-  supports.forEach(s => {
-    const row = `
-      <tr>
-        <td>${s.kullanici}</td>
-        <td>${s.mesaj}</td>
-        <td>${s.tarih}</td>
-        <td>${s.durum}</td>
-        <td><button>Cevapla</button></td>
-      </tr>
-    `;
-    supportTable.innerHTML += row;
-  });
+  fetch("http://localhost:5000/api/admin/supports", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(res => {
+      if (!res.ok) throw new Error("Destek talepleri yüklenirken hata oluştu.");
+      return res.json();
+    })
+    .then(supports => {
+      supports.forEach(s => {
+        const row = `
+          <tr>
+            <td>${s.kullanici}</td>
+            <td>${s.mesaj}</td>
+            <td>${new Date(s.tarih).toLocaleDateString()}</td>
+            <td>${s.durum}</td>
+            <td><button>Cevapla</button></td>
+          </tr>
+        `;
+        supportTable.innerHTML += row;
+      });
+    })
+    .catch(err => {
+      alert("Destek talepleri yüklenemedi: " + err.message);
+    });
 }
-document.getElementById("adminLoginForm").addEventListener("submit", function(event) {
-  event.preventDefault();
-
-  const username = document.getElementById("adminUsername").value;
-  const password = document.getElementById("adminPassword").value;
-
-  // Basit örnek giriş kontrolü
-  if (username === "admin" && password === "1234") {
-    alert("Giriş başarılı!");
-    window.location.href = "admin-dashboard.html"; // Admin paneline yönlendirme
-  } else {
-    alert("Hatalı giriş!");
-  }
-});

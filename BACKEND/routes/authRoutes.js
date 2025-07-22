@@ -1,20 +1,16 @@
-//kullanıcıyla ilgili kimlik doğrulama ve yetkilendirme işlemlerini yöneten API rotalarını yönetir.
-// Bu dosya, kullanıcı kayıt, giriş ve profil bilgilerini alma gibi işlemleri içerir.
+// Kullanıcıyla ilgili kimlik doğrulama ve yetkilendirme işlemleri için API rotaları
 
-const express = require('express'); //
-const router = express.Router(); // Express.js ile yönlendirme işlemlerini yapar.
+const express = require('express');
+const router = express.Router();
 
-const { 
-  registerUser,
-  loginUser,
-  getMe
-} = require('../controllers/authController');
+const { registerUser, loginUser, getMe } = require('../controllers/authController');
 const { protect } = require('../middleware/authMiddleware');
 
-// post isteği ile kullanıcı kaydı, giriş ve profil bilgilerini alma işlemlerini yöneten rotalar tanımlanır.
-// get isteği ile kullanıcı doğrulama işlemleri yapılır.
+// Kayıt ve giriş işlemleri
 router.post('/register', registerUser);
 router.post('/login', loginUser);
+
+// Token ile korunan profil bilgisi alma
 router.get('/me', protect, getMe);
 
 module.exports = router;

@@ -1,107 +1,197 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kayıt Ol</title>
-  <link rel="stylesheet" href="./admin_style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Giriş - Arıza Takip Sistemi</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header i {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .login-header h1 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            margin-left: 10px;
+        }
+
+        .alert {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-to-home a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-to-home a:hover {
+            color: #764ba2;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 20px;
+                padding: 30px 25px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="login-container">
+        <div class="login-header">
+            <i class="fas fa-user-shield"></i>
+            <h1>Admin Panel</h1>
+            <p>Yönetici girişi yapın</p>
+        </div>
 
- <!-- Navbar - Aynı şekilde sabit kalacak -->
-  <div class="navbar-container">
-    <div class="navbar">
-      <div class="logo-container">
-        <a href="index.html">
-          <img class="logo" src="img/hayat-kimya.png" alt="Hayat Kimya Logo">
-        </a>
-      </div>
+        <div id="alertContainer"></div>
 
-      <div class="nav-menu">
-        <a href="index.html#yenikayit-section" class="nav-item">YENİ KAYIT</a>
-        <a href="kayitlarim.html" class="nav-item">KAYITLARIM</a>
-        <a href="index.html#destek-section" class="nav-item">DESTEK</a>
-      </div>
+        <form id="adminLoginForm">
+            <div class="form-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" class="form-control" placeholder="Admin Email" required>
+            </div>
 
-      <div class="auth-buttons">
-      </div>
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" class="form-control" placeholder="Şifre" required>
+            </div>
+
+            <button type="submit" class="btn-login" id="loginBtn">
+                <span id="loginText">Giriş Yap</span>
+                <span class="loading" id="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </span>
+            </button>
+        </form>
+
+        <div class="back-to-home">
+            <a href="../index.html">
+                <i class="fas fa-arrow-left"></i> Ana Sayfaya Dön
+            </a>
+        </div>
     </div>
-  </div>
 
-
-  <!-- Kayıt Ol Formu -->
-  <div class="kayit-form-container">
-    <form class="kayit-form" id="registerForm">
-      <h2>Admin Girişi</h2>
-
-
-
-      <label for="name">İsim Soyisim <span class="required">*</span></label>
-      <input type="text" id="name" name="name" required />
-
-      <label for="email">E-posta <span class="required">*</span></label>
-      <input type="email" id="email" name="email" required />
-
-<label for="password">Şifre (min. 6 karakter) <span class="required">*</span></label>
-<div class="password-wrapper">
-  <input type="password" id="password" name="password" required minlength="6" />
- 
-</div>
-
-
-
-      <p class="error-message" id="errorMessage"></p>
-
-      <button type="submit" class="register-btn">Giriş yap</button>
-
-      <div class="login-link">
-       
-      </div>
-    </form>
-  </div>
-
- <script>
-  const form = document.getElementById('registerForm');
-  const errorMessage = document.getElementById('errorMessage');
-
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault(); // Sayfanın yenilenmesini engeller
-
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    if (password.length < 6) {
-      errorMessage.textContent = 'Şifre en az 6 karakter olmalıdır.';
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, email, password })
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Kayıt başarısız');
-      }
-
-      alert('Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz.');
-      window.location.href = 'girisyap.html';
-    } catch (error) {
-      errorMessage.textContent = error.message;
-    }
-  });
-</script>
-
-
-
-
-
+    <script src="admin_script.js"></script>
 </body>
 </html>

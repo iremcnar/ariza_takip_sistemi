@@ -77,10 +77,17 @@ const deleteUser = asyncHandler(async (req, res) => {
   await User.findByIdAndDelete(req.user.id);
   res.json({ message: "Hesap başarıyla silindi." });
 });
+// Admin için tüm kullanıcıları getir
+const getAllUsers = asyncHandler(async (req, res) => {
+  // Tüm kullanıcıları getir, sadece gerekli alanları seç
+  const users = await User.find().select("name email role createdAt");
+  res.json(users);
+});
 
 module.exports = {
   getUser,
   updateUser,
   deleteUser,
-  changePassword
+  changePassword,
+  getAllUsers
 };

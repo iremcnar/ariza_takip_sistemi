@@ -2,25 +2,36 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 
+// Token oluşturma
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: '30d',
+  });
+};
+
 // @desc    Kullanıcı kaydı
 // @route   POST /api/auth/register
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
-  // Kullanıcı var mı kontrolü
-  const userExists = await User.findOne({ email }); 
+  if (!name || !email || !password) {
+    res.status(400);
+    throw new Error('Lütfen tüm alanları doldurun');
+  }
+
+  const userExists = await User.findOne({ email });
+
   if (userExists) {
     res.status(400);
     throw new Error('Bu email ile zaten kayıtlı bir kullanıcı var');
   }
 
-  // Kullanıcı oluşturma
   const user = await User.create({
     name,
     email,
     password,
-    role: 'user'
+    role: 'user',
   });
 
   if (user) {
@@ -29,7 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
-      token: generateToken(user._id)
+      token: generateToken(user._id),
     });
   } else {
     res.status(400);
@@ -37,22 +48,21 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Kullanıcı girişi
+// @desc    Giriş yap
 // @route   POST /api/auth/login
 // @access  Public
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  // Kullanıcıyı email ile bulma
   const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
-    res.json({
+    res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
       role: user.role,
-      token: generateToken(user._id)
+      token: generateToken(user._id),
     });
   } else {
     res.status(401);
@@ -64,19 +74,11 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   GET /api/auth/me
 // @access  Private
 const getMe = asyncHandler(async (req, res) => {
-  // req.user middleware ile atanmış, burada direkt dönüyoruz
   res.status(200).json(req.user);
 });
-
-// JWT Token oluşturma fonksiyonu
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d'
-  });
-};
 
 module.exports = {
   registerUser,
   loginUser,
-  getMe
+  getMe,
 };

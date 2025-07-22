@@ -186,3 +186,20 @@ document.querySelector('.yenikayit-container').addEventListener('mouseenter', (e
 document.querySelector('.yenikayit-container').addEventListener('mouseleave', (e) => {
     e.currentTarget.style.transform = 'translateY(0)';
 });
+// Dosya yükleme butonu için JS
+document.querySelector('.file-upload-btn').addEventListener('click', function() {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.pdf,.jpg,.jpeg,.png,.gif';
+    fileInput.style.display = 'none';
+    
+    fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+            document.querySelector('.file-name').textContent = e.target.files[0].name;
+        }
+    });
+    
+    document.body.appendChild(fileInput);
+    fileInput.click();
+    document.body.removeChild(fileInput);
+});
