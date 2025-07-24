@@ -27,4 +27,7 @@ router.delete("/me", protect, deleteUser);
 // === ADMIN İÇİN TÜM KULLANICILARI GETİR ===
 router.get("/admin/users", protect, admin, getAllUsers);
 
+
+router.post("/change-password", protect, changePassword);
+
 module.exports = router;

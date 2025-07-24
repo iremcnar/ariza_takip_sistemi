@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");
   if (!token) {
     window.location.href = "girisyap.html";
@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const saveBtn = document.getElementById("saveBtn");
   const deleteBtn = document.getElementById("deleteBtn");
   const logoutBtn = document.getElementById("logoutBtn");
+  const userForm = document.getElementById("userForm");
 
-  // Kullanıcı bilgilerini getir ve inputlara yaz
   async function fetchUserData() {
     try {
       const res = await fetch("http://localhost:5000/api/auth/me", {
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       nameInput.value = data.name;
       emailInput.value = data.email;
       passwordInput.value = "";
-      // Disable inputs by default
+
       nameInput.disabled = true;
       emailInput.disabled = true;
       passwordInput.disabled = true;
@@ -40,7 +40,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Bilgileri düzenlemek için inputları aktif et
   editBtn.addEventListener("click", () => {
     nameInput.disabled = false;
     emailInput.disabled = false;
@@ -50,30 +49,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     saveBtn.style.display = "inline-block";
   });
 
-  // Bilgileri güncelle (PUT isteği)
-  saveBtn.addEventListener("click", async () => {
+  userForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
     const updatedName = nameInput.value.trim();
     const updatedEmail = emailInput.value.trim();
-    const updatedPassword = passwordInput.value;
+    const updatedPassword = passwordInput.value.trim();
 
     if (!updatedName || !updatedEmail) {
       alert("İsim ve email boş bırakılamaz.");
       return;
     }
 
-    // İstersen email format kontrolü ekleyebilirsin
-
     const updateData = { name: updatedName, email: updatedEmail };
-    if (updatedPassword) {
+
+    // Şifre girilmişse ekle
+    if (updatedPassword.length > 0) {
       if (updatedPassword.length < 6) {
         alert("Şifre en az 6 karakter olmalı.");
         return;
       }
       updateData.password = updatedPassword;
     }
+    console.log("Giden veri:", updateData); // EKLE 🔍
 
     try {
-      const res = await fetch("http://localhost:5000/api/user/update", {
+      const res = await fetch("http://localhost:5000/api/user/me", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -88,13 +89,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
 
       alert("Bilgiler başarıyla güncellendi.");
-      fetchUserData(); // Güncel bilgileri tekrar çek
+      fetchUserData();
     } catch (err) {
       alert(err.message);
     }
   });
 
-  // Hesabı sil (DELETE isteği)
   deleteBtn.addEventListener("click", async () => {
     if (!confirm("Hesabınızı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.")) return;
 
@@ -117,12 +117,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // Çıkış yap
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("token");
     window.location.href = "girisyap.html";
   });
 
-  // Sayfa yüklendiğinde kullanıcı verisini çek
   fetchUserData();
 });

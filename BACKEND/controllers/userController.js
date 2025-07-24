@@ -12,9 +12,9 @@ const getUser = asyncHandler(async (req, res) => {
   res.json(user);
 });
 
-// Ad ve email güncelle
+// Ad, email ve şifre güncelle
 const updateUser = asyncHandler(async (req, res) => {
-  const { name, email } = req.body;
+  const { name, email, password } = req.body;
 
   const user = await User.findById(req.user.id);
   if (!user) {
@@ -34,7 +34,15 @@ const updateUser = asyncHandler(async (req, res) => {
   user.name = name || user.name;
   user.email = email || user.email;
 
-  const updatedUser = await user.save();
+  // Şifre değişikliği varsa hashleyip kaydet
+  // Controller'da
+if (password) {
+  user.password = password; // modelde hashlenir
+}
+
+const updatedUser = await user.save();
+console.log("User updated:", updatedUser);
+
 
   res.json({
     _id: updatedUser._id,
@@ -44,7 +52,7 @@ const updateUser = asyncHandler(async (req, res) => {
   });
 });
 
-// Şifre değiştirme
+// Şifre değiştirme (Eski şifre doğrulamasıyla)
 const changePassword = asyncHandler(async (req, res) => {
   const { currentPassword, newPassword } = req.body;
 
@@ -77,6 +85,7 @@ const deleteUser = asyncHandler(async (req, res) => {
   await User.findByIdAndDelete(req.user.id);
   res.json({ message: "Hesap başarıyla silindi." });
 });
+
 // Admin için tüm kullanıcıları getir
 const getAllUsers = asyncHandler(async (req, res) => {
   // Tüm kullanıcıları getir, sadece gerekli alanları seç

@@ -10,23 +10,23 @@
   <div class="container">
     <h2>Hesabım</h2>
 
-    <div class="user-info">
+    <form id="userForm">
       <label>Ad:</label>
       <input type="text" id="name" disabled />
-      
+
       <label>Email:</label>
       <input type="email" id="email" disabled />
-      
-      <label>Şifre Değiştir:</label>
-      <input type="password" id="password" placeholder="Yeni şifre" />
-    </div>
 
-    <div class="buttons">
-      <button id="editBtn">Bilgileri Düzenle</button>
-      <button id="saveBtn" style="display:none">Kaydet</button>
-      <button id="deleteBtn" class="danger">Hesabı Sil</button>
-      <button id="logoutBtn">Çıkış Yap</button>
-    </div>
+      <label>Şifre (Değiştirmek için yeni şifre girin):</label>
+      <input type="password" id="password" placeholder="Yeni şifre" disabled />
+
+      <div class="buttons">
+        <button type="button" id="editBtn">Bilgileri Düzenle</button>
+        <button type="submit" id="saveBtn" style="display:none">Kaydet</button>
+        <button type="button" id="deleteBtn" class="danger">Hesabı Sil</button>
+        <button type="button" id="logoutBtn">Çıkış Yap</button>
+      </div>
+    </form>
   </div>
 
   <script src="hesabim.js"></script>
