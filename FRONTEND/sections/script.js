@@ -23,17 +23,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (authButtons) authButtons.style.display = "none";
 
-       if (usernameDisplay) {
-  usernameDisplay.textContent = data.name;
-  usernameDisplay.style.display = "inline-block";
+        if (usernameDisplay) {
+          usernameDisplay.textContent = data.name;
+          usernameDisplay.style.display = "inline-block";
 
-  // Buraya tıklama olayı ekle
-  usernameDisplay.style.cursor = "pointer"; // imleci el yapar
-  usernameDisplay.onclick = () => {
-    window.location.href = "hesabim.html";
-  };
-}
-        
+          // Buraya tıklama olayı ekle
+          usernameDisplay.style.cursor = "pointer"; // imleci el yapar
+          usernameDisplay.onclick = () => {
+            window.location.href = "hesabim.html";
+          };
+        }
 
         if (userGreeting && userNameSpan) {
           userNameSpan.textContent = data.name;
@@ -168,38 +167,85 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
   }
-});
 
-// Fare hareketiyle tilt efektini tamamen kaldırın
-// Bu kodu silin veya yorum satırı yapın
-/*
-document.querySelector('.yenikayit-container').addEventListener('mousemove', (e) => {
-    // Tilt kodu burada
-});
-*/
+  // Fare hareketiyle tilt efektini tamamen kaldırın
+  // Bu kodu silin veya yorum satırı yapın
+  /*
+  document.querySelector('.yenikayit-container').addEventListener('mousemove', (e) => {
+      // Tilt kodu burada
+  });
+  */
 
-// Sadece hover efekti için basit JavaScript
-document.querySelector('.yenikayit-container').addEventListener('mouseenter', (e) => {
-    e.currentTarget.style.transform = 'translateY(-5px)';
-});
-
-document.querySelector('.yenikayit-container').addEventListener('mouseleave', (e) => {
-    e.currentTarget.style.transform = 'translateY(0)';
-});
-// Dosya yükleme butonu için JS
-document.querySelector('.file-upload-btn').addEventListener('click', function() {
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = '.pdf,.jpg,.jpeg,.png,.gif';
-    fileInput.style.display = 'none';
-    
-    fileInput.addEventListener('change', function(e) {
-        if (e.target.files.length > 0) {
-            document.querySelector('.file-name').textContent = e.target.files[0].name;
-        }
+  // Sadece hover efekti için basit JavaScript
+  const yenikayitContainer = document.querySelector('.yenikayit-container');
+  if (yenikayitContainer) {
+    yenikayitContainer.addEventListener('mouseenter', (e) => {
+      e.currentTarget.style.transform = 'translateY(-5px)';
     });
-    
-    document.body.appendChild(fileInput);
-    fileInput.click();
-    document.body.removeChild(fileInput);
+
+    yenikayitContainer.addEventListener('mouseleave', (e) => {
+      e.currentTarget.style.transform = 'translateY(0)';
+    });
+  }
+
+  // Dosya yükleme butonu için JS (Eğer varsa)
+  const fileUploadBtn = document.querySelector('.file-upload-btn');
+  if (fileUploadBtn) {
+    fileUploadBtn.addEventListener('click', function() {
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = '.pdf,.jpg,.jpeg,.png,.gif';
+      fileInput.style.display = 'none';
+
+      fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+          const fileNameElem = document.querySelector('.file-name');
+          if (fileNameElem) fileNameElem.textContent = e.target.files[0].name;
+        }
+      });
+
+      document.body.appendChild(fileInput);
+      fileInput.click();
+      document.body.removeChild(fileInput);
+    });
+  }
+
+  // --- Arıza Kayıt Formu İşlemi ---
+  const arizaForm = document.getElementById('arizaForm');
+  if (arizaForm) {
+    arizaForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(arizaForm);
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        alert('Lütfen önce giriş yapınız!');
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:5000/api/ariza/', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          body: formData
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          alert('Arıza kaydı başarıyla gönderildi!');
+
+          arizaForm.reset();
+        } else {
+          const error = await response.json();
+          alert('Hata oluştu: ' + error.message);
+        }
+      } catch (err) {
+        console.error('İstek hatası:', err);
+        alert('Sunucuya bağlanırken bir hata oluştu.');
+      }
+    });
+  }
 });

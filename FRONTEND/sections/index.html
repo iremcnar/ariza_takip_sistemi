@@ -58,24 +58,29 @@
     </div>
 
     <!-- Yeni Kayıt Formu Bölümü -->
-    <section id="yenikayit-section" class="yenikayit-container">
-        <h2>Yeni Arıza Kaydı</h2>
-        <form class="yenikayit-form" action="#" method="post" enctype="multipart/form-data">
-            <label for="konuBasligi">Konu Başlığı <span class="required">*</span></label>
-            <input type="text" id="konuBasligi" name="konuBasligi" required placeholder="Konu başlığınızı yazınız" />
-            <label for="aciklama">Açıklama <span class="required">*</span></label>
-            <textarea id="aciklama" name="aciklama" rows="5" required placeholder="Sorununuzu detaylıca açıklayınız"></textarea>
-            <label>Öncelik <span class="required">*</span></label>
-            <div class="radio-group">
-                <label><input type="radio" name="oncelik" value="dusuk" required> Düşük</label>
-                <label><input type="radio" name="oncelik" value="orta"> Orta</label>
-                <label><input type="radio" name="oncelik" value="yuksek"> Yüksek</label>
-            </div>
-            <label for="dosyaYukle">Dosya Yükle (Fotoğraf, PDF)</label>
-            <input type="file" id="dosyaYukle" name="dosyaYukle" accept=".jpg,.jpeg,.png,.pdf" />
-            <button type="submit" class="submit-btn">Gönder</button>
-        </form>
-    </section>
+<section id="yenikayit-section" class="yenikayit-container">
+    <h2>Yeni Arıza Kaydı</h2>
+    <form id="arizaForm" class="yenikayit-form" enctype="multipart/form-data">
+
+        <label for="baslik">Konu Başlığı <span class="required">*</span></label>
+        <input type="text" id="baslik" name="baslik" required placeholder="Konu başlığınızı yazınız" />
+        
+        <label for="aciklama">Açıklama <span class="required">*</span></label>
+        <textarea id="aciklama" name="aciklama" rows="5" required placeholder="Sorununuzu detaylıca açıklayınız"></textarea>
+        
+        <label>Öncelik <span class="required">*</span></label>
+        <div class="radio-group">
+            <label><input type="radio" name="oncelik" value="düşük" required> Düşük</label>
+            <label><input type="radio" name="oncelik" value="orta" checked> Orta</label>
+            <label><input type="radio" name="oncelik" value="yüksek"> Yüksek</label>
+        </div>
+        
+        <label for="dosyalar">Dosya Yükle (Fotoğraf, PDF - Birden fazla seçebilirsiniz)</label>
+        <input type="file" id="dosyalar" name="dosyalar" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" />
+        
+        <button type="submit" class="submit-btn">Gönder</button>
+    </form>
+</section>
 
     <!-- Banner Görsel -->
     <div class="banner-image-section">
@@ -110,6 +115,7 @@
         </div>
     </footer>
 
+    
     <!-- Script dosyası -->
     <script src="script.js"></script>
 </body>

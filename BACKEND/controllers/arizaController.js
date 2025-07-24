@@ -5,23 +5,33 @@ const asyncHandler = require('express-async-handler');
 // @route   POST /api/ariza
 // @access  Private
 const createAriza = asyncHandler(async (req, res) => {
-  const { baslik, aciklama, oncelik } = req.body;
+  try {
+    const { baslik, aciklama, oncelik } = req.body;
 
-  // Dosya bilgilerini al
-  const dosyalar = req.files?.map(file => ({
-    path: file.path,
-    originalname: file.originalname
-  })) || [];
+    console.log('Gelen body:', req.body);
+    console.log('Gelen dosyalar:', req.files);  // Multer ile yüklenen dosyalar
+    console.log('Kullanıcı:', req.user);
 
-  const ariza = await Ariza.create({
-    user: req.user.id,
-    baslik,
-    aciklama,
-    oncelik,
-    dosyalar
-  });
+    // Dosyalar yoksa boş dizi döner
+    const dosyalar = req.files?.map(file => ({
+      path: file.path,             // Multer'ın kaydettiği dosya yolu
+      originalname: file.originalname // Orijinal dosya adı
+    })) || [];
 
-  res.status(201).json(ariza);
+    const ariza = await Ariza.create({
+      user: req.user.id,
+      baslik,
+      aciklama,
+      oncelik,
+      dosyalar
+    });
+
+    res.status(201).json(ariza);
+
+  } catch (error) {
+    console.error('createAriza hata:', error);
+    res.status(500).json({ message: 'Sunucu hatası: ' + error.message });
+  }
 });
 
 // @desc    Kullanıcının arıza kayıtlarını getir
@@ -58,12 +68,10 @@ const updateAriza = asyncHandler(async (req, res) => {
     throw new Error('Arıza kaydı bulunamadı');
   }
 
-  // Durum güncelleme
   if (durum) {
     ariza.durum = durum;
   }
 
-  // Not ekleme
   if (not) {
     ariza.adminNotlari.push({
       text: not,
