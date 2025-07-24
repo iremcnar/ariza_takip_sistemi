@@ -215,7 +215,6 @@ body {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* ===== Ana Resim ===== */
 .main-image-container {
     width: 100%;
     height: 100vh;
@@ -224,24 +223,29 @@ body {
     margin-top: 70px;
 }
 
+/* Eğer gradient katmanı önemliyse bırakabilirsin, ama en üstte görünmesi için z-index ayarla */
 .main-image-container::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05));
-    z-index: 1;
+    z-index: 10;
+    pointer-events: none;
 }
 
 .main-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     filter: brightness(0.9);
+    transition: left 0.5s ease-in-out;
+    z-index: 5; /* gradientin altında kalması için */
 }
+
 
 
 

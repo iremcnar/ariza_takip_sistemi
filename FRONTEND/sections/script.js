@@ -249,3 +249,35 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const images = [
+    "img/main.jpg",
+    "img/main2.jpg",
+    "img/main3.jpg",
+  ];
+
+  const container = document.querySelector(".main-image-container");
+
+  // Önce container içindeki tek resmi temizle
+  container.innerHTML = "";
+
+  // 3 img elementini oluştur ve yan yana koy
+  const imgElements = images.map((src, i) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.classList.add("main-image");
+    img.style.left = (i * 100) + "%"; // 0%, 100%, 200%
+    container.appendChild(img);
+    return img;
+  });
+
+  let currentIndex = 0;
+
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % images.length;
+    imgElements.forEach((img, i) => {
+      img.style.left = ((i - currentIndex) * 100) + "%";
+    });
+  }, 2000);
+});
