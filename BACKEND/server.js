@@ -48,3 +48,14 @@ app.use('/api/admin', adminRoutes); // Admin işlemleri için gerekli.
 
 const PORT = process.env.PORT || 5000; // PORT değişkeni .env dosyasından alınır, eğer yoksa 5000 olarak ayarlanır.
 app.listen(PORT, () => console.log(`Sunucu ${PORT} portunda çalışıyor`));
+
+// Tüm tanımlı rotaları listele (debug için)
+app.use((req, res, next) => {
+  console.log('Tanımlı rotalar:');
+  app._router.stack.forEach((r) => {
+    if (r.route && r.route.path) {
+      console.log(`${Object.keys(r.route.methods)[0].toUpperCase()} ${r.route.path}`);
+    }
+  });
+  next();
+});

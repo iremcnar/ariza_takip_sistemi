@@ -84,40 +84,147 @@ if (userTable) {
     });
 }
 
-// ========== ARIZA KAYITLARI ==========
+// ========== ARIZA KAYITLARI ========== (Düzeltilmiş versiyon)
 const recordTable = document.getElementById("recordTableBody");
 if (recordTable) {
   const token = checkAdminAuth();
 
-  fetch("http://localhost:5000/api/admin/records", {
+  console.log('🔍 Arıza kayıtları yükleniyor...');
+
+  fetch("http://localhost:5000/api/ariza/arizalar", {  // ✅ Yeni endpoint
     headers: {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json"
     }
   })
     .then(res => {
-      if (!res.ok) throw new Error("Arıza kayıtları yüklenirken hata oluştu.");
+      console.log('📡 Response status:', res.status);
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: Arıza kayıtları yüklenirken hata oluştu.`);
+      }
       return res.json();
     })
-    .then(records => {
+    .then(data => {
+      console.log('📊 Gelen veri:', data);
+      
+      // Backend'den gelen veri formatına göre kayıtları al
+      const records = Array.isArray(data) ? data : data.arizalar || [];
+      
+      if (records.length === 0) {
+        recordTable.innerHTML = '<tr><td colspan="6" style="text-align: center;">Henüz arıza kaydı bulunmuyor.</td></tr>';
+        return;
+      }
+
+      // Tabloyu temizle
+      recordTable.innerHTML = "";
+
       records.forEach(r => {
-        const row = `
-          <tr>
-            <td>${r.kullanici}</td>
-            <td>${r.baslik}</td>
-            <td>${r.aciklama}</td>
-            <td>${new Date(r.tarih).toLocaleDateString()}</td>
-            <td>${r.durum}</td>
-            <td><button>Düzenle</button></td>
-          </tr>
+        console.log('📝 İşlenen kayıt:', r);
+        
+        // Son admin notunu al
+        const lastAdminNote = (r.adminNotlari && r.adminNotlari.length > 0) 
+          ? r.adminNotlari[r.adminNotlari.length - 1].text 
+          : '';
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${r.user?.name || r.user?.email || "Bilinmiyor"}</td>
+          <td>${r.baslik || "-"}</td>
+          <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">${r.aciklama || "-"}</td>
+          <td>${new Date(r.createdAt).toLocaleDateString("tr-TR")}</td>
+          <td>
+            <select data-id="${r._id}" class="status-select" style="padding: 5px;">
+              <option value="beklemede" ${r.durum === "beklemede" ? "selected" : ""}>Beklemede</option>
+              <option value="işlemde" ${r.durum === "işlemde" ? "selected" : ""}>İşlemde</option>
+              <option value="çözüldü" ${r.durum === "çözüldü" ? "selected" : ""}>Çözüldü</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="admin-reply" value="${lastAdminNote}" data-id="${r._id}" placeholder="Admin notu..." style="width: 150px; padding: 5px;" />
+          </td>
+          <td>
+            <button class="save-btn" data-id="${r._id}" style="padding: 5px 10px; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer;">Kaydet</button>
+          </td>
         `;
-        recordTable.innerHTML += row;
+        recordTable.appendChild(row);
       });
+
+      console.log(`✅ ${records.length} kayıt tabloya eklendi`);
+
+      // Kaydet butonları için event listener'lar ekle
+      addSaveButtonListeners(token);
+
     })
     .catch(err => {
+      console.error('❌ Arıza kayıtları yükleme hatası:', err);
       alert("Arıza kayıtları yüklenemedi: " + err.message);
+      
+      // Hata durumunda tablo içeriği
+      recordTable.innerHTML = `<tr><td colspan="6" style="text-align: center; color: red;">❌ Hata: ${err.message}</td></tr>`;
     });
 }
 
+// Kaydet buton işlevselliğini ayrı fonksiyon olarak tanımla
+function addSaveButtonListeners(token) {
+  document.querySelectorAll(".save-btn").forEach((button) => {
+    button.addEventListener("click", async (e) => {
+      const id = e.target.dataset.id;
+      const status = document.querySelector(`select[data-id="${id}"]`).value;
+      const adminReply = document.querySelector(`input[data-id="${id}"]`).value;
+
+      console.log('💾 Güncelleme verileri:', { id, status, adminReply });
+
+      try {
+        // Buton durumunu değiştir
+        button.disabled = true;
+        button.textContent = "Kaydediliyor...";
+        button.style.background = "#6c757d";
+
+        const updateResponse = await fetch(`http://localhost:5000/api/ariza/update/${id}`, {
+          method: "PUT",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ durum: status, adminReply }),
+        });
+
+        console.log('📡 Update response status:', updateResponse.status);
+
+        if (!updateResponse.ok) {
+          const errText = await updateResponse.text();
+          console.error('❌ Güncelleme hatası:', errText);
+          throw new Error(`Güncelleme başarısız (${updateResponse.status}): ${errText}`);
+        }
+
+        const updatedRecord = await updateResponse.json();
+        console.log('✅ Güncellenen kayıt:', updatedRecord);
+        
+        alert("✅ Kayıt başarıyla güncellendi!");
+        
+        // Başarılı güncelleme sonrası buton rengini yeşil yap
+        button.style.background = "#28a745";
+        setTimeout(() => {
+          button.style.background = "#007bff";
+        }, 2000);
+        
+      } catch (err) {
+        console.error('❌ Güncelleme hatası:', err);
+        alert("❌ Güncelleme sırasında hata oluştu: " + err.message);
+        
+        // Hata durumunda buton rengini kırmızı yap
+        button.style.background = "#dc3545";
+        setTimeout(() => {
+          button.style.background = "#007bff";
+        }, 3000);
+      } finally {
+        // Buton durumunu geri al
+        button.disabled = false;
+        button.textContent = "Kaydet";
+      }
+    });
+  });
+}
 // ========== DESTEK TALEPLERİ ==========
 const supportTable = document.getElementById("supportTableBody");
 if (supportTable) {

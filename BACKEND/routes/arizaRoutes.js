@@ -1,20 +1,28 @@
-// 1. Önce importları yap
 const express = require('express');
 const router = express.Router();
+
+
+
+console.log('🚀 arizaRoutes.js dosyası yüklendi');
+
+// Debug middleware - her route'tan önce çalışır
+router.use((req, res, next) => {
+  console.log(`📋 Ariza router: ${req.method} ${req.path} - URL: ${req.url}`);
+  next();
+});
 
 const {
   createAriza,
   getMyArizalar,
   getArizalar,
-  updateAriza,
+  updateAriza
 } = require('../controllers/arizaController');
 
 const { protect } = require('../middleware/authMiddleware');
 const admin = require('../middleware/adminMiddleware');
-
 const upload = require('../middleware/upload');
 
-// 2. Sonra console.log ile tipi kontrol et
+
 console.log('protect:', typeof protect);
 console.log('admin:', typeof admin);
 console.log('upload:', typeof upload);
@@ -23,14 +31,28 @@ console.log('getMyArizalar:', typeof getMyArizalar);
 console.log('getArizalar:', typeof getArizalar);
 console.log('updateAriza:', typeof updateAriza);
 
-// 3. Router tanımlamaları
-router
-  .route('/')
-  .post(protect, upload.array('dosyalar', 5), createAriza)
-  .get(protect, admin, getArizalar);
+// Test route (isteğe bağlı, development için)
+if (process.env.NODE_ENV !== 'production') {
+  router.get('/test', (req, res) => {
+    console.log('✅ Test route çalıştı');
+    res.json({ message: 'Ariza routes çalışıyor!', timestamp: new Date() });
+  });
+}
 
+// ------------------------
+// Tüm arıza kayıtlarını getir (admin yetkili)
+router.get('/arizalar', protect, admin, getArizalar);
+
+// ------------------------
+// Kullanıcının kendi arızalarını getir
 router.get('/benim', protect, getMyArizalar);
 
-router.put('/:id', protect, admin, updateAriza);
+// ------------------------
+// Arıza güncelleme (admin)
+router.put('/update/:id', protect, admin, updateAriza);
+
+// ------------------------
+// Arıza oluşturma (kullanıcı)
+router.post('/', protect, upload.array('dosyalar', 5), createAriza);
 
 module.exports = router;
