@@ -2,25 +2,43 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Destek Talepleri</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Dünyam | Arıza Kayıt Sistemi - Destek</title>
+  <link rel="stylesheet" href="admin_style.css">
+  <link rel="icon" href="/favicon.png" type="image/x-icon" />
 </head>
 <body>
 
-<nav class="admin-navbar">
-  <ul>
-    <li><a href="admin-dashboard.html">Ana Sayfa</a></li>
-    <li><a href="admin-users.html">Kullanıcılar</a></li>
-    <li><a href="admin-records.html">Kayıtlar</a></li>
-    <li><a href="admin-support.html">Destek</a></li>
-    <li><a href="admin-login.html">Çıkış</a></li>
-  </ul>
-</nav>
+<!-- Modern Navbar -->
+<div class="navbar-container">
+  <div class="navbar">
+    <!-- Logo -->
+    <div class="logo-container">
+      <a href="admin_index.html">
+        <img class="logo" src="img/dünya.png" alt="Dünya Logo" />
+      </a>
+    </div>
 
+    <!-- Menü -->
+    <div class="nav-menu">
+      <a href="./admin_users.html" class="nav-item">ÜYELER</a>
+      <a href="./admin_records.html" class="nav-item">KAYITLAR</a>
+      <a href="./admin_support.html" class="nav-item active">DESTEK</a>
+    </div>
+
+    <!-- Hamburger Menü (mobil uyumlu) -->
+    <button class="hamburger" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+</div>
+
+<!-- Sayfa İçeriği -->
 <main class="support-content">
   <h1>Destek Talepleri</h1>
 
-  <table class="support-table">
+  <table class="support-table" aria-label="Destek Talepleri Tablosu">
     <thead>
       <tr>
         <th>Kullanıcı</th>

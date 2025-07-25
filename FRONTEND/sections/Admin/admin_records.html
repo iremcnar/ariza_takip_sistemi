@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Arıza Kayıtları</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Dünyam | Arıza Kayıt Sistemi - Kayıtlar</title>
+  <link rel="stylesheet" href="admin_style.css" />
+  <link rel="icon" href="/favicon.png" type="image/x-icon" />
 </head>
 <body>
 
-<nav class="admin-navbar">
-  <ul>
-    <li><a href="admin-dashboard.html">Ana Sayfa</a></li>
-    <li><a href="admin-users.html">Kullanıcılar</a></li>
-    <li><a href="admin-records.html">Kayıtlar</a></li>
-    <li><a href="admin-support.html">Destek</a></li>
-    <li><a href="admin-login.html">Çıkış</a></li>
-  </ul>
-</nav>
+<!-- Yeni Navbar -->
+<div class="navbar-container">
+  <div class="navbar">
+    <!-- Logo -->
+    <div class="logo-container">
+      <a href="admin_index.html">
+        <img class="logo" src="img/dünya.png" alt="Dünya Logo" />
+      </a>
+    </div>
 
+    <!-- Menü -->
+    <div class="nav-menu">
+      <a href="./admin_users.html" class="nav-item">ÜYELER</a>
+      <a href="./admin_records.html" class="nav-item active">KAYITLAR</a>
+      <a href="./admin_support.html" class="nav-item">DESTEK</a>
+    </div>
+
+    <!-- Hamburger Menü (mobil uyumlu) -->
+    <button class="hamburger" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+</div>
+
+<!-- Sayfa İçeriği -->
 <main class="records-content">
   <h1>Arıza Kayıtları</h1>
 
-  <table class="record-table">
+  <table class="record-table" aria-label="Arıza Kayıt Tablosu">
     <thead>
       <tr>
         <th>Kullanıcı</th>
@@ -32,7 +50,7 @@
       </tr>
     </thead>
     <tbody id="recordTableBody">
-      <!-- Kayıt verileri JS ile buraya gelecek -->
+      <!-- Kayıtlar JS ile buraya eklenecek -->
     </tbody>
   </table>
 </main>
