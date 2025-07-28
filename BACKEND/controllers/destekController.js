@@ -30,9 +30,11 @@ const getMyDestekler = asyncHandler(async (req, res) => {
 // @route   GET /api/destek
 // @access  Private/Admin
 const getDestekler = asyncHandler(async (req, res) => {
+  console.log('Admin destek mesajları talebi geldi.');
   const destekler = await Destek.find()
     .sort({ createdAt: -1 })
     .populate('user', 'name email');
+  console.log(`Toplam destek mesajı sayısı: ${destekler.length}`);
   res.json(destekler);
 });
 

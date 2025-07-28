@@ -250,6 +250,41 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const destekForm = document.getElementById('destekForm');
+
+  if (destekForm) {
+    destekForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const mesaj = document.getElementById('destekMesaj').value;
+
+      try {
+        const response = await fetch('http://localhost:5000/api/destek',  {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}` // Giriş yapıldıysa
+          },
+          body: JSON.stringify({ mesaj })
+        });
+
+        if (response.ok) {
+          alert('✅ Mesajınız başarıyla gönderildi.');
+          document.getElementById('destekMesaj').value = '';
+        } else {
+          const hata = await response.json();
+          alert('⚠️ Hata: ' + (hata.message || 'Mesaj gönderilemedi.'));
+        }
+      } catch (err) {
+        alert('⛔ Sunucu hatası. Lütfen daha sonra tekrar deneyin.');
+        console.error(err);
+      }
+    });
+  }
+});
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const images = [
     "img/main.jpg",

@@ -121,6 +121,30 @@ router.get('/users', adminProtect, async (req, res) => {
   }
 });
 
+const Destek = require('../models/Destek');
+
+// --- Tüm destek mesajlarını getir (admin) ---
+router.get('/destek', adminProtect, async (req, res) => {
+  try {
+    console.log('🔍 Admin destek mesajları istendi');
+
+    const destekler = await Destek.find()
+      .sort({ createdAt: -1 })
+      .populate('user', 'name email');
+
+    console.log(`📊 Bulunan destek mesajı sayısı: ${destekler.length}`);
+
+    res.status(200).json(destekler);
+  } catch (error) {
+    console.error('❌ Destek mesajları getirme hatası:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Destek mesajları getirilemedi: ' + error.message
+    });
+  }
+});
+
+
 // --- Admin çıkış (opsiyonel) ---
 router.post('/logout', adminProtect, (req, res) => {
   res.status(200).json({ success: true, message: 'Admin çıkışı başarılı.' });
