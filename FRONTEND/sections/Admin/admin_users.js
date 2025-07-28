@@ -29,12 +29,12 @@ if (userTableBody) {
           const row = `
             <tr>
               <td>${user.name || "-"}</td>
-              <td>-</td>
-              <td>${user.email}</td>
+              <td><a href="mailto:${user.email}" style="color: blue; text-decoration: underline;">${user.email}</a></td>
               <td>${createdDate}</td>
               <td>${user.role}</td>
             </tr>
           `;
+
           userTableBody.innerHTML += row;
         });
       })

@@ -5,7 +5,7 @@ const token = localStorage.getItem('token');
 if (!token) {
   // Giriş yapılmamış, giriş mesajı + buton göster
   kayitlarListesi.innerHTML = `
-    <p style="font-size:1.2rem; text-align:center; margin-bottom:20px; color:white;">
+    <p style="font-size:1.2rem; text-align:center; margin-bottom:20px; color:black;">
       Kayıtlarınıza bakmak için lütfen giriş yapınız.
     </p>
     <div style="text-align:center;">
