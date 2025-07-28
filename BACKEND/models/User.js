@@ -23,7 +23,12 @@ const userSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  deleted: {
+  type: Boolean,
+  default: false
+}
+
 });
 
 userSchema.pre('save', async function(next) {

@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!confirm("Hesabınızı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.")) return;
 
     try {
-      const res = await fetch("http://localhost:5000/api/user/delete", {
+      const res = await fetch("http://localhost:5000/api/user/me", {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });

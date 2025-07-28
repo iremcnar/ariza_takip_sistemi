@@ -2,7 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 
-// Token oluşturma
+// Token oluşturma fonksiyonu
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: '30d',
@@ -56,18 +56,44 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
-  if (user && (await user.matchPassword(password))) {
-    res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      token: generateToken(user._id),
-    });
-  } else {
-    res.status(401);
-    throw new Error('Geçersiz email veya şifre');
+  if (user) {
+    if (user.deleted) {
+      res.status(403);
+      throw new Error("Bu hesap artık aktif değil.");
+    }
+
+    if (await user.matchPassword(password)) {
+      res.status(200).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        token: generateToken(user._id),
+      });
+      return;
+    }
   }
+
+  res.status(401);
+  throw new Error('Geçersiz email veya şifre');
+});
+
+// @desc    Hesabı sil (soft delete)
+// @route   DELETE /api/auth/delete
+// @access  Private (token ile)
+// Bu route'da user.id middleware'den geliyor (ör: protect middleware)
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("Kullanıcı bulunamadı.");
+  }
+
+  user.deleted = true;
+  await user.save();
+
+  res.status(200).json({ message: "Hesabınız başarıyla devre dışı bırakıldı." });
 });
 
 // @desc    Kullanıcı bilgilerini getir
@@ -80,5 +106,6 @@ const getMe = asyncHandler(async (req, res) => {
 module.exports = {
   registerUser,
   loginUser,
+  deleteUser,
   getMe,
 };
