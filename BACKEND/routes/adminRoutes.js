@@ -173,5 +173,33 @@ router.get('/arizalar', adminProtect, async (req, res) => {
     });
   }
 });
+// Son 5 arıza
+router.get('/ariza/recent', adminProtect, async (req, res) => {
+  try {
+    const recentArizalar = await Ariza.find()
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .populate('user', 'name email');
+    res.json(recentArizalar);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Son 3 destek
+router.get('/supports/recent', adminProtect, async (req, res) => {
+  try {
+    const recentSupports = await Destek.find()
+      .sort({ createdAt: -1 })
+      .limit(3)
+      .populate('user', 'name email');
+    res.json(recentSupports);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
+
 
 module.exports = router;

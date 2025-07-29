@@ -4,9 +4,176 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dünyam | Arıza Kayıt Sistemi</title>
+  
+  <title>Dünyam | Arıza Kayıt Sistemi</title>
   <link rel="stylesheet" href="./admin_index.css" />
   <link rel="icon" href="/favicon.png" type="image/x-icon" />
+  
+  <style>
+    /* Yeni bölümler için CSS */
+    .dashboard-section {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    
+    .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #333;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+    
+    .records-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .record-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .record-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .record-header {
+      display: flex;
+      justify-content: between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .record-id {
+      font-weight: bold;
+      color: #007bff;
+      font-size: 18px;
+    }
+    
+    .record-date {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .record-status {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    .status-pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    
+    .status-inprogress {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+    
+    .status-closed {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    
+    .status-completed {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .record-content {
+      margin-top: 10px;
+    }
+    
+    .record-field {
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .field-label {
+      font-weight: bold;
+      color: #555;
+    }
+    
+    .field-value {
+      color: #333;
+      margin-left: 5px;
+    }
+    
+    .support-messages {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .message-card {
+      background: #f8f9fa;
+      border-left: 4px solid #007bff;
+      padding: 15px;
+      border-radius: 4px;
+    }
+    
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .message-sender {
+      font-weight: bold;
+      color: #007bff;
+    }
+    
+    .message-date {
+      color: #666;
+      font-size: 12px;
+    }
+    
+    .message-content {
+      color: #333;
+      line-height: 1.5;
+    }
+    
+    .no-data {
+      text-align: center;
+      color: #666;
+      font-style: italic;
+      padding: 40px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    
+    @media (max-width: 768px) {
+      .records-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .record-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .message-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -15,25 +182,25 @@
   <div class="navbar">
     <!-- Logo -->
     <div class="logo-container">
-      <a href="index.html">
+      <a href="admin_index.html">
         <img class="logo" src="img/dünya.png" alt="Dünya Logo" />
       </a>
     </div>
-
+    
     <!-- Menü -->
     <div class="nav-menu">
       <a href="./admin_users.html" class="nav-item">ÜYELER</a>
       <a href="./admin_records.html" class="nav-item">KAYITLAR</a>
       <a href="./admin_support.html" class="nav-item">DESTEK</a>
     </div>
-
+    
     <!-- Hamburger Menü (mobil için) -->
     <button class="hamburger" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
     </button>
-
+    
     <!-- Giriş Butonu -->
     <div class="auth-buttons" id="authButtons">
       <a href="../girisyap.html" id="loginBtn" class="login-btn">KULLANICI GİRİŞİ</a>
@@ -51,14 +218,28 @@
   <img src="img/main.jpg" alt="Hayat Kimya Ana Resim" class="main-image" />
 </div>
 
-
+<!-- Son 5 Arıza Kaydı Bölümü -->
+<div class="dashboard-section">
+  <h2 class="section-title">Son Arıza Kayıtları</h2>
+  <div class="records-grid" id="recentRecords">
+    <!-- Arıza kayıtları buraya JavaScript ile eklenecek -->
+    <div class="no-data">Arıza kayıtları yükleniyor...</div>
+  </div>
+</div>
 
 <!-- Banner Görsel -->
 <div class="banner-image-section">
   <img src="img/banner.jpg" alt="Arıza ve Destek Geçiş Görseli" class="banner-image" />
 </div>
 
-
+<!-- Son 3 Destek Mesajı Bölümü -->
+<div class="dashboard-section">
+  <h2 class="section-title">Son Destek Mesajları</h2>
+  <div class="support-messages" id="recentMessages">
+    <!-- Destek mesajları buraya JavaScript ile eklenecek -->
+    <div class="no-data">Destek mesajları yükleniyor...</div>
+  </div>
+</div>
 
 <!-- Footer -->
 <footer class="site-footer">
@@ -73,6 +254,16 @@
   </div>
 </footer>
 
+
 <script src="admin_script.js"></script>
+<script>
+// Dashboard verileri için JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    loadRecentRecords();
+    loadRecentMessages();
+});
+
+ </script>
+
 </body>
 </html>

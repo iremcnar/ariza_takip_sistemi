@@ -257,3 +257,99 @@ if (supportTable) {
       alert("Destek talepleri yüklenemedi: " + err.message);
     });
 }
+
+
+async function loadRecentRecords() {
+  const container = document.getElementById("recentRecords");
+  const token = localStorage.getItem("adminToken");
+  if (!token) return;
+
+  try {
+    const res = await fetch("http://localhost:5000/api/ariza/arizalar", {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error("Arıza kayıtları yüklenemedi");
+    const data = await res.json();
+
+    container.innerHTML = "";
+
+    if (!data.length) {
+      container.innerHTML = `<div class="no-data">Henüz arıza kaydı yok.</div>`;
+      return;
+    }
+
+    // Tarihe göre azalan (en yeni önce) sırala
+    data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    // İlk 5 kaydı al
+    const latestFive = data.slice(0, 5);
+
+    latestFive.forEach(r => {
+      const dateStr = new Date(r.createdAt).toLocaleDateString("tr-TR");
+      let statusClass = "";
+      switch(r.durum) {
+        case "beklemede": statusClass = "status-pending"; break;
+        case "işlemde": statusClass = "status-inprogress"; break;
+        case "çözüldü": statusClass = "status-completed"; break;
+      }
+
+      container.insertAdjacentHTML("beforeend", `
+        <div class="record-card">
+          <div class="record-header">
+            <div class="record-id">${r._id.slice(-6)}</div>
+            <div class="record-date">${dateStr}</div>
+            <div class="record-status ${statusClass}">${r.durum}</div>
+          </div>
+          <div class="record-content">
+            <div class="record-field"><span class="field-label">Başlık:</span> <span class="field-value">${r.baslik || "-"}</span></div>
+            <div class="record-field"><span class="field-label">Açıklama:</span> <span class="field-value">${r.aciklama || "-"}</span></div>
+          </div>
+        </div>
+      `);
+    });
+  } catch (err) {
+    container.innerHTML = `<div class="no-data" style="color:red;">Hata: ${err.message}</div>`;
+  }
+}
+async function loadRecentMessages() {
+  const container = document.getElementById("recentMessages");
+  const token = localStorage.getItem("adminToken");
+  if (!token) return;
+
+  try {
+    const res = await fetch("http://localhost:5000/api/admin/destek", {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error("Destek mesajları yüklenemedi");
+    const data = await res.json();
+
+    container.innerHTML = "";
+
+    if (!data.length) {
+      container.innerHTML = `<div class="no-data">Henüz destek mesajı yok.</div>`;
+      return;
+    }
+
+    // Tarihe göre azalan sırala
+    data.sort((a, b) => new Date(b.createdAt || b.tarih) - new Date(a.createdAt || a.tarih));
+
+    const latestFive = data.slice(0, 5);
+
+    latestFive.forEach(msg => {
+      const dateStr = new Date(msg.createdAt || msg.tarih).toLocaleDateString("tr-TR");
+      const sender = msg.user?.name || msg.kullanici || "Bilinmiyor";
+
+      container.insertAdjacentHTML("beforeend", `
+        <div class="message-card">
+          <div class="message-header">
+            <div class="message-sender">${sender}</div>
+            <div class="message-date">${dateStr}</div>
+          </div>
+          <div class="message-content">${msg.mesaj || "-"}</div>
+        </div>
+      `);
+    });
+  } catch (err) {
+    container.innerHTML = `<div class="no-data" style="color:red;">Hata: ${err.message}</div>`;
+  }
+}
