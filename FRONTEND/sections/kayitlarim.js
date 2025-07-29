@@ -65,7 +65,7 @@ if (!token) {
 
     // 5. Kayıt varsa listele
     let html = `
-      <div style="text-align:center; margin-bottom:40px; color:white;">
+      <div style="text-align:center; margin-bottom:40px; color:darkblue;">
         <h2 style="font-size:2.5rem; margin-bottom:10px; font-weight:700;">📋 Arıza Kayıtlarım</h2>
         <p style="font-size:1.1rem; opacity:0.9;">Toplam <strong>${arizalar.length}</strong> kayıt bulundu</p>
       </div>

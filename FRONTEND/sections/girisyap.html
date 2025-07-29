@@ -5,24 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kullanıcı Girişi</title>
   <link rel="stylesheet" href="girisyap.css" />
-  <!-- Font Awesome ikonları için -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <style>
-    /* Ek CSS düzenlemeleri */
     .form-group i {
-      top: 42px; /* İkonları input alanına daha iyi hizalamak için */
+      top: 42px;
     }
     .register-link {
-      margin-top: 25px; /* Kayıt ol bağlantısını biraz daha aşağı almak için */
+      margin-top: 25px;
     }
     .forgot-password {
-      margin: 5px 0 15px 0; /* Şifremi unuttum linkini daha iyi konumlandırmak için */
+      margin: 5px 0 15px 0;
+    }
+    /* Modal Stili */
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      width: 300px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin: 15px 0;
+    }
+    .close {
+      float: right;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    #resetMessage {
+      margin-top: 10px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Kullanıcı Giriş Formu -->
   <div class="login-container">
     <div class="login-header">
       <i class="fas fa-user-circle"></i>
@@ -48,7 +76,7 @@
       </div>
 
       <div class="forgot-password">
-        <a href="sifremiunuttum.html">Şifremi Unuttum?</a>
+        <a href="#" id="openResetModal">Şifremi Unuttum?</a>
       </div>
 
       <p class="error-message" id="errorMessage"></p>
@@ -62,12 +90,22 @@
         <a href="kayitol.html" class="small-login-btn">Hemen Kayıt Olun</a>
       </div>
       <div class="back-to-home" style="margin-top: 20px; text-align: center;">
-       <a href="index.html" style="font-size: 14px; color: #555;">
-       <i class="fas fa-arrow-left"></i> Ana Sayfaya Dön
-       </a>
+        <a href="index.html" style="font-size: 14px; color: #555;">
+          <i class="fas fa-arrow-left"></i> Ana Sayfaya Dön
+        </a>
       </div>
-
     </form>
+  </div>
+
+  <!-- Şifre Yenileme Modalı -->
+  <div id="resetModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h3>Şifre Yenile</h3>
+      <input type="email" id="resetEmail" placeholder="E-posta adresinizi girin" required />
+      <button id="sendResetBtn">Şifre Yenileme Maili Gönder</button>
+      <p id="resetMessage"></p>
+    </div>
   </div>
 
   <script>
@@ -99,9 +137,7 @@
       try {
         const response = await fetch("http://localhost:5000/api/auth/login", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password })
         });
 
@@ -112,7 +148,6 @@
         }
 
         localStorage.setItem("token", data.token);
-
         alert("Giriş başarılı! Yönlendiriliyorsunuz...");
         setTimeout(() => {
           window.location.href = "index.html";
@@ -121,6 +156,43 @@
       } catch (error) {
         errorMessage.textContent = error.message;
         errorMessage.classList.add("active");
+      }
+    });
+
+    // Modal işlemleri
+    const resetModal = document.getElementById("resetModal");
+    const openModal = document.getElementById("openResetModal");
+    const closeModal = document.getElementById("closeModal");
+    const sendResetBtn = document.getElementById("sendResetBtn");
+
+    openModal.addEventListener("click", (e) => {
+      e.preventDefault();
+      resetModal.style.display = "flex";
+    });
+
+    closeModal.addEventListener("click", () => {
+      resetModal.style.display = "none";
+      document.getElementById("resetMessage").textContent = "";
+    });
+
+    sendResetBtn.addEventListener("click", async () => {
+      const resetEmail = document.getElementById("resetEmail").value;
+      const resetMessage = document.getElementById("resetMessage");
+
+      try {
+        const response = await fetch("http://localhost:5000/api/auth/send-reset-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: resetEmail })
+        });
+
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message);
+        resetMessage.style.color = "green";
+        resetMessage.textContent = "Yeni şifreniz e-posta adresinize gönderildi.";
+      } catch (err) {
+        resetMessage.style.color = "red";
+        resetMessage.textContent = err.message;
       }
     });
   </script>

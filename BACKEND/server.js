@@ -1,61 +1,54 @@
-// Bu dosyanın amacı backend sunucusunu başlatmak ve yapılandırmaktır. (Apı oluşturma)
-// HTTP isteklerini dinler, MongoDB veritabanına bağlanır ve gerekli rotaları tanımlar.
-// Route(yol) yönetimi, middleware kullanımı ve MongoDB bağlantısı gibi temel işlevleri içerir.
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const cors = require('cors');
 const path = require('path');
 
-require('dotenv').config(); //.env dosyasından bilgileri almamıza yarar. Bu sayede gizli bilgileri kodda direkt yazmamış oluruz.
-const express = require('express'); // Web sunucusu oluşturmak için
-const mongoose = require('mongoose'); //MongoDB ile etkileşim için
-const cors = require('cors'); // Farklı kaynaklardan gelen istekleri kabul etmek için
+// .env dosyasını kullan
+dotenv.config();
 
 const app = express();
 
 // Middleware
-app.use(cors());  // CORS ayarları, farklı kaynaklardan gelen istekleri kabul eder. Backend ve frontend farklı portlarda çalıştığı için bu gerekli.
-app.use(express.json()); // Gelen JSON formatındaki istek gövdesini (body) işler.
-app.use('/uploads', express.static('uploads')); // 'uploads' klasöründeki dosyaları statik olarak sunar. Örneğin, resim yükleme işlemleri için kullanılır.
-// Arıza kayıt bölümünde resim dosyaları için gerekli.
+app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static('uploads'));
+app.use(express.static(path.join(__dirname, 'FRONTEND'))); // frontend statik dosyaları sunmak için
 
-// MongoDB Bağlantısı
-mongoose.connect(process.env.MONGODB_URI) // Veri tabanına bağlanır.
-  .then(() => console.log('MongoDB bağlantısı başarılı'))
-  .catch(err => console.log('MongoDB bağlantı hatası:', err));
+// MongoDB bağlantısı
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('✅ MongoDB bağlantısı başarılı'))
+.catch(err => console.error('❌ MongoDB bağlantı hatası:', err));
 
-// Basit bir route test için
-// Sunucu çalışıyor mu kontrol etmek için kullanılır.
+// Test Route
 app.get('/', (req, res) => {
-  res.send('Arıza Takip Sistemi API');
+  res.send('Arıza Takip Sistemi API Çalışıyor');
 });
 
-//API Routeları
-const authRoutes = require('./routes/authRoutes'); // Kullanıcı kayıt, giriş, yetkilendirme işlemleri için gerekli.
-const arizaRoutes = require('./routes/arizaRoutes'); //  Arıza kaydı oluşturma, listeleme işlemleri
-const destekRoutes = require('./routes/destekRoutes'); // Destek talepleri oluşturma.
+// ROUTE TANIMLARI
+const authRoutes = require('./routes/authRoutes');
+const arizaRoutes = require('./routes/arizaRoutes');
+const destekRoutes = require('./routes/destekRoutes');
 const faultRoutes = require('./routes/faultRoutes');
-const meRoute = require('./me')
-const userRoutes = require("./routes/userRoutes");
-const adminRoutes = require('./routes/adminRoutes'); // Admin işlemleri için gerekli.
+const meRoute = require('./me');
+const userRoutes = require('./routes/userRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
-app.use(express.static(path.join(__dirname, 'FRONTEND')));
-app.use('/api/faults', faultRoutes);
+// Route kullanımları
 app.use('/api/auth', authRoutes);
+app.use('/api/auth', meRoute); // aynı grup altında kalıyor
 app.use('/api/ariza', arizaRoutes);
 app.use('/api/destek', destekRoutes);
+app.use('/api/faults', faultRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/admin', adminRoutes);
 
-app.use('/api/auth', meRoute); 
-app.use("/api/user", userRoutes);
-app.use('/api/admin', adminRoutes); // Admin işlemleri için gerekli.
-
-const PORT = process.env.PORT || 5000; // PORT değişkeni .env dosyasından alınır, eğer yoksa 5000 olarak ayarlanır.
-app.listen(PORT, () => console.log(`Sunucu ${PORT} portunda çalışıyor`));
-
-// Tüm tanımlı rotaları listele (debug için)
-app.use((req, res, next) => {
-  console.log('Tanımlı rotalar:');
-  app._router.stack.forEach((r) => {
-    if (r.route && r.route.path) {
-      console.log(`${Object.keys(r.route.methods)[0].toUpperCase()} ${r.route.path}`);
-    }
-  });
-  next();
+// PORT
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Sunucu ${PORT} portunda çalışıyor`);
 });
