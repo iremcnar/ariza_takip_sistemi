@@ -8,7 +8,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #712664, #46258e);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -34,7 +34,7 @@ body {
 
 .login-header i {
     font-size: 3rem;
-    color: #667eea;
+    color: #46146c;
     margin-bottom: 15px;
 }
 
@@ -87,7 +87,7 @@ body {
 .btn-login {
     width: 100%;
     padding: 15px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #b341a0, #46258e);
     color: white;
     border: none;
     border-radius: 8px;
@@ -139,7 +139,7 @@ body {
 }
 
 .back-to-home a.small-login-btn {
-    color: #667eea;
+    color: #704997;
     text-decoration: none;
     font-weight: 600;
     margin-left: 6px;

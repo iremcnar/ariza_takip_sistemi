@@ -1,3 +1,44 @@
+/* ===== CSS Değişkenleri ===== */
+:root {
+  /* 3D Renkler & Efektler */
+  --glass-bg:linear-gradient(135deg, #5d8598);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --glass-blur: blur(20px);
+  
+  /* Gradientler */
+  --primary-gradient: linear-gradient(45deg, #71a2b9, #2c5669);  
+--secondary-gradient: linear-gradient(45deg, #71a2b9, #2c5669); 
+--third-gradiendt:linear-gradient(45deg, #34aac2, #061700);  /* Orta koyu yeşil -> koyu orman yeşili */
+--hover-gradient: linear-gradient(45deg, #71a2b9, #2c5669); /* Canlı yeşil -> çok koyu yeşil */
+
+  --admin-gradient: linear-gradient(135deg, #712664, #46258e);
+  --admin-hover: linear-gradient(135deg, #602054, #341b6a);
+  
+  /* 3D Shadows */
+  --shadow-3d: 0 10px 25px rgba(61, 49, 49, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 20px 40px rgba(68, 80, 132, 0.3), 0 10px 20px rgba(34, 54, 147, 0.15);
+  --shadow-pressed: inset 0 3px 7px rgba(0, 0, 0, 0.2);
+  
+  /* Typography */
+  --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --text-primary: #2c3e50;
+  --text-light: rgba(255, 255, 255, 0.95); /* Daha okunabilir beyaz renk */
+  --text-dark: #1a1a1a; /* Koyu renk metinler için */
+  
+  /* Spacing & Sizing */
+  --navbar-height: 80px;
+  --container-width: 1440px;
+  --border-radius: 16px;
+  --border-radius-pill: 50px;
+  
+  /* Animations */
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-fast: all 0.2s ease-out;
+}
+
+
 /* ===== Temel Sıfırlama ===== */
 * {
     margin: 0;
@@ -11,87 +52,133 @@ html {
 }
 
 body {
-    overflow-x: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: rgba(255, 255, 255, 0.95);
-    min-height: 100vh;
-    line-height: 1.6;
-    color: #2c3e50;
+  overflow-x: hidden;
+  font-family: var(--font-primary);
+  background: linear-gradient(135deg, #abb2ba 0%, #abb9c6 50%, #c5ddf4 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  line-height: 1.6;
+  color: var(--text-primary);
 }
 
 /* ===== Navbar ===== */
 .navbar-container {
-    width: 100%;
-    background:  rgba(248, 249, 250, 0.8);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  padding: 12px 20px;
+  background: transparent;
 }
 
 .navbar {
-    max-width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px;
-    height: 100px;
-    position: relative;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--navbar-height);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-pill);
+  padding: 0 32px;
+  position: relative;
+  box-shadow: var(--shadow-3d);
+  transition: var(--transition-smooth);
+  
+  /* 3D Transform Effect */
+  transform: perspective(1000px) rotateX(0deg);
+  transform-style: preserve-3d;
 }
 
+.navbar:hover {
+  transform: perspective(1000px) rotateX(-2deg) translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Logo Section ===== */
 .logo-container {
-    flex-shrink: 0;
-    z-index: 1001;
+  flex-shrink: 0;
+  z-index: 1001;
+  position: relative;
 }
 
 .logo {
-    height: 60px;
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-    transition: transform 0.3s ease;
-  
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  transition: var(--transition-bounce);
+  transform-style: preserve-3d;
 }
 
 .logo:hover {
-    transform: scale(1.05);
+  transform: scale(1.1) rotateY(5deg);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
 }
 
-/* Navigation Menu - Orta Kısım */
+/* ===== 3D Navigation Menu ===== */
 .nav-menu {
-    display: flex;
-    gap: 70px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(248, 249, 250, 0.8);
-    backdrop-filter: blur(10px);
-    border-radius: 30px;
-    padding: 8px 25px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: var(--border-radius-pill);
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .nav-item {
-    color: #2c3e50;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-decoration: none;
-    text-transform: capitalize;
-    padding: 8px 16px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    position: relative;
+  color: var(--text-light); /* Daha okunabilir beyaz renk */
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: capitalize;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-pill);
+  transition: var(--transition-smooth);
+  position: relative;
+  transform-style: preserve-3d;
+  letter-spacing: 0.5px;
+  
+  /* 3D Text Effect - daha okunabilir shadow */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+
+
+.nav-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--primary-gradient);
+  border-radius: var(--border-radius-pill);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: var(--transition-smooth);
+  z-index: -1;
 }
 
 .nav-item:hover {
-    color: #fbfcfc;
-    background: rgba(102, 126, 234, 0.08);
-    background: linear-gradient(45deg, #9EB5E3, #174196);
-    transform: translateY(-1px);
+  color: rgba(255, 255, 255, 1); /* Hover'da tam beyaz */
+  transform: translateY(-3px) rotateX(10deg);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.nav-item:hover::before {
+  opacity: 1;
+  transform: scale(1);
+  box-shadow: var(--shadow-hover);
+}
+
+.nav-item:active {
+  transform: translateY(-1px) rotateX(5deg);
+  box-shadow: var(--shadow-pressed);
 }
 
 /* Auth Buttons - Sağ Kısım */
@@ -103,82 +190,136 @@ body {
 }
 
 .login-btn {
-    color: #667eea;
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-decoration: none;
-    padding: 8px 18px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    border: 1.5px solid #667eea;
-    background: transparent;
-      position: relative;
-   
-    bottom: 3px;
-    top:1px;
+  color: var(--text-light); /* Daha okunabilir beyaz renk */
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-pill);
+  transition: var(--transition-smooth);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  transform-style: preserve-3d;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
+.login-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--secondary-gradient);
+  border-radius: var(--border-radius-pill);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: -1;
+}
 
 .login-btn:hover {
-    color: white;
-    background: #020a2d;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(15, 23, 61, 0.2);
-    background: linear-gradient(45deg, #3d8db1, #342378);
+  color: rgba(255, 255, 255, 1); /* Hover'da tam beyaz */
+  transform: translateY(-3px) rotateX(8deg);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
-.register-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: 20px;
-    padding: 8px 18px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
-    background: linear-gradient(45deg, #3d8db1, #342378);
-  
+.login-btn:hover::before {
+  opacity: 1;
+}
 
+
+/* Register Button - 3D Gradient */
+.register-btn {
+  color: var(--text-light); /* Daha okunabilir beyaz renk */
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-pill);
+  transition: var(--transition-smooth);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  transform-style: preserve-3d;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+
+.register-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--hover-gradient);
+  border-radius: var(--border-radius-pill);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: -1;
 }
 
 .register-btn:hover {
-    transform: translateY(-1px);
-    background: linear-gradient(45deg, #10709f, #1b0f4e);
+  color: rgba(255, 255, 255, 1); /* Hover'da tam beyaz */
+  transform: translateY(-4px) rotateX(10deg);
+  box-shadow: var(--shadow-hover);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.register-btn:hover::before {
+  opacity: 1;
+}
+.register-btn:active {
+  transform: translateY(-2px) rotateX(5deg);
 }
 
 /* Admin Icon */
 .admin-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    
-    background: linear-gradient(45deg, #b95151, #342378);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 10px rgba(255, 107, 107, 0.2);
-    margin-left: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--admin-gradient);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition-bounce);
+  box-shadow: var(--shadow-3d);
+  margin-left: 12px;
+  position: relative;
+  transform-style: preserve-3d;
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
+.admin-icon::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: var(--admin-hover);
+  border-radius: 50%;
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: -1;
+}
 .admin-icon:hover {
-    transform: translateY(-1px) scale(1.05);
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  transform: translateY(-4px) rotateY(180deg) scale(1.1);
+  box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
+}
 
-    background: linear-gradient(45deg, #791b1b, #53409f);
+.admin-icon:hover::before {
+  opacity: 1;
 }
 
 .admin-icon svg {
-    width: 18px;
-    height: 18px;
+  width: 20px;
+  height: 20px;
+  transition: var(--transition-smooth);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .admin-icon svg path {
-    fill: white;
+  fill: var(--text-light);
 }
 
 /* ===== Hamburger Butonu ===== */
@@ -216,6 +357,31 @@ body {
 }
 
 
+/* ===== Scroll Effect ===== */
+.navbar-container.scrolled .navbar {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(25px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Accessibility ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles */
+.nav-item:focus-visible,
+.login-btn:focus-visible,
+.register-btn:focus-visible,
+.admin-icon:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
 
 /* Navbar yüksekliği kadar boşluk */
 body {
@@ -236,14 +402,7 @@ body {
 .islemede { background-color: #007bff; }
 .cozuldu { background-color: green; }
 
-.navbar-container {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: white;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  z-index: 1000;
-}
+
 
 /* Buton stili */
 .btn {

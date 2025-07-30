@@ -7,17 +7,17 @@
   --glass-blur: blur(20px);
   
   /* Gradientler */
-  --primary-gradient: linear-gradient(45deg, #bdcbd0, #b9bac0); 
---secondary-gradient: linear-gradient(45deg, #bdcbd0, #b9bac0); 
+  --primary-gradient: linear-gradient(45deg, #71a2b9, #2c5669);  
+--secondary-gradient: linear-gradient(45deg, #71a2b9, #2c5669); 
 --third-gradiendt:linear-gradient(45deg, #34aac2, #061700);  /* Orta koyu yeşil -> koyu orman yeşili */
---hover-gradient: linear-gradient(45deg, #34aac2, #061700); /* Canlı yeşil -> çok koyu yeşil */
+--hover-gradient: linear-gradient(45deg, #71a2b9, #2c5669); /* Canlı yeşil -> çok koyu yeşil */
 
-  --admin-gradient: linear-gradient(135deg, #af2626, #668c89);
-  --admin-hover: linear-gradient(135deg, #8e1d1d, #425b59);
+  --admin-gradient: linear-gradient(135deg, #712664, #46258e);
+  --admin-hover: linear-gradient(135deg, #602054, #341b6a);
   
   /* 3D Shadows */
-  --shadow-3d: 0 10px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
-  --shadow-hover: 0 20px 40px rgba(102, 126, 234, 0.3), 0 10px 20px rgba(102, 126, 234, 0.15);
+  --shadow-3d: 0 10px 25px rgba(61, 49, 49, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 20px 40px rgba(68, 80, 132, 0.3), 0 10px 20px rgba(34, 54, 147, 0.15);
   --shadow-pressed: inset 0 3px 7px rgba(0, 0, 0, 0.2);
   
   /* Typography */
@@ -498,7 +498,7 @@ body {
 .yenikayit-container {
     max-width: 400px;
     margin: 120px auto 60px;
-    background-color: #ffffff;
+    background-color:#712664;
     padding: 35px 20px;
     border-radius: 25px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -509,19 +509,19 @@ body {
 .yenikayit-container h2 {
     font-size: 1.5rem; /* 24px */
     margin-bottom: 25px;
-    color: #4d699f;
+    color: #d7dadf;
 }
 
 .yenikayit-form label {
     font-weight: 600;
     margin-bottom: 6px;
     font-size: 0.9rem;
-    color: #555;
+    color: #b2bccf;
     text-align: left;
 }
 
 .required {
-    color: #E53935;
+    color: #e02c26;
 }
 
 .yenikayit-form input[type="text"],
@@ -534,12 +534,13 @@ body {
     margin-bottom: 20px;
     resize: vertical;
     transition: border-color 0.3s;
+     background-color: #dfd0da; 
 }
 
 .yenikayit-form input[type="text"]:focus,
 .yenikayit-form textarea:focus {
     outline: none;
-    border-color: #1d2d4d;
+    border-color: #878d9a;
 }
 
 .radio-group {
@@ -552,7 +553,7 @@ body {
 .radio-group label {
     font-weight: 600;
     font-size: 0.9rem;
-    color: #555;
+    color: #eaeef5;
     cursor: pointer;
 }
 
@@ -560,13 +561,42 @@ body {
     margin-right: 6px;
     cursor: pointer;
 }
-
-.yenikayit-form input[type="file"] {
-    display: block;
-    margin: 15px 0 25px 0;
-    font-size: 0.95rem;
-    cursor: pointer;
+.file-upload-wrapper {
+    position: relative;
+    width: 100%;
+     margin-bottom: 20px;
 }
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-display {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background-color:#a97ba2;
+    color: white;
+    border: 1px solid#9f4b83; 
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-file-display:hover {
+    background-color:#8b6585;
+}
+
+.remove-icon {
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+
 
 .submit-btn {
     background-color: #4d699f;
@@ -578,12 +608,13 @@ body {
     border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s;
-    background: linear-gradient(45deg, #3d8db1, #342378);
+    background: linear-gradient(45deg, #bbcacd, #14122a);
 }
 
 .submit-btn:hover {
     background-color: #1d2d4d;
-    background: linear-gradient(45deg, #10709f, #1b0f4e);
+    background: linear-gradient(45deg, #c9dadf, #04030c);
+
 }
 
 
@@ -609,16 +640,16 @@ body {
     object-fit: cover;
     object-position: center;
     display: block;
-    border-radius: 15px;
-    margin: 0 20px;
-    max-width: calc(100% - 40px);
+    margin: 0; /* Boşluğu kaldır */
+    max-width: 100%; /* Tam genişlik */
 }
+
 
 /* ===== Destek Bölümü ===== */
 .destek-container {
     max-width: 700px;
     margin: 120px auto 100px;
-    background-color: #ffffff;
+    background-color: #712664;
     padding: 40px 25px;
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
@@ -628,13 +659,13 @@ body {
 
 .destek-container h2 {
     font-size: 1.625rem; /* 26px */
-    color: #4d699f;
+    color: #d7dadf;
     margin-bottom: 10px;
 }
 
 .destek-aciklama {
     font-size: 1rem;
-    color: #555;
+    color: #d5d0d0;
     margin-bottom: 25px;
 }
 
@@ -646,6 +677,7 @@ body {
     font-size: 1rem;
     resize: vertical;
     transition: border-color 0.3s;
+    background-color:#dfd0da;
     margin-bottom: 25px;
 }
 
@@ -663,7 +695,7 @@ body {
     font-weight: 700;
     border-radius: 30px;
     cursor: pointer;
-     background: linear-gradient(45deg, #3d8db1, #342378);
+     background: linear-gradient(45deg, #bbcacd, #14122a);
     transition: background-color 0.3s;
 }
 
@@ -919,7 +951,7 @@ body {
         }
 
         .hero-content .highlight {
-            background: linear-gradient(45deg, #4696a5, #1e0675);
+            background: linear-gradient(45deg, #a65e82, #1e0675);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -929,7 +961,7 @@ body {
 
         .hero-content p {
             font-size: 1.2rem;
-            color: #7f8c8d;
+            color: #4a595a;
             margin-bottom: 40px;
             max-width: 600px;
             line-height: 1.6;
@@ -937,7 +969,7 @@ body {
         }
 
         .hero-btn {
-            background: linear-gradient(45deg, #34aac2, #061700);
+            background: linear-gradient(45deg, #832558, #070e57);
             color: white;
             padding: 16px 40px;
             font-size: 1.1rem;
@@ -1029,7 +1061,7 @@ body {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     transform-style: preserve-3d;
-    animation: floatItem 3s ease-in-out infinite;
+    animation: floatItem 15s ease-in-out infinite;
 }
 
 /* Hardware item positioning */
@@ -1128,5 +1160,387 @@ body {
         width: 40px;
         height: 40px;
         font-size: 20px;
+    }
+}
+
+
+
+
+
+
+
+/* ===== ARIZA KAYIT KİTAP TASARIMI ===== */
+.book-container {
+    display: flex;
+    max-width: 1000px;
+    width: 95%;
+    min-height: 570px;
+    height: 380px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(-3deg) rotateX(1deg);
+    box-shadow: 
+        0 15px 30px rgba(0, 0, 0, 0.3),
+        0 25px 50px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 60px auto 60px auto;
+}
+
+.book-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.1) 100%
+    );
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+/* ===== SOL SAYFA - BİLGİLENDİRME ===== */
+.info-page {
+    flex: 1;
+    background: #712664;
+    padding: 20px;
+    position: relative;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    box-shadow: inset -3px 0 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.info-page h1 {
+    font-size: 1.4rem;
+    color: #d7dadf;
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 2px solid #a97ba2;
+    padding-bottom: 8px;
+}
+
+.info-section {
+    margin-bottom: 15px;
+}
+
+.info-section h3 {
+    font-size: 1rem;
+    color: #eaeef5;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.info-section h3::before {
+    content: '📋';
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+
+.info-section p {
+    color: #b2bccf;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    font-size: 0.8rem;
+}
+
+.priority-info {
+    background: rgba(169, 123, 162, 0.2);
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 3px solid #a97ba2;
+}
+
+.priority-levels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.priority-item {
+    text-align: center;
+    flex: 1;
+    margin: 0 3px;
+}
+
+.priority-item p {
+    color: #eaeef5;
+    font-size: 0.7rem;
+}
+
+.priority-badge {
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.65rem;
+    margin-bottom: 4px;
+}
+
+.low { background-color: #27ae60; }
+.medium { background-color: #f39c12; }
+.high { background-color: #e74c3c; }
+
+.tips-list {
+    background: rgba(139, 101, 133, 0.3);
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 3px solid #8b6585;
+}
+
+.tips-list ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.tips-list li {
+    margin-bottom: 4px;
+    padding-left: 18px;
+    position: relative;
+    color: #eaeef5;
+    font-size: 0.75rem;
+}
+
+.tips-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #a97ba2;
+    font-weight: bold;
+}
+
+/* ===== SAĞ SAYFA - FORM (İYİLEŞTİRİLDİ) ===== */
+.form-page {
+    flex: 1;
+    background: #712664;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    box-shadow: inset 3px 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.form-page h2 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #d7dadf;
+    text-align: center;
+    border-bottom: 2px solid #a97ba2;
+    padding-bottom: 8px;
+}
+
+.yenikayit-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.yenikayit-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+    color: #b2bccf;
+    text-align: left;
+}
+
+.required {
+    color: #e02c26;
+}
+
+.yenikayit-form input[type="text"],
+.yenikayit-form textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #CCCCCC;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    resize: vertical;
+    transition: border-color 0.3s;
+    background-color: #dfd0da;
+}
+
+.yenikayit-form textarea {
+    min-height: 60px;
+    max-height: 80px;
+}
+
+.yenikayit-form input[type="text"]:focus,
+.yenikayit-form textarea:focus {
+    outline: none;
+    border-color: #878d9a;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+}
+
+.radio-group label {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #eaeef5;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 4px;
+    cursor: pointer;
+}
+
+.file-upload-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-display {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background-color: #a97ba2;
+    color: white;
+    border: 1px solid #9f4b83;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-file-display:hover {
+    background-color: #8b6585;
+}
+
+.remove-icon {
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.submit-btn {
+    width: 100%;
+    background: linear-gradient(45deg, #bbcacd, #14122a);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 8px;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(45deg, #c9dadf, #04030c);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== TEXTURE EFEKTLERİ ===== */
+.info-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.form-page::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+/* ===== RESPONSİVE TASARIM ===== */
+@media (max-width: 768px) {
+    .book-container {
+        flex-direction: column;
+        margin: 10px;
+        transform: none;
+        max-width: 95%;
+        min-height: 400px;
+        height: auto;
+    }
+    
+    .book-container::before {
+        display: none;
+    }
+    
+    .info-page, .form-page {
+        padding: 18px;
+        border-radius: 10px;
+    }
+    
+    .info-page {
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 10px;
+    }
+    
+    .form-page {
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 10px;
+        margin-top: 5px;
+    }
+    
+    .info-page h1 {
+        font-size: 1.3rem;
+    }
+    
+    .form-page h2 {
+        font-size: 1.2rem;
+    }
+    
+    .yenikayit-form {
+        max-width: 100%;
+    }
+}
+
+/* ===== BÜYÜK EKRANLAR ===== */
+@media (min-width: 1200px) {
+    .book-container {
+        max-width: 1200px;
     }
 }

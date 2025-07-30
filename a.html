@@ -1,168 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dünyam | Arıza Kayıt Sistemi</title>
-    <link rel="icon" href="/favicon.png" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arıza Kayıt Sistemi</title>
     <style>
-        /* Floating Hardware Animation Styles */
-        .floating-hardware {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .hardware-item {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.12);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            animation: floatAround 20s linear infinite;
-        }
-
-        /* Different starting positions and speeds */
-        .hardware-item:nth-child(1) {
-            top: 10%;
-            left: 5%;
-            animation-duration: 25s;
-            animation-delay: 0s;
-        }
-
-        .hardware-item:nth-child(2) {
-            top: 15%;
-            right: 10%;
-            animation-duration: 18s;
-            animation-delay: -2s;
-        }
-
-        .hardware-item:nth-child(3) {
-            top: 70%;
-            left: 8%;
-            animation-duration: 22s;
-            animation-delay: -5s;
-        }
-
-        .hardware-item:nth-child(4) {
-            top: 75%;
-            right: 15%;
-            animation-duration: 30s;
-            animation-delay: -8s;
-        }
-
-        .hardware-item:nth-child(5) {
-            top: 35%;
-            left: 2%;
-            animation-duration: 20s;
-            animation-delay: -3s;
-        }
-
-        .hardware-item:nth-child(6) {
-            top: 40%;
-            right: 5%;
-            animation-duration: 28s;
-            animation-delay: -7s;
-        }
-
-        .hardware-item:nth-child(7) {
-            top: 55%;
-            left: 3%;
-            animation-duration: 24s;
-            animation-delay: -1s;
-        }
-
-        .hardware-item:nth-child(8) {
-            top: 25%;
-            right: 3%;
-            animation-duration: 19s;
-            animation-delay: -4s;
-        }
-
-        .hardware-item:nth-child(9) {
-            top: 85%;
-            left: 12%;
-            animation-duration: 26s;
-            animation-delay: -6s;
-        }
-
-        .hardware-item:nth-child(10) {
-            top: 60%;
-            right: 8%;
-            animation-duration: 21s;
-            animation-delay: -9s;
-        }
-
-        .hardware-item:nth-child(11) {
-            top: 5%;
-            left: 15%;
-            animation-duration: 23s;
-            animation-delay: -2.5s;
-        }
-
-        .hardware-item:nth-child(12) {
-            top: 90%;
-            right: 20%;
-            animation-duration: 27s;
-            animation-delay: -4.5s;
-        }
-
-        /* Floating animation with different paths */
-        @keyframes floatAround {
-            0% {
-                transform: translate(0, 0) rotate(0deg) scale(1);
-            }
-            25% {
-                transform: translate(120px, -80px) rotate(90deg) scale(1.05);
-            }
-            50% {
-                transform: translate(80px, 120px) rotate(180deg) scale(0.95);
-            }
-            75% {
-                transform: translate(-100px, 60px) rotate(270deg) scale(1.02);
-            }
-            100% {
-                transform: translate(0, 0) rotate(360deg) scale(1);
-            }
-        }
-
-        /* Alternate animation for some items */
-        .hardware-item:nth-child(even) {
-            animation-name: floatAroundReverse;
-        }
-
-        @keyframes floatAroundReverse {
-            0% {
-                transform: translate(0, 0) rotate(0deg) scale(1);
-            }
-            25% {
-                transform: translate(-100px, 80px) rotate(-90deg) scale(0.95);
-            }
-            50% {
-                transform: translate(60px, -100px) rotate(-180deg) scale(1.05);
-            }
-            75% {
-                transform: translate(120px, -60px) rotate(-270deg) scale(0.98);
-            }
-            100% {
-                transform: translate(0, 0) rotate(-360deg) scale(1);
-            }
-        }
-
-        /* Basic styles for the existing elements */
         * {
             margin: 0;
             padding: 0;
@@ -171,487 +13,526 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            perspective: 1000px;
         }
 
-        /* Navbar Styles */
-        .navbar-container {
+        .book-container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            min-height: 700px;
             position: relative;
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+            transform: rotateY(-5deg) rotateX(2deg);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 40px 80px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        .navbar {
+        .book-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.1) 0%,
+                rgba(0, 0, 0, 0.3) 30%,
+                rgba(0, 0, 0, 0.4) 50%,
+                rgba(0, 0, 0, 0.3) 70%,
+                rgba(0, 0, 0, 0.1) 100%
+            );
+            transform: translateX(-50%);
+            z-index: 10;
+            box-shadow: 
+                0 0 10px rgba(0, 0, 0, 0.5),
+                inset 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Sol Sayfa - Bilgilendirme */
+        .info-page {
+            flex: 1;
+            background: #712664;
+            padding: 40px;
+            position: relative;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+            box-shadow: 
+                inset -5px 0 10px rgba(0, 0, 0, 0.2),
+                inset 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-page::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            right: -2px;
+            width: 2px;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 0, 0, 0.3) 20%,
+                rgba(0, 0, 0, 0.5) 50%,
+                rgba(0, 0, 0, 0.3) 80%,
+                transparent 100%
+            );
+        }
+
+        .info-page h1 {
+            font-size: 2.2rem;
+            color: #d7dadf;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #a97ba2;
+            padding-bottom: 15px;
+        }
+
+        .info-section {
+            margin-bottom: 35px;
+        }
+
+        .info-section h3 {
+            font-size: 1.3rem;
+            color: #eaeef5;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-section h3::before {
+            content: '📋';
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .info-section p {
+            color: #b2bccf;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .priority-info {
+            background: rgba(169, 123, 162, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #a97ba2;
+            backdrop-filter: blur(10px);
+        }
+
+        .priority-levels {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            margin-top: 15px;
         }
 
-        .logo-container img {
-            height: 40px;
-            width: auto;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-item {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .nav-item:hover {
-            color: #667eea;
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .login-btn, .register-btn {
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .login-btn {
-            color: #667eea;
-            border: 2px solid #667eea;
-        }
-
-        .register-btn {
-            background: #667eea;
-            color: white;
-            border: 2px solid #667eea;
-        }
-
-        .login-btn:hover, .register-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .bar {
-            width: 25px;
-            height: 3px;
-            background: #333;
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            position: relative;
-            z-index: 10;
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .priority-item {
             text-align: center;
-            padding: 2rem;
+            flex: 1;
+            margin: 0 5px;
         }
 
-        .hero-content {
-            max-width: 600px;
-            color: white;
+        .priority-item p {
+            color: #eaeef5;
+            font-size: 0.85rem;
         }
 
-        .hero-content h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .highlight {
-            color: #FFD700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .hero-btn {
+        .priority-badge {
             display: inline-block;
-            padding: 15px 40px;
-            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
             color: white;
-            text-decoration: none;
-            border-radius: 50px;
             font-weight: bold;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
         }
 
-        .hero-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
+        .low { background-color: #27ae60; }
+        .medium { background-color: #f39c12; }
+        .high { background-color: #e74c3c; }
 
-        /* Form Sections */
-        .yenikayit-container, .destek-container {
-            position: relative;
-            z-index: 10;
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.95);
+        .tips-list {
+            background: rgba(139, 101, 133, 0.3);
+            padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #8b6585;
             backdrop-filter: blur(10px);
         }
 
-        .yenikayit-container h2, .destek-container h2 {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #333;
-            font-size: 2rem;
+        .tips-list ul {
+            list-style: none;
+            padding-left: 0;
         }
 
-        .yenikayit-form, .destek-form {
+        .tips-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            color: #eaeef5;
+            font-size: 0.9rem;
+        }
+
+        .tips-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #a97ba2;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Sağ Sayfa - Form */
+        .form-page {
+            flex: 1;
+            background: #712664;
+            padding: 40px;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            justify-content: center;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            box-shadow: 
+                inset 5px 0 10px rgba(0, 0, 0, 0.2),
+                inset 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-page::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            left: -2px;
+            width: 2px;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 0, 0, 0.3) 20%,
+                rgba(0, 0, 0, 0.5) 50%,
+                rgba(0, 0, 0, 0.3) 80%,
+                transparent 100%
+            );
+        }
+
+        .form-page h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #d7dadf;
+            text-align: center;
+        }
+
+        .yenikayit-form {
+            width: 100%;
         }
 
         .yenikayit-form label {
+            display: block;
             font-weight: 600;
-            color: #333;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #b2bccf;
+            text-align: left;
         }
 
         .required {
-            color: #e74c3c;
+            color: #e02c26;
         }
 
-        .yenikayit-form input, .yenikayit-form textarea, .destek-form textarea {
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+        .yenikayit-form input[type="text"],
+        .yenikayit-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #CCCCCC;
+            border-radius: 12px;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            margin-bottom: 20px;
+            resize: vertical;
+            transition: border-color 0.3s;
+            background-color: #dfd0da;
         }
 
-        .yenikayit-form input:focus, .yenikayit-form textarea:focus, .destek-form textarea:focus {
+        .yenikayit-form input[type="text"]:focus,
+        .yenikayit-form textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #878d9a;
         }
 
         .radio-group {
             display: flex;
-            gap: 1rem;
-            margin: 0.5rem 0;
+            justify-content: space-around;
+            margin-bottom: 25px;
+            text-align: left;
         }
 
         .radio-group label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #eaeef5;
+            cursor: pointer;
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-display {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-weight: normal;
-        }
-
-        .submit-btn, .destek-submit-btn {
-            padding: 15px;
-            background: #667eea;
+            justify-content: space-between;
+            padding: 15px 18px;
+            background-color: #a97ba2;
             color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            border: 1px solid #9f4b83;
+            border-radius: 12px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease;
         }
 
-        .submit-btn:hover, .destek-submit-btn:hover {
-            background: #5a67d8;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        .custom-file-display:hover {
+            background-color: #8b6585;
         }
 
-        /* Banner Image */
-        .banner-image-section {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            margin: 2rem 0;
+        .remove-icon {
+            margin-left: 12px;
+            cursor: pointer;
+            font-size: 1.2rem;
         }
 
-        .banner-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Footer */
-        .site-footer {
-            position: relative;
-            z-index: 10;
-            background: rgba(51, 51, 51, 0.95);
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #bbcacd, #14122a);
             color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
         }
 
-        .footer-icons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #c9dadf, #04030c);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
-        .footer-icon img {
-            width: 30px;
-            height: 30px;
-            transition: transform 0.3s ease;
-        }
-
-        .footer-icon:hover img {
-            transform: scale(1.2);
-        }
-
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
-            .hardware-item {
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
+            body {
+                perspective: none;
             }
-
-            .nav-menu {
+            
+            .book-container {
+                flex-direction: column;
+                margin: 10px;
+                transform: none;
+                border-radius: 15px;
+            }
+            
+            .book-container::before {
                 display: none;
             }
-
-            .hamburger {
-                display: flex;
+            
+            .info-page {
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                border-bottom-left-radius: 0;
+                box-shadow: 
+                    inset 0 -5px 10px rgba(0, 0, 0, 0.2),
+                    inset 0 0 20px rgba(0, 0, 0, 0.1);
             }
-
-            .hero-content h1 {
-                font-size: 2rem;
+            
+            .info-page::after {
+                display: none;
             }
-
-            .hero-content p {
-                font-size: 1rem;
+            
+            .form-page {
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                box-shadow: 
+                    inset 0 5px 10px rgba(0, 0, 0, 0.2),
+                    inset 0 0 20px rgba(0, 0, 0, 0.1);
             }
-
-            .navbar {
-                padding: 1rem;
+            
+            .form-page::before {
+                display: none;
             }
+        }
 
-            .yenikayit-container, .destek-container {
-                margin: 1rem;
-                padding: 1rem;
-            }
+        /* Sayfa kenarları için paper texture efekti */
+        .info-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            border-radius: inherit;
+        }
 
-            @keyframes floatAround {
-                0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-                25% { transform: translate(60px, -40px) rotate(90deg) scale(1.02); }
-                50% { transform: translate(40px, 60px) rotate(180deg) scale(0.98); }
-                75% { transform: translate(-50px, 30px) rotate(270deg) scale(1.01); }
-                100% { transform: translate(0, 0) rotate(360deg) scale(1); }
-            }
-
-            @keyframes floatAroundReverse {
-                0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-                25% { transform: translate(-50px, 40px) rotate(-90deg) scale(0.98); }
-                50% { transform: translate(30px, -50px) rotate(-180deg) scale(1.02); }
-                75% { transform: translate(60px, -30px) rotate(-270deg) scale(0.99); }
-                100% { transform: translate(0, 0) rotate(-360deg) scale(1); }
-            }
+        .form-page::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            border-radius: inherit;
         }
     </style>
 </head>
 <body>
-
-    <!-- Floating Hardware Items -->
-    <div class="floating-hardware">
-        <div class="hardware-item">💻</div>
-        <div class="hardware-item">🖥️</div>
-        <div class="hardware-item">⚙️</div>
-        <div class="hardware-item">🔧</div>
-        <div class="hardware-item">🖱️</div>
-        <div class="hardware-item">⌨️</div>
-        <div class="hardware-item">🖨️</div>
-        <div class="hardware-item">📱</div>
-        <div class="hardware-item">💾</div>
-        <div class="hardware-item">🔌</div>
-        <div class="hardware-item">🖲️</div>
-        <div class="hardware-item">📡</div>
-    </div>
-
-    <!-- Navbar -->
-    <div class="navbar-container">
-        <div class="navbar">
-            <div class="logo-container">
-                <a href="index.html">
-                    <img class="logo" src="img/dünya.png" alt="Dünyam Logo" />
-                </a>
+    <div class="book-container">
+        <!-- Sol Sayfa - Bilgilendirme -->
+        <div class="info-page">
+            <h1>📞 Teknik Destek Rehberi</h1>
+            
+            <div class="info-section">
+                <h3>Arıza Bildirimi Nasıl Yapılır?</h3>
+                <p>Karşılaştığınız teknik sorunları hızlı ve etkili bir şekilde çözmek için doğru bilgilendirme çok önemlidir. Formu doldururken mümkün olduğunca detaylı bilgi verin.</p>
+                <p>Sorun başlığınızı net ve anlaşılır bir şekilde yazın. Örneğin: "E-posta gönderemiyorum" yerine "Outlook'tan PDF eki ile e-posta gönderilemiyor" şeklinde belirtin.</p>
             </div>
 
-            <!-- Hamburger Menü -->
-            <button class="hamburger" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-
-            <div class="nav-menu">
-                <a href="#yenikayit-section" class="nav-item">YENİ KAYIT</a>
-                <a href="kayitlarim.html" class="nav-item">KAYITLARIM</a>
-                <a href="#destek-section" class="nav-item">DESTEK</a>
+            <div class="info-section priority-info">
+                <h3>Öncelik Seviyeleri</h3>
+                <p>Sorununuzun aciliyet durumuna göre doğru öncelik seviyesini seçin:</p>
+                <div class="priority-levels">
+                    <div class="priority-item">
+                        <div class="priority-badge low">DÜŞÜK</div>
+                        <p>24-48 saat</p>
+                    </div>
+                    <div class="priority-item">
+                        <div class="priority-badge medium">ORTA</div>
+                        <p>4-8 saat</p>
+                    </div>
+                    <div class="priority-item">
+                        <div class="priority-badge high">YÜKSEK</div>
+                        <p>1-2 saat</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="auth-buttons" id="authButtons">
-                <a href="girisyap.html" id="loginBtn" class="login-btn">GİRİŞ YAP</a>
-                <a href="kayitol.html" id="registerBtn" class="register-btn">KAYIT OL</a>
-                <a href="Admin/admin_login.html" class="admin-icon" title="Admin Girişi" aria-label="Admin Girişi">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#555" xmlns="http://www.w3.org/2000/svg" >
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </a>
+            <div class="info-section">
+                <h3>Etkili Destek İçin İpuçları</h3>
+                <div class="tips-list">
+                    <ul>
+                        <li>Hata mesajlarını tam olarak kopyalayın</li>
+                        <li>Sorunun ne zaman başladığını belirtin</li>
+                        <li>Hangi işlem sırasında oluştuğunu açıklayın</li>
+                        <li>Ekran görüntüsü ekleyerek sorunu görselleştirin</li>
+                        <li>Daha önce denediğiniz çözümleri paylaşın</li>
+                        <li>İletişim bilgilerinizi güncel tutun</li>
+                    </ul>
+                </div>
             </div>
 
-            <!-- Kullanıcı adı gösterimi -->
-            <span id="usernameDisplay" style="display:none; font-weight:bold; margin-left:10px;"></span>
-
-            <!-- Giriş yapılınca gösterilen kısım -->
-            <div id="userGreeting" style="display:none;">
-               <a href="hesabim.html" id="usernameDisplay" style="font-weight:bold; cursor:pointer;"></a>
+            <div class="info-section">
+                <h3>🚀 Hızlı Çözüm Garantisi</h3>
+                <p>Profesyonel teknik destek ekibimiz, her türlü sorununuza en kısa sürede çözüm üretmek için 7/24 hazır. Detaylı açıklamalarınız sayesinde daha hızlı ve etkili destek alırsınız.</p>
             </div>
+        </div>
+
+        <!-- Sağ Sayfa - Form -->
+        <div class="form-page">
+            <h2>Yeni Arıza Kaydı</h2>
+            <form id="arizaForm" class="yenikayit-form" enctype="multipart/form-data">
+                <label for="baslik">Konu Başlığı <span class="required">*</span></label>
+                <input type="text" id="baslik" name="baslik" required placeholder="Konu başlığınızı yazınız" />
+                
+                <label for="aciklama">Açıklama <span class="required">*</span></label>
+                <textarea id="aciklama" name="aciklama" rows="5" required placeholder="Sorununuzu detaylıca açıklayınız"></textarea>
+                
+                <label>Öncelik <span class="required">*</span></label>
+                <div class="radio-group">
+                    <label><input type="radio" name="oncelik" value="düşük" required> Düşük</label>
+                    <label><input type="radio" name="oncelik" value="orta" checked> Orta</label>
+                    <label><input type="radio" name="oncelik" value="yüksek"> Yüksek</label>
+                </div>
+
+                <div class="file-upload-wrapper">
+                    <div class="custom-file-display" id="file-display">
+                        <span id="file-name">📎 Dosya Yükle</span>
+                        <span id="remove-file" class="remove-icon" style="display: none;">🗑️</span>
+                    </div>
+                    <input type="file" id="dosyalar" name="dosyalar" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" />
+                </div>
+                
+                <button type="submit" class="submit-btn">Gönder</button>
+            </form>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>
-                Ben <span class="highlight">İrem Çınar</span> <br>Bilişim Sistemleri Mühendisliği öğrencisi</h1>
-            <p>Bu Arıza Takip Sistemi, staj sürecim kapsamında geliştirilmiştir. Deneyimlemek için hemen kayıt olabilirsiniz!</p>
-            <a href="kayitol.html" class="hero-btn">KAYIT OL</a>
-        </div>
-    </section>
-
-    <!-- Yeni Kayıt Formu Bölümü -->
-<section id="yenikayit-section" class="yenikayit-container">
-    <h2>Yeni Arıza Kaydı</h2>
-    <form id="arizaForm" class="yenikayit-form" enctype="multipart/form-data">
-
-        <label for="baslik">Konu Başlığı <span class="required">*</span></label>
-        <input type="text" id="baslik" name="baslik" required placeholder="Konu başlığınızı yazınız" />
-        
-        <label for="aciklama">Açıklama <span class="required">*</span></label>
-        <textarea id="aciklama" name="aciklama" rows="5" required placeholder="Sorununuzu detaylıca açıklayınız"></textarea>
-        
-        <label>Öncelik <span class="required">*</span></label>
-        <div class="radio-group">
-            <label><input type="radio" name="oncelik" value="düşük" required> Düşük</label>
-            <label><input type="radio" name="oncelik" value="orta" checked> Orta</label>
-            <label><input type="radio" name="oncelik" value="yüksek"> Yüksek</label>
-        </div>
-        
-        <label for="dosyalar">Dosya Yükle (Fotoğraf, PDF - Birden fazla seçebilirsiniz)</label>
-        <input type="file" id="dosyalar" name="dosyalar" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" />
-        
-        <button type="submit" class="submit-btn">Gönder</button>
-    </form>
-</section>
-
-    <!-- Banner Görsel -->
-    <div class="banner-image-section">
-        <img src="img/banner.jpg" alt="Arıza ve Destek Geçiş Görseli" class="banner-image" />
-    </div>
-
-    <!-- DESTEK Bölümü -->
-    <section id="destek-section" class="destek-container">
-        <h2>Destek Talebi</h2>
-        <p class="destek-aciklama">İletmek istediğiniz mesajı aşağıya yazabilirsiniz.</p>
-        <form id="destekForm" class="destek-form" action="/api/destek" method="post">
-
-            <textarea 
-                name="destekMesaj" 
-                id="destekMesaj" 
-                rows="6" 
-                placeholder="İletmek istediğiniz mesajı buraya yazın, mail ile dönüş yapılacaktır..." 
-                required></textarea>
-            <button type="submit" class="destek-submit-btn">Gönder</button>
-        </form>
-    </section>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-        <p>İrem Çınar tarafından hazırlanmıştır</p>
-        <div class="footer-icons">
-            <a href="https://www.linkedin.com/in/iremcnr/" target="_blank" class="footer-icon" title="LinkedIn">
-                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384014.png" alt="LinkedIn Icon" />
-            </a>
-            <a href="https://github.com/iremcnar" target="_blank" class="footer-icon" title="GitHub">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub Icon" />
-            </a>
-        </div>
-    </footer>
-
-    
-    <!-- Script dosyası -->
     <script>
-        // Hamburger menu functionality
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
+        // Dosya yükleme işlevselliği
+        const fileInput = document.getElementById('dosyalar');
+        const fileDisplay = document.getElementById('file-display');
+        const fileName = document.getElementById('file-name');
+        const removeFile = document.getElementById('remove-file');
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
+        fileDisplay.addEventListener('click', () => {
+            fileInput.click();
         });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+        fileInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (files.length > 0) {
+                if (files.length === 1) {
+                    fileName.textContent = `📎 ${files[0].name}`;
+                } else {
+                    fileName.textContent = `📎 ${files.length} dosya seçildi`;
                 }
-            });
+                removeFile.style.display = 'inline';
+            }
         });
 
-        // Form submission handlers
-        document.getElementById('arizaForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Arıza kaydınız başarıyla gönderildi!');
+        removeFile.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fileInput.value = '';
+            fileName.textContent = '📎 Dosya Yükle';
+            removeFile.style.display = 'none';
         });
 
-        document.getElementById('destekForm').addEventListener('submit', function(e) {
+        // Form gönderme
+        document.getElementById('arizaForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Destek mesajınız başarıyla gönderildi!');
+            alert('Arıza kaydınız başarıyla gönderildi! En kısa sürede size dönüş yapılacaktır.');
         });
     </script>
 </body>

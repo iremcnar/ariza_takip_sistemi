@@ -9,9 +9,10 @@ if (!token) {
       Kayıtlarınıza bakmak için lütfen giriş yapınız.
     </p>
     <div style="text-align:center;">
-      <a href="girisyap.html" class="btn" style="background:#667eea; color:white; padding:12px 25px; border-radius:25px; text-decoration:none; font-weight:600;">GİRİŞ YAP</a>
+      <a href="girisyap.html" class="btn" style="background: linear-gradient(45deg, #bbcacd, #14122a); color:white; padding:12px 25px; border-radius:25px; text-decoration:none; font-weight:600;">GİRİŞ YAP</a>
     </div>
   `;
+  
 } else {
   // 2. Loading göstergesi
   kayitlarListesi.innerHTML = `

@@ -85,175 +85,8 @@
     </div>
 </div>
 
-<style>
-/* CSS Kısmı - styles.css dosyasına eklenecek */
 
-/* Hero section'a perspective eklenmeli */
-.hero-section {
-    perspective: 1000px;
-    position: relative;
-    overflow: hidden;
-}
 
-/* 3D Dönen Donanım Animasyonu */
-.hardware-orbit {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 800px;
-    height: 800px;
-    pointer-events: none;
-    z-index: 1; /* Yazının arkasında kalması için */
-}
-
-.orbit-ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    transform-style: preserve-3d;
-}
-
-.orbit-ring-1 {
-    width: 600px;
-    height: 600px;
-    top: 100px;
-    left: 100px;
-    animation: rotate3d-1 20s linear infinite;
-}
-
-.orbit-ring-2 {
-    width: 500px;
-    height: 500px;
-    top: 150px;
-    left: 150px;
-    animation: rotate3d-2 15s linear infinite reverse;
-}
-
-.orbit-ring-3 {
-    width: 700px;
-    height: 700px;
-    top: 50px;
-    left: 50px;
-    animation: rotate3d-3 25s linear infinite;
-}
-
-.hardware-item {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transform-style: preserve-3d;
-    animation: floatItem 3s ease-in-out infinite;
-}
-
-/* Hardware item positioning */
-.hardware-item:nth-child(1) {
-    top: -30px;
-    left: calc(50% - 30px);
-    animation-delay: 0s;
-}
-
-.hardware-item:nth-child(2) {
-    top: calc(50% - 30px);
-    right: -30px;
-    animation-delay: -1s;
-}
-
-.hardware-item:nth-child(3) {
-    bottom: -30px;
-    left: calc(50% - 30px);
-    animation-delay: -2s;
-}
-
-.hardware-item:nth-child(4) {
-    top: calc(50% - 30px);
-    left: -30px;
-    animation-delay: -0.5s;
-}
-
-.hardware-item:nth-child(5) {
-    top: calc(25% - 30px);
-    right: calc(25% - 30px);
-    animation-delay: -1.5s;
-}
-
-.hardware-item:nth-child(6) {
-    bottom: calc(25% - 30px);
-    right: calc(25% - 30px);
-    animation-delay: -2.5s;
-}
-
-/* 3D Rotation Animations */
-@keyframes rotate3d-1 {
-    0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
-    100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
-}
-
-@keyframes rotate3d-2 {
-    0% { transform: rotateX(15deg) rotateY(0deg) rotateZ(0deg); }
-    100% { transform: rotateX(15deg) rotateY(-360deg) rotateZ(-360deg); }
-}
-
-@keyframes rotate3d-3 {
-    0% { transform: rotateX(-10deg) rotateY(0deg) rotateZ(0deg); }
-    100% { transform: rotateX(-10deg) rotateY(360deg) rotateZ(360deg); }
-}
-
-@keyframes floatItem {
-    0%, 100% { transform: translateZ(0px) rotateY(0deg); }
-    50% { transform: translateZ(20px) rotateY(180deg); }
-}
-
-/* Hero content'e z-index eklenmeli yazının önde kalması için */
-.hero-content {
-    position: relative;
-    z-index: 10;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hardware-orbit {
-        width: 400px;
-        height: 400px;
-    }
-    
-    .orbit-ring-1 {
-        width: 300px;
-        height: 300px;
-        top: 50px;
-        left: 50px;
-    }
-    
-    .orbit-ring-2 {
-        width: 250px;
-        height: 250px;
-        top: 75px;
-        left: 75px;
-    }
-    
-    .orbit-ring-3 {
-        width: 350px;
-        height: 350px;
-        top: 25px;
-        left: 25px;
-    }
-    
-    .hardware-item {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-    }
-}
-</style>
         <div class="hero-content">
             <h1>
                 Ben <span class="highlight">İrem Çınar</span> <br>Bilişim Sistemleri Mühendisliği öğrencisi</h1>
@@ -262,34 +95,100 @@
         </div>
     </section>
 
-    <!-- Yeni Kayıt Formu Bölümü -->
-<section id="yenikayit-section" class="yenikayit-container">
-    <h2>Yeni Arıza Kaydı</h2>
-    <form id="arizaForm" class="yenikayit-form" enctype="multipart/form-data">
+<!-- Arıza Kayıt Bölümü -->
+    <div class="book-container">
+        <!-- Sol Sayfa - Bilgilendirme -->
+        <div class="info-page">
+            <h1>📞 Teknik Destek Rehberi</h1>
+            
+            <div class="info-section">
+                <h3>Arıza Bildirimi Nasıl Yapılır?</h3>
+                <p>Karşılaştığınız teknik sorunları hızlı ve etkili bir şekilde çözmek için doğru bilgilendirme çok önemlidir. Formu doldururken mümkün olduğunca detaylı bilgi verin.</p>
+                <p>Sorun başlığınızı net ve anlaşılır bir şekilde yazın. Örneğin: "E-posta gönderemiyorum" yerine "Outlook'tan PDF eki ile e-posta gönderilemiyor" şeklinde belirtin.</p>
+            </div>
 
-        <label for="baslik">Konu Başlığı <span class="required">*</span></label>
-        <input type="text" id="baslik" name="baslik" required placeholder="Konu başlığınızı yazınız" />
-        
-        <label for="aciklama">Açıklama <span class="required">*</span></label>
-        <textarea id="aciklama" name="aciklama" rows="5" required placeholder="Sorununuzu detaylıca açıklayınız"></textarea>
-        
-        <label>Öncelik <span class="required">*</span></label>
-        <div class="radio-group">
-            <label><input type="radio" name="oncelik" value="düşük" required> Düşük</label>
-            <label><input type="radio" name="oncelik" value="orta" checked> Orta</label>
-            <label><input type="radio" name="oncelik" value="yüksek"> Yüksek</label>
+            <div class="info-section priority-info">
+                <h3>Öncelik Seviyeleri</h3>
+                <p>Sorununuzun aciliyet durumuna göre doğru öncelik seviyesini seçin:</p>
+                <div class="priority-levels">
+                    <div class="priority-item">
+                        <div class="priority-badge low">DÜŞÜK</div>
+                        <p>24-48 saat</p>
+                    </div>
+                    <div class="priority-item">
+                        <div class="priority-badge medium">ORTA</div>
+                        <p>4-8 saat</p>
+                    </div>
+                    <div class="priority-item">
+                        <div class="priority-badge high">YÜKSEK</div>
+                        <p>1-2 saat</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>Etkili Destek İçin İpuçları</h3>
+                <div class="tips-list">
+                    <ul>
+                        <li>Hata mesajlarını tam olarak kopyalayın</li>
+                        <li>Sorunun ne zaman başladığını belirtin</li>
+                        <li>Hangi işlem sırasında oluştuğunu açıklayın</li>
+                        <li>Ekran görüntüsü ekleyerek sorunu görselleştirin</li>
+                        <li>Daha önce denediğiniz çözümleri paylaşın</li>
+                        <li>İletişim bilgilerinizi güncel tutun</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>🚀 Hızlı Çözüm Garantisi</h3>
+                <p>Profesyonel teknik destek ekibimiz, her türlü sorununuza en kısa sürede çözüm üretmek için 7/24 hazır. Detaylı açıklamalarınız sayesinde daha hızlı ve etkili destek alırsınız.</p>
+            </div>
         </div>
-        
-        <label for="dosyalar">Dosya Yükle (Fotoğraf, PDF - Birden fazla seçebilirsiniz)</label>
-        <input type="file" id="dosyalar" name="dosyalar" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" />
-        
-        <button type="submit" class="submit-btn">Gönder</button>
-    </form>
-</section>
+
+        <!-- Sağ Sayfa - Form -->
+        <div class="form-page">
+            <h2>Yeni Arıza Kaydı</h2>
+            <form id="arizaForm" class="yenikayit-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="baslik">Konu Başlığı <span class="required">*</span></label>
+                    <input type="text" id="baslik" name="baslik" required placeholder="Konu başlığınızı yazınız" />
+                </div>
+                
+                <div class="form-group">
+                    <label for="aciklama">Açıklama <span class="required">*</span></label>
+                    <textarea id="aciklama" name="aciklama" rows="4" required placeholder="Sorununuzu detaylıca açıklayınız"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Öncelik <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="oncelik" value="düşük" required> Düşük</label>
+                        <label><input type="radio" name="oncelik" value="orta" checked> Orta</label>
+                        <label><input type="radio" name="oncelik" value="yüksek"> Yüksek</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="file-upload-wrapper">
+                        <div class="custom-file-display" id="file-display">
+                            <span id="file-name">📎 Dosya Yükle</span>
+                            <span id="remove-file" class="remove-icon" style="display: none;">🗑️</span>
+                        </div>
+                        <input type="file" id="dosyalar" name="dosyalar" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" />
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">Gönder</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Banner Görsel -->
     <div class="banner-image-section">
-        <img src="img/banner.jpg" alt="Arıza ve Destek Geçiş Görseli" class="banner-image" />
+        <img src="img/main4.jpg" alt="Arıza ve Destek Geçiş Görseli" class="banner-image" />
     </div>
 
     <!-- DESTEK Bölümü -->
@@ -324,5 +223,6 @@
     
     <!-- Script dosyası -->
     <script src="script.js"></script>
+    
 </body>
 </html>
