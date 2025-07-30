@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dünyam | Arıza Kayıt Sistemi</title>
+    <link rel="icon" href="/favicon.png" type="image/x-icon" />
+    <style>
+        /* Floating Hardware Animation Styles */
+        .floating-hardware {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .hardware-item {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            animation: floatAround 20s linear infinite;
+        }
+
+        /* Different starting positions and speeds */
+        .hardware-item:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation-duration: 25s;
+            animation-delay: 0s;
+        }
+
+        .hardware-item:nth-child(2) {
+            top: 15%;
+            right: 10%;
+            animation-duration: 18s;
+            animation-delay: -2s;
+        }
+
+        .hardware-item:nth-child(3) {
+            top: 70%;
+            left: 8%;
+            animation-duration: 22s;
+            animation-delay: -5s;
+        }
+
+        .hardware-item:nth-child(4) {
+            top: 75%;
+            right: 15%;
+            animation-duration: 30s;
+            animation-delay: -8s;
+        }
+
+        .hardware-item:nth-child(5) {
+            top: 35%;
+            left: 2%;
+            animation-duration: 20s;
+            animation-delay: -3s;
+        }
+
+        .hardware-item:nth-child(6) {
+            top: 40%;
+            right: 5%;
+            animation-duration: 28s;
+            animation-delay: -7s;
+        }
+
+        .hardware-item:nth-child(7) {
+            top: 55%;
+            left: 3%;
+            animation-duration: 24s;
+            animation-delay: -1s;
+        }
+
+        .hardware-item:nth-child(8) {
+            top: 25%;
+            right: 3%;
+            animation-duration: 19s;
+            animation-delay: -4s;
+        }
+
+        .hardware-item:nth-child(9) {
+            top: 85%;
+            left: 12%;
+            animation-duration: 26s;
+            animation-delay: -6s;
+        }
+
+        .hardware-item:nth-child(10) {
+            top: 60%;
+            right: 8%;
+            animation-duration: 21s;
+            animation-delay: -9s;
+        }
+
+        .hardware-item:nth-child(11) {
+            top: 5%;
+            left: 15%;
+            animation-duration: 23s;
+            animation-delay: -2.5s;
+        }
+
+        .hardware-item:nth-child(12) {
+            top: 90%;
+            right: 20%;
+            animation-duration: 27s;
+            animation-delay: -4.5s;
+        }
+
+        /* Floating animation with different paths */
+        @keyframes floatAround {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translate(120px, -80px) rotate(90deg) scale(1.05);
+            }
+            50% {
+                transform: translate(80px, 120px) rotate(180deg) scale(0.95);
+            }
+            75% {
+                transform: translate(-100px, 60px) rotate(270deg) scale(1.02);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg) scale(1);
+            }
+        }
+
+        /* Alternate animation for some items */
+        .hardware-item:nth-child(even) {
+            animation-name: floatAroundReverse;
+        }
+
+        @keyframes floatAroundReverse {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translate(-100px, 80px) rotate(-90deg) scale(0.95);
+            }
+            50% {
+                transform: translate(60px, -100px) rotate(-180deg) scale(1.05);
+            }
+            75% {
+                transform: translate(120px, -60px) rotate(-270deg) scale(0.98);
+            }
+            100% {
+                transform: translate(0, 0) rotate(-360deg) scale(1);
+            }
+        }
+
+        /* Basic styles for the existing elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar Styles */
+        .navbar-container {
+            position: relative;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-container img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item:hover {
+            color: #667eea;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .login-btn, .register-btn {
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn {
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .register-btn {
+            background: #667eea;
+            color: white;
+            border: 2px solid #667eea;
+        }
+
+        .login-btn:hover, .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            z-index: 10;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .highlight {
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Form Sections */
+        .yenikayit-container, .destek-container {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .yenikayit-container h2, .destek-container h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+            font-size: 2rem;
+        }
+
+        .yenikayit-form, .destek-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .yenikayit-form label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .yenikayit-form input, .yenikayit-form textarea, .destek-form textarea {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .yenikayit-form input:focus, .yenikayit-form textarea:focus, .destek-form textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            margin: 0.5rem 0;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: normal;
+        }
+
+        .submit-btn, .destek-submit-btn {
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover, .destek-submit-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Banner Image */
+        .banner-image-section {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .banner-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        .site-footer {
+            position: relative;
+            z-index: 10;
+            background: rgba(51, 51, 51, 0.95);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-icon img {
+            width: 30px;
+            height: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-icon:hover img {
+            transform: scale(1.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hardware-item {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .yenikayit-container, .destek-container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            @keyframes floatAround {
+                0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+                25% { transform: translate(60px, -40px) rotate(90deg) scale(1.02); }
+                50% { transform: translate(40px, 60px) rotate(180deg) scale(0.98); }
+                75% { transform: translate(-50px, 30px) rotate(270deg) scale(1.01); }
+                100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+            }
+
+            @keyframes floatAroundReverse {
+                0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+                25% { transform: translate(-50px, 40px) rotate(-90deg) scale(0.98); }
+                50% { transform: translate(30px, -50px) rotate(-180deg) scale(1.02); }
+                75% { transform: translate(60px, -30px) rotate(-270deg) scale(0.99); }
+                100% { transform: translate(0, 0) rotate(-360deg) scale(1); }
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Hardware Items -->
+    <div class="floating-hardware">
+        <div class="hardware-item">💻</div>
+        <div class="hardware-item">🖥️</div>
+        <div class="hardware-item">⚙️</div>
+        <div class="hardware-item">🔧</div>
+        <div class="hardware-item">🖱️</div>
+        <div class="hardware-item">⌨️</div>
+        <div class="hardware-item">🖨️</div>
+        <div class="hardware-item">📱</div>
+        <div class="hardware-item">💾</div>
+        <div class="hardware-item">🔌</div>
+        <div class="hardware-item">🖲️</div>
+        <div class="hardware-item">📡</div>
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar-container">
+        <div class="navbar">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img class="logo" src="img/dünya.png" alt="Dünyam Logo" />
+                </a>
+            </div>
+
+            <!-- Hamburger Menü -->
+            <button class="hamburger" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <div class="nav-menu">
+                <a href="#yenikayit-section" class="nav-item">YENİ KAYIT</a>
+                <a href="kayitlarim.html" class="nav-item">KAYITLARIM</a>
+                <a href="#destek-section" class="nav-item">DESTEK</a>
+            </div>
+
+            <div class="auth-buttons" id="authButtons">
+                <a href="girisyap.html" id="loginBtn" class="login-btn">GİRİŞ YAP</a>
+                <a href="kayitol.html" id="registerBtn" class="register-btn">KAYIT OL</a>
+                <a href="Admin/admin_login.html" class="admin-icon" title="Admin Girişi" aria-label="Admin Girişi">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#555" xmlns="http://www.w3.org/2000/svg" >
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Kullanıcı adı gösterimi -->
+            <span id="usernameDisplay" style="display:none; font-weight:bold; margin-left:10px;"></span>
+
+            <!-- Giriş yapılınca gösterilen kısım -->
+            <div id="userGreeting" style="display:none;">
+               <a href="hesabim.html" id="usernameDisplay" style="font-weight:bold; cursor:pointer;"></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>
+                Ben <span class="highlight">İrem Çınar</span> <br>Bilişim Sistemleri Mühendisliği öğrencisi</h1>
+            <p>Bu Arıza Takip Sistemi, staj sürecim kapsamında geliştirilmiştir. Deneyimlemek için hemen kayıt olabilirsiniz!</p>
+            <a href="kayitol.html" class="hero-btn">KAYIT OL</a>
+        </div>
+    </section>
+
+    <!-- Yeni Kayıt Formu Bölümü -->
+<section id="yenikayit-section" class="yenikayit-container">
+    <h2>Yeni Arıza Kaydı</h2>
+    <form id="arizaForm" class="yenikayit-form" enctype="multipart/form-data">
+
+        <label for="baslik">Konu Başlığı <span class="required">*</span></label>
+        <input type="text" id="baslik" name="baslik" required placeholder="Konu başlığınızı yazınız" />
+        
+        <label for="aciklama">Açıklama <span class="required">*</span></label>
+        <textarea id="aciklama" name="aciklama" rows="5" required placeholder="Sorununuzu detaylıca açıklayınız"></textarea>
+        
+        <label>Öncelik <span class="required">*</span></label>
+        <div class="radio-group">
+            <label><input type="radio" name="oncelik" value="düşük" required> Düşük</label>
+            <label><input type="radio" name="oncelik" value="orta" checked> Orta</label>
+            <label><input type="radio" name="oncelik" value="yüksek"> Yüksek</label>
+        </div>
+        
+        <label for="dosyalar">Dosya Yükle (Fotoğraf, PDF - Birden fazla seçebilirsiniz)</label>
+        <input type="file" id="dosyalar" name="dosyalar" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" />
+        
+        <button type="submit" class="submit-btn">Gönder</button>
+    </form>
+</section>
+
+    <!-- Banner Görsel -->
+    <div class="banner-image-section">
+        <img src="img/banner.jpg" alt="Arıza ve Destek Geçiş Görseli" class="banner-image" />
+    </div>
+
+    <!-- DESTEK Bölümü -->
+    <section id="destek-section" class="destek-container">
+        <h2>Destek Talebi</h2>
+        <p class="destek-aciklama">İletmek istediğiniz mesajı aşağıya yazabilirsiniz.</p>
+        <form id="destekForm" class="destek-form" action="/api/destek" method="post">
+
+            <textarea 
+                name="destekMesaj" 
+                id="destekMesaj" 
+                rows="6" 
+                placeholder="İletmek istediğiniz mesajı buraya yazın, mail ile dönüş yapılacaktır..." 
+                required></textarea>
+            <button type="submit" class="destek-submit-btn">Gönder</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>İrem Çınar tarafından hazırlanmıştır</p>
+        <div class="footer-icons">
+            <a href="https://www.linkedin.com/in/iremcnr/" target="_blank" class="footer-icon" title="LinkedIn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384014.png" alt="LinkedIn Icon" />
+            </a>
+            <a href="https://github.com/iremcnar" target="_blank" class="footer-icon" title="GitHub">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub Icon" />
+            </a>
+        </div>
+    </footer>
+
+    
+    <!-- Script dosyası -->
+    <script>
+        // Hamburger menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission handlers
+        document.getElementById('arizaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Arıza kaydınız başarıyla gönderildi!');
+        });
+
+        document.getElementById('destekForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Destek mesajınız başarıyla gönderildi!');
+        });
+    </script>
+</body>
+</html>

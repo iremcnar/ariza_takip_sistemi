@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="tr">
 <head>
@@ -52,10 +53,214 @@
         </div>
     </div>
 
-    <!-- Ana Resim -->
-    <div class="main-image-container">
-        <img src="img/main.jpg" alt="" class="main-image" />
+    <!-- Hero Section -->
+   
+    <section class="hero-section">
+        <!-- HTML Kısmı - Hero section içine eklenecek -->
+<div class="hardware-orbit">
+    <!-- Orbit Ring 1 -->
+    <div class="orbit-ring orbit-ring-1">
+        <div class="hardware-item">💻</div>
+        <div class="hardware-item">🖥️</div>
+        <div class="hardware-item">⚙️</div>
+        <div class="hardware-item">🔧</div>
     </div>
+    
+    <!-- Orbit Ring 2 -->
+    <div class="orbit-ring orbit-ring-2">
+        <div class="hardware-item">🖱️</div>
+        <div class="hardware-item">⌨️</div>
+        <div class="hardware-item">🖨️</div>
+        <div class="hardware-item">📱</div>
+    </div>
+    
+    <!-- Orbit Ring 3 -->
+    <div class="orbit-ring orbit-ring-3">
+        <div class="hardware-item">💾</div>
+        <div class="hardware-item">🔌</div>
+        <div class="hardware-item">🖲️</div>
+        <div class="hardware-item">📡</div>
+        <div class="hardware-item">💿</div>
+        <div class="hardware-item">🔋</div>
+    </div>
+</div>
+
+<style>
+/* CSS Kısmı - styles.css dosyasına eklenecek */
+
+/* Hero section'a perspective eklenmeli */
+.hero-section {
+    perspective: 1000px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 3D Dönen Donanım Animasyonu */
+.hardware-orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    pointer-events: none;
+    z-index: 1; /* Yazının arkasında kalması için */
+}
+
+.orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transform-style: preserve-3d;
+}
+
+.orbit-ring-1 {
+    width: 600px;
+    height: 600px;
+    top: 100px;
+    left: 100px;
+    animation: rotate3d-1 20s linear infinite;
+}
+
+.orbit-ring-2 {
+    width: 500px;
+    height: 500px;
+    top: 150px;
+    left: 150px;
+    animation: rotate3d-2 15s linear infinite reverse;
+}
+
+.orbit-ring-3 {
+    width: 700px;
+    height: 700px;
+    top: 50px;
+    left: 50px;
+    animation: rotate3d-3 25s linear infinite;
+}
+
+.hardware-item {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform-style: preserve-3d;
+    animation: floatItem 3s ease-in-out infinite;
+}
+
+/* Hardware item positioning */
+.hardware-item:nth-child(1) {
+    top: -30px;
+    left: calc(50% - 30px);
+    animation-delay: 0s;
+}
+
+.hardware-item:nth-child(2) {
+    top: calc(50% - 30px);
+    right: -30px;
+    animation-delay: -1s;
+}
+
+.hardware-item:nth-child(3) {
+    bottom: -30px;
+    left: calc(50% - 30px);
+    animation-delay: -2s;
+}
+
+.hardware-item:nth-child(4) {
+    top: calc(50% - 30px);
+    left: -30px;
+    animation-delay: -0.5s;
+}
+
+.hardware-item:nth-child(5) {
+    top: calc(25% - 30px);
+    right: calc(25% - 30px);
+    animation-delay: -1.5s;
+}
+
+.hardware-item:nth-child(6) {
+    bottom: calc(25% - 30px);
+    right: calc(25% - 30px);
+    animation-delay: -2.5s;
+}
+
+/* 3D Rotation Animations */
+@keyframes rotate3d-1 {
+    0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+}
+
+@keyframes rotate3d-2 {
+    0% { transform: rotateX(15deg) rotateY(0deg) rotateZ(0deg); }
+    100% { transform: rotateX(15deg) rotateY(-360deg) rotateZ(-360deg); }
+}
+
+@keyframes rotate3d-3 {
+    0% { transform: rotateX(-10deg) rotateY(0deg) rotateZ(0deg); }
+    100% { transform: rotateX(-10deg) rotateY(360deg) rotateZ(360deg); }
+}
+
+@keyframes floatItem {
+    0%, 100% { transform: translateZ(0px) rotateY(0deg); }
+    50% { transform: translateZ(20px) rotateY(180deg); }
+}
+
+/* Hero content'e z-index eklenmeli yazının önde kalması için */
+.hero-content {
+    position: relative;
+    z-index: 10;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hardware-orbit {
+        width: 400px;
+        height: 400px;
+    }
+    
+    .orbit-ring-1 {
+        width: 300px;
+        height: 300px;
+        top: 50px;
+        left: 50px;
+    }
+    
+    .orbit-ring-2 {
+        width: 250px;
+        height: 250px;
+        top: 75px;
+        left: 75px;
+    }
+    
+    .orbit-ring-3 {
+        width: 350px;
+        height: 350px;
+        top: 25px;
+        left: 25px;
+    }
+    
+    .hardware-item {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+</style>
+        <div class="hero-content">
+            <h1>
+                Ben <span class="highlight">İrem Çınar</span> <br>Bilişim Sistemleri Mühendisliği öğrencisi</h1>
+            <p>Bu Arıza Takip Sistemi, staj sürecim kapsamında geliştirilmiştir. Deneyimlemek için hemen kayıt olabilirsiniz!</p>
+            <a href="kayitol.html" class="hero-btn">KAYIT OL</a>
+        </div>
+    </section>
 
     <!-- Yeni Kayıt Formu Bölümü -->
 <section id="yenikayit-section" class="yenikayit-container">

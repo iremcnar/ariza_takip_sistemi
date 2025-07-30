@@ -1,260 +1,497 @@
-/* ===== Temel Sıfırlama ===== */
+/* ===== CSS Değişkenleri ===== */
+:root {
+  /* 3D Renkler & Efektler */
+  --glass-bg:linear-gradient(135deg, #5d8598);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --glass-blur: blur(20px);
+  
+  /* Gradientler */
+  --primary-gradient: linear-gradient(45deg, #bdcbd0, #b9bac0); 
+--secondary-gradient: linear-gradient(45deg, #bdcbd0, #b9bac0); 
+--third-gradiendt:linear-gradient(45deg, #34aac2, #061700);  /* Orta koyu yeşil -> koyu orman yeşili */
+--hover-gradient: linear-gradient(45deg, #34aac2, #061700); /* Canlı yeşil -> çok koyu yeşil */
+
+  --admin-gradient: linear-gradient(135deg, #af2626, #668c89);
+  --admin-hover: linear-gradient(135deg, #8e1d1d, #425b59);
+  
+  /* 3D Shadows */
+  --shadow-3d: 0 10px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 20px 40px rgba(102, 126, 234, 0.3), 0 10px 20px rgba(102, 126, 234, 0.15);
+  --shadow-pressed: inset 0 3px 7px rgba(0, 0, 0, 0.2);
+  
+  /* Typography */
+  --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --text-primary: #2c3e50;
+  --text-light: rgba(255, 255, 255, 0.95); /* Daha okunabilir beyaz renk */
+  --text-dark: #1a1a1a; /* Koyu renk metinler için */
+  
+  /* Spacing & Sizing */
+  --navbar-height: 80px;
+  --container-width: 1440px;
+  --border-radius: 16px;
+  --border-radius-pill: 50px;
+  
+  /* Animations */
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-fast: all 0.2s ease-out;
+}
+
+/* ===== Base Styles ===== */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    font-size: 16px;
-    scroll-behavior: smooth;
+  font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 body {
-    overflow-x: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(45deg, #ece7e7, #f5f5f7);
-    min-height: 100vh;
-    line-height: 1.6;
-    color: #2c3e50;
+  overflow-x: hidden;
+  font-family: var(--font-primary);
+  background: linear-gradient(135deg, #abb2ba 0%, #abb9c6 50%, #c5ddf4 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  line-height: 1.6;
+  color: var(--text-primary);
 }
 
-/* ===== Navbar ===== */
+/* ===== 3D Navbar Container ===== */
 .navbar-container {
-    width: 100%;
-    background:  rgba(248, 249, 250, 0.8);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  padding: 12px 20px;
+  background: transparent;
 }
 
 .navbar {
-    max-width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px;
-    height: 100px;
-    position: relative;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--navbar-height);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-pill);
+  padding: 0 32px;
+  position: relative;
+  box-shadow: var(--shadow-3d);
+  transition: var(--transition-smooth);
+  
+  /* 3D Transform Effect */
+  transform: perspective(1000px) rotateX(0deg);
+  transform-style: preserve-3d;
 }
 
+.navbar:hover {
+  transform: perspective(1000px) rotateX(-2deg) translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Logo Section ===== */
 .logo-container {
-    flex-shrink: 0;
-    z-index: 1001;
+  flex-shrink: 0;
+  z-index: 1001;
+  position: relative;
 }
 
 .logo {
-    height: 60px;
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-    transition: transform 0.3s ease;
-  
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  transition: var(--transition-bounce);
+  transform-style: preserve-3d;
 }
 
 .logo:hover {
-    transform: scale(1.05);
+  transform: scale(1.1) rotateY(5deg);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
 }
 
-/* Navigation Menu - Orta Kısım */
+/* ===== 3D Navigation Menu ===== */
 .nav-menu {
-    display: flex;
-    gap: 70px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(248, 249, 250, 0.8);
-    backdrop-filter: blur(10px);
-    border-radius: 30px;
-    padding: 8px 25px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: var(--border-radius-pill);
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .nav-item {
-    color: #2c3e50;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-decoration: none;
-    text-transform: capitalize;
-    padding: 8px 16px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    position: relative;
+  color: var(--text-light); /* Daha okunabilir beyaz renk */
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: capitalize;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-pill);
+  transition: var(--transition-smooth);
+  position: relative;
+  transform-style: preserve-3d;
+  letter-spacing: 0.5px;
+  
+  /* 3D Text Effect - daha okunabilir shadow */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.nav-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--primary-gradient);
+  border-radius: var(--border-radius-pill);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: var(--transition-smooth);
+  z-index: -1;
 }
 
 .nav-item:hover {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  color: rgba(255, 255, 255, 1); /* Hover'da tam beyaz */
+  transform: translateY(-3px) rotateX(10deg);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
-/* Auth Buttons - Sağ Kısım */
+.nav-item:hover::before {
+  opacity: 1;
+  transform: scale(1);
+  box-shadow: var(--shadow-hover);
+}
+
+.nav-item:active {
+  transform: translateY(-1px) rotateX(5deg);
+  box-shadow: var(--shadow-pressed);
+}
+
+/* ===== 3D Auth Buttons ===== */
 .auth-buttons {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    flex-shrink: 0;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-shrink: 0;
 }
 
+/* Login Button - 3D Glass Effect */
 .login-btn {
-    color: #667eea;
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-decoration: none;
-    padding: 8px 18px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    border: 1.5px solid #667eea;
-    background: transparent;
-      position: relative;
-   
-    bottom: 3px;
-    top:1px;
+  color: var(--text-light); /* Daha okunabilir beyaz renk */
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-pill);
+  transition: var(--transition-smooth);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  transform-style: preserve-3d;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
+.login-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--secondary-gradient);
+  border-radius: var(--border-radius-pill);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: -1;
+}
 
 .login-btn:hover {
-    color: white;
-    background: #020a2d;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(15, 23, 61, 0.2);
-    background: linear-gradient(45deg, #3d8db1, #342378);
+  color: rgba(255, 255, 255, 1); /* Hover'da tam beyaz */
+  transform: translateY(-3px) rotateX(8deg);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
-.register-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: 20px;
-    padding: 8px 18px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
-    background: linear-gradient(45deg, #3d8db1, #342378);
-  
+.login-btn:hover::before {
+  opacity: 1;
+}
 
+/* Register Button - 3D Gradient */
+.register-btn {
+  color: var(--text-light); /* Daha okunabilir beyaz renk */
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-pill);
+  transition: var(--transition-smooth);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  transform-style: preserve-3d;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.register-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--hover-gradient);
+  border-radius: var(--border-radius-pill);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: -1;
 }
 
 .register-btn:hover {
-    transform: translateY(-1px);
-    background: linear-gradient(45deg, #10709f, #1b0f4e);
+  color: rgba(255, 255, 255, 1); /* Hover'da tam beyaz */
+  transform: translateY(-4px) rotateX(10deg);
+  box-shadow: var(--shadow-hover);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
-/* Admin Icon */
+.register-btn:hover::before {
+  opacity: 1;
+}
+
+.register-btn:active {
+  transform: translateY(-2px) rotateX(5deg);
+}
+
+/* ===== 3D Admin Icon ===== */
 .admin-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    
-    background: linear-gradient(45deg, #b95151, #342378);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 10px rgba(255, 107, 107, 0.2);
-    margin-left: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--admin-gradient);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition-bounce);
+  box-shadow: var(--shadow-3d);
+  margin-left: 12px;
+  position: relative;
+  transform-style: preserve-3d;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.admin-icon::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: var(--admin-hover);
+  border-radius: 50%;
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: -1;
 }
 
 .admin-icon:hover {
-    transform: translateY(-1px) scale(1.05);
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  transform: translateY(-4px) rotateY(180deg) scale(1.1);
+  box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
+}
 
-    background: linear-gradient(45deg, #791b1b, #53409f);
+.admin-icon:hover::before {
+  opacity: 1;
 }
 
 .admin-icon svg {
-    width: 18px;
-    height: 18px;
+  width: 20px;
+  height: 20px;
+  transition: var(--transition-smooth);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .admin-icon svg path {
-    fill: white;
+  fill: var(--text-light);
 }
 
-/* ===== Hamburger Butonu ===== */
+/* ===== 3D Hamburger Menu ===== */
 .hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 28px;
-    height: 24px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    z-index: 1100;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 32px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1100;
+  transition: var(--transition-smooth);
 }
 
 .hamburger .bar {
-    width: 100%;
-    height: 2px;
-    background: #2c3e50;
-    border-radius: 2px;
-    transition: all 0.3s ease;
+  width: 100%;
+  height: 3px;
+  background: var(--text-light);
+  border-radius: 3px;
+  transition: var(--transition-smooth);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform-style: preserve-3d;
+}
+
+.hamburger:hover .bar {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .hamburger.active .bar:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(6px, 6px) rotateY(180deg);
 }
 
 .hamburger.active .bar:nth-child(2) {
-    opacity: 0;
+  opacity: 0;  
+  transform: rotateY(90deg);
 }
 
 .hamburger.active .bar:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
+  transform: rotate(-45deg) translate(6px, -6px) rotateY(180deg);
 }
 
+/* ===== Main Image Section ===== */
 .main-image-container {
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
-    margin-top: 70px;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  margin-top: 104px; /* navbar height + padding */
 }
 
-/* Eğer gradient katmanı önemliyse bırakabilirsin, ama en üstte görünmesi için z-index ayarla */
 .main-image-container::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05));
-    z-index: 10;
-    pointer-events: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1));
+  z-index: 10;
+  pointer-events: none;
 }
 
 .main-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    filter: brightness(0.9);
-    transition: left 0.5s ease-in-out;
-    z-index: 5; /* gradientin altında kalması için */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.8) contrast(1.1);
+  transition: var(--transition-smooth);
+  z-index: 5;
 }
 
+/* ===== Responsive Design ===== */
+@media screen and (max-width: 1200px) {
+  .navbar {
+    padding: 0 24px;
+  }
+  
+  .nav-menu {
+    gap: 4px;
+  }
+  
+  .nav-item {
+    padding: 10px 18px;
+    font-size: 0.85rem;
+  }
+}
 
+@media screen and (max-width: 768px) {
+  .navbar-container {
+    padding: 8px 16px;
+  }
 
+  .navbar {
+    padding: 0 20px;
+    height: 70px;
+  }
 
+  .nav-menu {
+    display: none;
+  }
 
+  .hamburger {
+    display: flex;
+  }
 
+  .logo {
+    height: 40px;
+  }
 
+  .main-image-container {
+    margin-top: 86px;
+    height: 60vh;
+  }
 
+  .auth-buttons {
+    gap: 12px;
+  }
 
+  .login-btn,
+  .register-btn {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+  }
 
+  .admin-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ===== Loading Animation ===== */
+@keyframes navbar-slide-in {
+  0% {
+    transform: translateY(-100%) rotateX(-90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+.navbar {
+  animation: navbar-slide-in 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* ===== Scroll Effect ===== */
+.navbar-container.scrolled .navbar {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(25px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Accessibility ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles */
+.nav-item:focus-visible,
+.login-btn:focus-visible,
+.register-btn:focus-visible,
+.admin-icon:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
 
 
 /* ===== Yeni Kayıt Sistemi ===== */
@@ -651,5 +888,245 @@ body {
         height: 150px;
         margin: 0 10px;
         max-width: calc(100% - 20px);
+    }
+}
+
+
+/* ===== Hero Section ===== */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 120px 20px 60px;
+        }
+        .hero-content {
+  max-width: 700px;  /* İstersen 600-700px arası yap */
+  margin: 0 auto;    /* Yatayda ortalar */
+  padding: 0 20px;   /* İstersen iç boşluk */
+  text-align: center; /* Tüm yazılar ortalanır */
+}
+
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content .highlight {
+            background: linear-gradient(45deg, #4696a5, #1e0675);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: underline;
+            text-decoration-color: #304f79;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.6;
+             text-align: center;
+        }
+
+        .hero-btn {
+            background: linear-gradient(45deg, #34aac2, #061700);
+            color: white;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 30px;
+            box-shadow: 0 8px 25px rgba(52, 194, 187, 0.3);
+            transition: var(--transition-smooth);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(36, 16, 95, 0.4);
+        } 
+
+
+        .no-wrap-text {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+
+
+
+
+/* Hero section'a perspective eklenmeli */
+.hero-section {
+    perspective: 1000px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 3D Dönen Donanım Animasyonu */
+.hardware-orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    pointer-events: none;
+    z-index: 1; /* Yazının arkasında kalması için */
+}
+
+.orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transform-style: preserve-3d;
+}
+
+.orbit-ring-1 {
+    width: 600px;
+    height: 600px;
+    top: 100px;
+    left: 100px;
+    animation: rotate3d-1 20s linear infinite;
+}
+
+.orbit-ring-2 {
+    width: 500px;
+    height: 500px;
+    top: 150px;
+    left: 150px;
+    animation: rotate3d-2 15s linear infinite reverse;
+}
+
+.orbit-ring-3 {
+    width: 700px;
+    height: 700px;
+    top: 50px;
+    left: 50px;
+    animation: rotate3d-3 25s linear infinite;
+}
+
+.hardware-item {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform-style: preserve-3d;
+    animation: floatItem 3s ease-in-out infinite;
+}
+
+/* Hardware item positioning */
+.hardware-item:nth-child(1) {
+    top: -30px;
+    left: calc(50% - 30px);
+    animation-delay: 0s;
+}
+
+.hardware-item:nth-child(2) {
+    top: calc(50% - 30px);
+    right: -30px;
+    animation-delay: -1s;
+}
+
+.hardware-item:nth-child(3) {
+    bottom: -30px;
+    left: calc(50% - 30px);
+    animation-delay: -2s;
+}
+
+.hardware-item:nth-child(4) {
+    top: calc(50% - 30px);
+    left: -30px;
+    animation-delay: -0.5s;
+}
+
+.hardware-item:nth-child(5) {
+    top: calc(25% - 30px);
+    right: calc(25% - 30px);
+    animation-delay: -1.5s;
+}
+
+.hardware-item:nth-child(6) {
+    bottom: calc(25% - 30px);
+    right: calc(25% - 30px);
+    animation-delay: -2.5s;
+}
+
+/* 3D Rotation Animations */
+@keyframes rotate3d-1 {
+    0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+}
+
+@keyframes rotate3d-2 {
+    0% { transform: rotateX(15deg) rotateY(0deg) rotateZ(0deg); }
+    100% { transform: rotateX(15deg) rotateY(-360deg) rotateZ(-360deg); }
+}
+
+@keyframes rotate3d-3 {
+    0% { transform: rotateX(-10deg) rotateY(0deg) rotateZ(0deg); }
+    100% { transform: rotateX(-10deg) rotateY(360deg) rotateZ(360deg); }
+}
+
+@keyframes floatItem {
+    0%, 100% { transform: translateZ(0px) rotateY(0deg); }
+    50% { transform: translateZ(20px) rotateY(180deg); }
+}
+
+/* Hero content'e z-index eklenmeli yazının önde kalması için */
+.hero-content {
+    position: relative;
+    z-index: 10;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hardware-orbit {
+        width: 400px;
+        height: 400px;
+    }
+    
+    .orbit-ring-1 {
+        width: 300px;
+        height: 300px;
+        top: 50px;
+        left: 50px;
+    }
+    
+    .orbit-ring-2 {
+        width: 250px;
+        height: 250px;
+        top: 75px;
+        left: 75px;
+    }
+    
+    .orbit-ring-3 {
+        width: 350px;
+        height: 350px;
+        top: 25px;
+        left: 25px;
+    }
+    
+    .hardware-item {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
     }
 }
