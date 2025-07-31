@@ -572,3 +572,4 @@ function temizleArizaFormu() {
     if (removeFile) removeFile.style.display = 'none';
   }
 }
+

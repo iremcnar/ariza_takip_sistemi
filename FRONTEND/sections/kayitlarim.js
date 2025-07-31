@@ -51,12 +51,12 @@ if (!token) {
     if (!arizalar || arizalar.length === 0) {
       // 4. Kayıt yoksa mesaj + kayıt butonu göster
       kayitlarListesi.innerHTML = `
-        <div style="text-align:center; color:white; padding:60px 20px;">
+        <div style="text-align:center; color:black; padding:60px 20px;">
           <h3 style="font-size:2rem; margin-bottom:20px;">📝 Henüz Kayıt Yok</h3>
           <p style="font-size:1.2rem; margin-bottom:30px; opacity:0.9;">
             Henüz arıza kaydınız bulunmamaktadır.
           </p>
-          <a href="index.html#yenikayit-section" class="btn" style="background:white; color:#667eea; padding:15px 30px; border-radius:30px; text-decoration:none; font-weight:600; font-size:1.1rem; box-shadow:0 5px 20px rgba(0,0,0,0.1); transition:all 0.3s ease;">
+          <a href="index.html#yenikayit-section" class="btn" style="background:linear-gradient(45deg, #bbcacd, #14122a);; color:#ffffff; padding:15px 30px; border-radius:30px; text-decoration:none; font-weight:600; font-size:1.1rem; box-shadow:0 5px 20px rgba(0,0,0,0.1); transition:all 0.3s ease;">
             ➕ Arıza Kaydı Yap
           </a>
         </div>
@@ -66,7 +66,7 @@ if (!token) {
 
     // 5. Kayıt varsa listele
     let html = `
-      <div style="text-align:center; margin-bottom:40px; color:darkblue;">
+      <div style="text-align:center; margin-bottom:40px; color:#2d1958">
         <h2 style="font-size:2.5rem; margin-bottom:10px; font-weight:700;">📋 Arıza Kayıtlarım</h2>
         <p style="font-size:1.1rem; opacity:0.9;">Toplam <strong>${arizalar.length}</strong> kayıt bulundu</p>
       </div>

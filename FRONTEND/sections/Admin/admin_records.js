@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <input type="text" class="admin-reply" value="${lastAdminNote}" data-id="${record._id}" placeholder="Admin notu..." style="width: 200px; padding: 5px;" />
         </td>
         <td>
-          <button class="save-btn" data-id="${record._id}" style="padding: 5px 10px; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer;">Kaydet</button>
+          <button class="save-btn" data-id="${record._id}" style="padding: 5px 10px; background: #622457ff; color: white; border: none; border-radius: 3px; cursor: pointer;">Kaydet</button>
         </td>
       `;
 
