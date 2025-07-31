@@ -700,7 +700,7 @@ input[type="file"] {
 }
 
 .destek-submit-btn:hover {
-    background: linear-gradient(45deg, #10709f, #1b0f4e);
+     background: linear-gradient(45deg, #c9dadf, #04030c);
 }
 /* ===== Footer ===== */
 .site-footer {
@@ -1165,28 +1165,26 @@ input[type="file"] {
 
 
 
-
-
-
-
 /* ===== ARIZA KAYIT KİTAP TASARIMI ===== */
 .book-container {
     display: flex;
-    max-width: 1000px;
-    width: 95%;
-    min-height: 570px;
-    height: 380px;
+    max-width: 700px;
+    width: 80%;
+    min-height: 580px;
+    height: 350px;
     position: relative;
     transform-style: preserve-3d;
-    transform: rotateY(-3deg) rotateX(1deg);
+    transform: rotateY(-8deg) rotateX(3deg);
     box-shadow: 
-        0 15px 30px rgba(0, 0, 0, 0.3),
-        0 25px 50px rgba(0, 0, 0, 0.2);
+        0 15px 30px rgba(0, 0, 0, 0.4),
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
     border-radius: 6px;
     overflow: hidden;
-    margin: 60px auto 60px auto;
+    margin: 50px auto 60px auto;
 }
 
+/* Kitap sırtı efekti */
 .book-container::before {
     content: '';
     position: absolute;
@@ -1196,67 +1194,109 @@ input[type="file"] {
     height: 100%;
     background: linear-gradient(
         to right,
-        rgba(0, 0, 0, 0.1) 0%,
-        rgba(0, 0, 0, 0.3) 50%,
-        rgba(0, 0, 0, 0.1) 100%
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.5) 30%,
+        rgba(0, 0, 0, 0.8) 50%,
+        rgba(0, 0, 0, 0.5) 70%,
+        rgba(0, 0, 0, 0.2) 100%
     );
     transform: translateX(-50%);
     z-index: 10;
+    border-radius: 2px;
+}
+
+/* Kitap kenar efekti */
+.book-container::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #8b6585, #5a4552, #3d2f37);
+    border-radius: 8px;
+    z-index: -1;
 }
 
 /* ===== SOL SAYFA - BİLGİLENDİRME ===== */
 .info-page {
     flex: 1;
-    background: #712664;
-    padding: 20px;
+    background: linear-gradient(135deg, #712664, #5a1f52);
+    padding: 18px;
     position: relative;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
-    box-shadow: inset -3px 0 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 
+        inset -4px 0 12px rgba(0, 0, 0, 0.3),
+        inset 0 0 15px rgba(255, 255, 255, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
+/* Sayfa tekstürü */
+.info-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 18px,
+            rgba(255, 255, 255, 0.02) 19px
+        ),
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+    border-radius: inherit;
+}
+
 .info-page h1 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: #d7dadf;
-    margin-bottom: 15px;
+    margin-bottom: 14px;
     text-align: center;
     border-bottom: 2px solid #a97ba2;
     padding-bottom: 8px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .info-section {
-    margin-bottom: 15px;
+    margin-bottom: 14px;
 }
 
 .info-section h3 {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: #eaeef5;
     margin-bottom: 8px;
     display: flex;
     align-items: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .info-section h3::before {
     content: '📋';
     margin-right: 8px;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .info-section p {
     color: #b2bccf;
     line-height: 1.3;
     margin-bottom: 6px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
 }
 
 .priority-info {
-    background: rgba(169, 123, 162, 0.2);
+    background: rgba(169, 123, 162, 0.3);
     padding: 12px;
     border-radius: 8px;
     border-left: 3px solid #a97ba2;
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.1);
 }
 
 .priority-levels {
@@ -1273,7 +1313,7 @@ input[type="file"] {
 
 .priority-item p {
     color: #eaeef5;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
 }
 
 .priority-badge {
@@ -1282,8 +1322,9 @@ input[type="file"] {
     border-radius: 12px;
     color: white;
     font-weight: bold;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     margin-bottom: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .low { background-color: #27ae60; }
@@ -1291,10 +1332,11 @@ input[type="file"] {
 .high { background-color: #e74c3c; }
 
 .tips-list {
-    background: rgba(139, 101, 133, 0.3);
+    background: rgba(139, 101, 133, 0.4);
     padding: 12px;
     border-radius: 8px;
     border-left: 3px solid #8b6585;
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.1);
 }
 
 .tips-list ul {
@@ -1304,11 +1346,11 @@ input[type="file"] {
 }
 
 .tips-list li {
-    margin-bottom: 4px;
-    padding-left: 18px;
+    margin-bottom: 5px;
+    padding-left: 16px;
     position: relative;
     color: #eaeef5;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 }
 
 .tips-list li::before {
@@ -1317,27 +1359,52 @@ input[type="file"] {
     left: 0;
     color: #a97ba2;
     font-weight: bold;
+    font-size: 0.85rem;
 }
 
-/* ===== SAĞ SAYFA - FORM (İYİLEŞTİRİLDİ) ===== */
+/* ===== SAĞ SAYFA - FORM (GELİŞTİRİLDİ) ===== */
 .form-page {
     flex: 1;
-    background: #712664;
-    padding: 20px;
+    background: linear-gradient(135deg, #712664, #5a1f52);
+    padding: 18px;
     display: flex;
     flex-direction: column;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
-    box-shadow: inset 3px 0 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 
+        inset 4px 0 12px rgba(0, 0, 0, 0.3),
+        inset 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+/* Sayfa tekstürü */
+.form-page::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 18px,
+            rgba(255, 255, 255, 0.02) 19px
+        ),
+        radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+    border-radius: inherit;
 }
 
 .form-page h2 {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
+    font-size: 1.15rem;
+    margin-bottom: 18px;
     color: #d7dadf;
     text-align: center;
     border-bottom: 2px solid #a97ba2;
     padding-bottom: 8px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .yenikayit-form {
@@ -1346,8 +1413,9 @@ input[type="file"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 300px;
+    max-width: 250px;
     margin: 0 auto;
+    width: 100%;
 }
 
 .form-group {
@@ -1358,10 +1426,11 @@ input[type="file"] {
 .yenikayit-form label {
     display: block;
     font-weight: 600;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
     font-size: 0.8rem;
     color: #b2bccf;
     text-align: left;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .required {
@@ -1371,44 +1440,51 @@ input[type="file"] {
 .yenikayit-form input[type="text"],
 .yenikayit-form textarea {
     width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #CCCCCC;
+    padding: 9px 12px;
+    border: 2px solid #CCCCCC;
     border-radius: 6px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     resize: vertical;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
     background-color: #dfd0da;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .yenikayit-form textarea {
-    min-height: 60px;
-    max-height: 80px;
+    min-height: 50px;
+    max-height: 65px;
 }
 
 .yenikayit-form input[type="text"]:focus,
 .yenikayit-form textarea:focus {
     outline: none;
     border-color: #878d9a;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 0 0 2px rgba(135, 141, 154, 0.2);
+    transform: translateY(-1px);
 }
 
 .radio-group {
     display: flex;
     justify-content: space-between;
-    margin-top: 4px;
+    margin-top: 5px;
 }
 
 .radio-group label {
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #eaeef5;
     cursor: pointer;
     display: flex;
     align-items: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .radio-group input[type="radio"] {
-    margin-right: 4px;
+    margin-right: 5px;
     cursor: pointer;
+    transform: scale(1);
 }
 
 .file-upload-wrapper {
@@ -1424,19 +1500,22 @@ input[type="file"] {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 12px;
+    padding: 9px 12px;
     background-color: #a97ba2;
     color: white;
-    border: 1px solid #9f4b83;
+    border: 2px solid #9f4b83;
     border-radius: 6px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .custom-file-display:hover {
     background-color: #8b6585;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 .remove-icon {
@@ -1450,87 +1529,66 @@ input[type="file"] {
     background: linear-gradient(45deg, #bbcacd, #14122a);
     color: white;
     border: none;
-    padding: 12px 20px;
-    font-size: 0.95rem;
+    padding: 12px 18px;
+    font-size: 0.9rem;
     font-weight: 700;
     border-radius: 18px;
     cursor: pointer;
-    transition: all 0.3s;
-    margin-top: 8px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .submit-btn:hover {
     background: linear-gradient(45deg, #c9dadf, #04030c);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
 }
 
-/* ===== TEXTURE EFEKTLERİ ===== */
-.info-page::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
-    pointer-events: none;
-    border-radius: inherit;
-}
-
-.form-page::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
-    pointer-events: none;
-    border-radius: inherit;
+.submit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* ===== RESPONSİVE TASARIM ===== */
 @media (max-width: 768px) {
     .book-container {
         flex-direction: column;
-        margin: 10px;
+        margin: 80px 15px 40px 15px;
         transform: none;
-        max-width: 95%;
-        min-height: 400px;
+        max-width: 85%;
+        min-height: 320px;
         height: auto;
     }
     
-    .book-container::before {
+    .book-container::before,
+    .book-container::after {
         display: none;
     }
     
     .info-page, .form-page {
-        padding: 18px;
-        border-radius: 10px;
+        padding: 16px;
+        border-radius: 8px;
     }
     
     .info-page {
         border-bottom-left-radius: 0;
-        border-top-right-radius: 10px;
+        border-top-right-radius: 8px;
     }
     
     .form-page {
         border-top-right-radius: 0;
-        border-bottom-left-radius: 10px;
-        margin-top: 5px;
+        border-bottom-left-radius: 8px;
+        margin-top: 6px;
     }
     
     .info-page h1 {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
     
     .form-page h2 {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     
     .yenikayit-form {
@@ -1541,6 +1599,26 @@ input[type="file"] {
 /* ===== BÜYÜK EKRANLAR ===== */
 @media (min-width: 1200px) {
     .book-container {
-        max-width: 1200px;
+        max-width: 850px;
+        transform: rotateY(-10deg) rotateX(4deg);
+    }
+    
+    .yenikayit-form {
+        max-width: 280px;
+    }
+    
+    .yenikayit-form input[type="text"],
+    .yenikayit-form textarea {
+        font-size: 0.85rem;
+        padding: 10px 14px;
+    }
+    
+    .yenikayit-form label {
+        font-size: 0.85rem;
+    }
+    
+    .submit-btn {
+        font-size: 0.95rem;
+        padding: 14px 20px;
     }
 }
