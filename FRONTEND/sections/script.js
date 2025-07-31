@@ -188,39 +188,104 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // Dosya yükleme butonu için JS (Eğer varsa)
-  const fileUploadBtn = document.querySelector('.file-upload-btn');
-  if (fileUploadBtn) {
-    fileUploadBtn.addEventListener('click', function() {
-      const fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.accept = '.pdf,.jpg,.jpeg,.png,.gif';
-      fileInput.style.display = 'none';
+  // --- ARIZA KAYIT FORMU İŞLEMİ (TEK VE DÜZELTİLMİŞ) ---
+  const arizaForm = document.getElementById('arizaForm');
+  const fileInput = document.getElementById('dosyalar');
+  const fileDisplay = document.getElementById('file-display');
+  const fileName = document.getElementById('file-name');
+  const removeFile = document.getElementById('remove-file');
 
-      fileInput.addEventListener('change', function(e) {
-        if (e.target.files.length > 0) {
-          const fileNameElem = document.querySelector('.file-name');
-          if (fileNameElem) fileNameElem.textContent = e.target.files[0].name;
+  if (arizaForm) {
+    // Dosya yükleme işlevselliği
+    if (fileInput && fileDisplay && fileName && removeFile) {
+      // Dosya seçme alanına tıklandığında
+      fileDisplay.addEventListener('click', (e) => {
+        e.preventDefault();
+        fileInput.click();
+      });
+
+      // Dosya seçildiğinde
+      fileInput.addEventListener('change', (e) => {
+        const files = e.target.files;
+        if (files.length > 0) {
+          if (files.length === 1) {
+            fileName.textContent = `📎 ${files[0].name}`;
+          } else {
+            fileName.textContent = `📎 ${files.length} dosya seçildi`;
+          }
+          removeFile.style.display = 'inline-block';
+        } else {
+          fileName.textContent = '📎 Dosya Yükle';
+          removeFile.style.display = 'none';
         }
       });
 
-      document.body.appendChild(fileInput);
-      fileInput.click();
-      document.body.removeChild(fileInput);
-    });
-  }
+      // Dosya silme butonuna tıklandığında
+      removeFile.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        fileInput.value = '';
+        fileName.textContent = '📎 Dosya Yükle';
+        removeFile.style.display = 'none';
+      });
+    }
 
-  // --- Arıza Kayıt Formu İşlemi ---
-  const arizaForm = document.getElementById('arizaForm');
-  if (arizaForm) {
+    // Form gönderme işlemi (TEK LISTENER)
+    let isSubmitting = false; // Çoklu gönderim önleme
+    
     arizaForm.addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      const formData = new FormData(arizaForm);
+      // Eğer zaten gönderim işlemi devam ediyorsa, tekrar gönderme
+      if (isSubmitting) {
+        return;
+      }
+
+      isSubmitting = true;
+
+      // Submit butonunu devre dışı bırak
+      const submitBtn = this.querySelector('button[type="submit"]') || this.querySelector('input[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Gönderiliyor...';
+      }
+
+      const formData = new FormData(this);
       const token = localStorage.getItem('token');
 
+      // Giriş kontrolü
       if (!token) {
         alert('Lütfen önce giriş yapınız!');
+        isSubmitting = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+        return;
+      }
+
+      // Form doğrulama
+      const baslik = formData.get('baslik');
+      const aciklama = formData.get('aciklama');
+
+      if (!baslik || !baslik.trim()) {
+        alert('Lütfen konu başlığını giriniz!');
+        isSubmitting = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+        return;
+      }
+
+      if (!aciklama || !aciklama.trim()) {
+        alert('Lütfen açıklama giriniz!');
+        isSubmitting = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
         return;
       }
 
@@ -235,9 +300,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (response.ok) {
           const result = await response.json();
-          alert('Arıza kaydı başarıyla gönderildi!');
+          
+          // Başarı mesajı göster
+          showSuccessMessage();
 
-          arizaForm.reset();
+          // Formu temizle
+          this.reset();
+          if (fileName) fileName.textContent = '📎 Dosya Yükle';
+          if (removeFile) removeFile.style.display = 'none';
+          
+          // Orta öncelik seçeneğini varsayılan olarak seç
+          const ortaOncelik = document.querySelector('input[name="oncelik"][value="orta"]');
+          if (ortaOncelik) ortaOncelik.checked = true;
+
         } else {
           const error = await response.json();
           alert('Hata oluştu: ' + error.message);
@@ -245,22 +320,148 @@ document.addEventListener("DOMContentLoaded", async () => {
       } catch (err) {
         console.error('İstek hatası:', err);
         alert('Sunucuya bağlanırken bir hata oluştu.');
+      } finally {
+        // Her durumda işlemi tamamla ve butonu aktif et
+        isSubmitting = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
       }
     });
+
+    // Input alanlarına gerçek zamanlı validasyon ekle
+    const inputs = arizaForm.querySelectorAll('input[required], textarea[required]');
+    inputs.forEach(input => {
+      input.addEventListener('blur', function() {
+        if (!this.value.trim()) {
+          this.style.borderColor = '#e74c3c';
+        } else {
+          this.style.borderColor = '#27ae60';
+        }
+      });
+
+      input.addEventListener('input', function() {
+        if (this.value.trim()) {
+          this.style.borderColor = '#27ae60';
+        } else {
+          this.style.borderColor = '#CCCCCC';
+        }
+      });
+    });
+
+    // Textarea otomatik yükseklik ayarlama
+    const textarea = document.getElementById('aciklama');
+    if (textarea) {
+      textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+      });
+    }
   }
-});
 
-document.addEventListener('DOMContentLoaded', () => {
+  // Başarı mesajı gösterme fonksiyonu
+  let isShowingSuccessMessage = false; // Çoklu mesaj önleme
+  
+  function showSuccessMessage() {
+    // Eğer zaten mesaj gösteriliyorsa, yeni mesaj gösterme
+    if (isShowingSuccessMessage) {
+      return;
+    }
+    
+    isShowingSuccessMessage = true;
+
+    // Mevcut başarı mesajlarını kaldır
+    const existingMessages = document.querySelectorAll('.success-message');
+    existingMessages.forEach(msg => msg.remove());
+
+    // Yeni başarı mesajı oluştur
+    const successMessage = document.createElement('div');
+    successMessage.className = 'success-message';
+    successMessage.innerHTML = `
+      <div style="
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(45deg, #27ae60, #2ecc71);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        font-weight: 600;
+        animation: slideIn 0.3s ease-out;
+      ">
+        ✅ Arıza kaydınız başarıyla gönderildi!
+      </div>
+    `;
+    
+
+    // Animasyon CSS'i ekle
+    if (!document.querySelector('#success-animation-style')) {
+      const style = document.createElement('style');
+      style.id = 'success-animation-style';
+      style.textContent = `
+        @keyframes slideIn {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes slideOut {
+          from {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          to {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    document.body.appendChild(successMessage);
+
+    // 5 saniye sonra mesajı kaldır (daha uzun süre)
+    setTimeout(() => {
+      const messageDiv = successMessage.querySelector('div');
+      if (messageDiv) {
+        messageDiv.style.animation = 'slideOut 0.3s ease-in';
+        setTimeout(() => {
+          if (successMessage && successMessage.parentNode) {
+            successMessage.remove();
+          }
+          isShowingSuccessMessage = false; // Bayrağı sıfırla
+        }, 300);
+      } else {
+        isShowingSuccessMessage = false; // Bayrağı sıfırla
+      }
+    }, 5000); // 5 saniye bekle
+  }
+
+  // --- DESTEK FORMU ---
   const destekForm = document.getElementById('destekForm');
-
   if (destekForm) {
     destekForm.addEventListener('submit', async function (e) {
       e.preventDefault();
 
       const mesaj = document.getElementById('destekMesaj').value;
 
+      // Mesaj doğrulama
+      if (!mesaj || !mesaj.trim()) {
+        alert('Lütfen mesajınızı yazınız!');
+        return;
+      }
+
       try {
-        const response = await fetch('http://localhost:5000/api/destek',  {
+        const response = await fetch('http://localhost:5000/api/destek', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -270,7 +471,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (response.ok) {
-          alert('✅ Mesajınız başarıyla gönderildi.');
+          // Başarı mesajı göster (arıza formu ile aynı stil)
+          showDestekSuccessMessage();
           document.getElementById('destekMesaj').value = '';
         } else {
           const hata = await response.json();
@@ -282,10 +484,49 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-});
 
+  // Destek formu başarı mesajı gösterme fonksiyonu
+  function showDestekSuccessMessage() {
+    // Mevcut başarı mesajını kaldır
+    const existingMessage = document.querySelector('.destek-success-message');
+    if (existingMessage) {
+      existingMessage.remove();
+    }
 
-document.addEventListener("DOMContentLoaded", () => {
+    // Yeni başarı mesajı oluştur
+    const successMessage = document.createElement('div');
+    successMessage.className = 'destek-success-message';
+    successMessage.innerHTML = `
+      <div style="
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(45deg, #27ae60, #2ecc71);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        font-weight: 600;
+        animation: slideIn 0.3s ease-out;
+      ">
+        ✅ Destek mesajınız başarıyla gönderildi!
+      </div>
+    `;
+
+    document.body.appendChild(successMessage);
+
+    // 3 saniye sonra mesajı kaldır
+    setTimeout(() => {
+      const messageDiv = successMessage.querySelector('div');
+      messageDiv.style.animation = 'slideOut 0.3s ease-in';
+      setTimeout(() => {
+        successMessage.remove();
+      }, 300);
+    }, 3000);
+  }
+
+  // --- ANA SAYFA GÖRSEL SLIDESHOWa ---
   const images = [
     "img/main.jpg",
     "img/main2.jpg",
@@ -294,342 +535,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const container = document.querySelector(".main-image-container");
 
-  // Önce container içindeki tek resmi temizle
-  container.innerHTML = "";
+  if (container) {
+    // Önce container içindeki tek resmi temizle
+    container.innerHTML = "";
 
-  // 3 img elementini oluştur ve yan yana koy
-  const imgElements = images.map((src, i) => {
-    const img = document.createElement("img");
-    img.src = src;
-    img.classList.add("main-image");
-    img.style.left = (i * 100) + "%"; // 0%, 100%, 200%
-    container.appendChild(img);
-    return img;
-  });
-
-  let currentIndex = 0;
-
-  setInterval(() => {
-    currentIndex = (currentIndex + 1) % images.length;
-    imgElements.forEach((img, i) => {
-      img.style.left = ((i - currentIndex) * 100) + "%";
+    // 3 img elementini oluştur ve yan yana koy
+    const imgElements = images.map((src, i) => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.classList.add("main-image");
+      img.style.left = (i * 100) + "%"; // 0%, 100%, 200%
+      container.appendChild(img);
+      return img;
     });
-  }, 2000);
-});
 
+    let currentIndex = 0;
 
-
-
-  const fileInput = document.getElementById('dosyalar');
-  const fileNameSpan = document.getElementById('file-name');
-  const removeIcon = document.getElementById('remove-file');
-  const fileDisplay = document.getElementById('file-display');
-
-  // Kullanıcı butona tıkladığında dosya seçiciyi aç
-  fileDisplay.addEventListener('click', () => {
-    fileInput.click();
-  });
-
-  // Dosya seçilince ismi göster ve çöp kutusunu aktif et
-  fileInput.addEventListener('change', () => {
-    if (fileInput.files.length > 0) {
-      fileNameSpan.textContent = fileInput.files[0].name;
-      removeIcon.style.display = 'inline';
-    }
-  });
-
-  // Çöp kutusuna basınca temizle
-  removeIcon.addEventListener('click', (e) => {
-    e.stopPropagation(); // Dosya seçiciyi tetiklemesini engeller
-    fileInput.value = ''; // Dosyayı sıfırlar
-    fileNameSpan.textContent = '📎 Dosya Yükle';
-    removeIcon.style.display = 'none';
-  });
-
-
-
- 
-// ===== ARIZA KAYIT FORMU JavaScript KODLARI =====
-
-// Sayfa yüklendiğinde çalıştır
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Dosya yükleme işlevselliği
-    const fileInput = document.getElementById('dosyalar');
-    const fileDisplay = document.getElementById('file-display');
-    const fileName = document.getElementById('file-name');
-    const removeFile = document.getElementById('remove-file');
-
-    // Eğer elementler varsa işlevselliği ekle
-    if (fileInput && fileDisplay && fileName && removeFile) {
-        
-        // Dosya seçme alanına tıklandığında
-        fileDisplay.addEventListener('click', () => {
-            fileInput.click();
-        });
-
-        // Dosya seçildiğinde
-        fileInput.addEventListener('change', (e) => {
-            const files = e.target.files;
-            if (files.length > 0) {
-                if (files.length === 1) {
-                    fileName.textContent = `📎 ${files[0].name}`;
-                } else {
-                    fileName.textContent = `📎 ${files.length} dosya seçildi`;
-                }
-                removeFile.style.display = 'inline';
-            }
-        });
-
-        // Dosya silme butonuna tıklandığında
-        removeFile.addEventListener('click', (e) => {
-            e.stopPropagation(); // Parent elementin click eventini engelle
-            fileInput.value = '';
-            fileName.textContent = '📎 Dosya Yükle';
-            removeFile.style.display = 'none';
-        });
-    }
-
-    // Form gönderme işlemi
-    const arizaForm = document.getElementById('arizaForm');
-    if (arizaForm) {
-        arizaForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Form verilerini al
-            const formData = new FormData(e.target);
-            const baslik = formData.get('baslik');
-            const aciklama = formData.get('aciklama');
-            const oncelik = formData.get('oncelik');
-            const dosyalar = formData.getAll('dosyalar');
-            
-            // Basit doğrulama
-            if (!baslik || !baslik.trim()) {
-                alert('Lütfen konu başlığını giriniz!');
-                return;
-            }
-            
-            if (!aciklama || !aciklama.trim()) {
-                alert('Lütfen açıklama giriniz!');
-                return;
-            }
-            
-            // Başarılı gönderim mesajı
-            alert('Arıza kaydınız başarıyla gönderildi! En kısa sürede size dönüş yapılacaktır.');
-            
-            // Formu temizle
-            e.target.reset();
-            if (fileName) fileName.textContent = '📎 Dosya Yükle';
-            if (removeFile) removeFile.style.display = 'none';
-            
-            // Burada gerçek API'ye veri gönderebilirsiniz
-            console.log('Gönderilen veriler:', {
-                baslik: baslik,
-                aciklama: aciklama,
-                oncelik: oncelik,
-                dosya_sayisi: dosyalar.length
-            });
-            
-            // Kendi API'nize gönderme örneği:
-            /*
-            fetch('/api/ariza-kayit', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                alert('Arıza kaydınız başarıyla gönderildi!');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Bir hata oluştu, lütfen tekrar deneyin.');
-            });
-            */
-        });
-    }
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % images.length;
+      imgElements.forEach((img, i) => {
+        img.style.left = ((i - currentIndex) * 100) + "%";
+      });
+    }, 2000);
+  }
 });
 
 // Ekstra: Formu programatik olarak temizleme fonksiyonu
 function temizleArizaFormu() {
-    const form = document.getElementById('arizaForm');
-    const fileName = document.getElementById('file-name');
-    const removeFile = document.getElementById('remove-file');
-    
-    if (form) {
-        form.reset();
-        if (fileName) fileName.textContent = '📎 Dosya Yükle';
-        if (removeFile) removeFile.style.display = 'none';
-    }
+  const form = document.getElementById('arizaForm');
+  const fileName = document.getElementById('file-name');
+  const removeFile = document.getElementById('remove-file');
+  
+  if (form) {
+    form.reset();
+    if (fileName) fileName.textContent = '📎 Dosya Yükle';
+    if (removeFile) removeFile.style.display = 'none';
+  }
 }
-
-// Dosya yükleme işlevselliği
-document.addEventListener('DOMContentLoaded', function() {
-    const fileInput = document.getElementById('dosyalar');
-    const fileDisplay = document.getElementById('file-display');
-    const fileName = document.getElementById('file-name');
-    const removeFile = document.getElementById('remove-file');
-    const form = document.getElementById('arizaForm');
-
-    // Dosya seçme işlemi
-    fileDisplay.addEventListener('click', function() {
-        fileInput.click();
-    });
-
-    // Dosya seçildiğinde
-    fileInput.addEventListener('change', function() {
-        if (this.files && this.files.length > 0) {
-            if (this.files.length === 1) {
-                fileName.textContent = this.files[0].name;
-            } else {
-                fileName.textContent = `${this.files.length} dosya seçildi`;
-            }
-            removeFile.style.display = 'inline-block';
-        } else {
-            fileName.textContent = '📎 Dosya Yükle';
-            removeFile.style.display = 'none';
-        }
-    });
-
-    // Dosya silme işlemi
-    removeFile.addEventListener('click', function(e) {
-        e.stopPropagation();
-        fileInput.value = '';
-        fileName.textContent = '📎 Dosya Yükle';
-        removeFile.style.display = 'none';
-    });
-
-    // Form gönderme işlemi
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Form verilerini topla
-        const formData = new FormData(this);
-        const data = {
-            baslik: formData.get('baslik'),
-            aciklama: formData.get('aciklama'),
-            oncelik: formData.get('oncelik'),
-            dosyalar: formData.getAll('dosyalar')
-        };
-
-        // Basit validasyon
-        if (!data.baslik.trim()) {
-            alert('Konu başlığı boş olamaz!');
-            return;
-        }
-
-        if (!data.aciklama.trim()) {
-            alert('Açıklama boş olamaz!');
-            return;
-        }
-
-        // Başarı mesajı göster
-        showSuccessMessage();
-        
-        // Formu temizle
-        this.reset();
-        fileName.textContent = '📎 Dosya Yükle';
-        removeFile.style.display = 'none';
-        
-        // Orta öncelik seçeneğini varsayılan olarak seç
-        document.querySelector('input[name="oncelik"][value="orta"]').checked = true;
-    });
-
-    // Başarı mesajı gösterme fonksiyonu
-    function showSuccessMessage() {
-        // Mevcut başarı mesajını kaldır
-        const existingMessage = document.querySelector('.success-message');
-        if (existingMessage) {
-            existingMessage.remove();
-        }
-
-        // Yeni başarı mesajı oluştur
-        const successMessage = document.createElement('div');
-        successMessage.className = 'success-message';
-        successMessage.innerHTML = `
-            <div style="
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: linear-gradient(45deg, #27ae60, #2ecc71);
-                color: white;
-                padding: 15px 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-                z-index: 1000;
-                font-weight: 600;
-                animation: slideIn 0.3s ease-out;
-            ">
-                ✅ Arıza kaydınız başarıyla gönderildi!
-            </div>
-        `;
-
-        // Animasyon CSS'i ekle
-        if (!document.querySelector('#success-animation-style')) {
-            const style = document.createElement('style');
-            style.id = 'success-animation-style';
-            style.textContent = `
-                @keyframes slideIn {
-                    from {
-                        transform: translateX(100%);
-                        opacity: 0;
-                    }
-                    to {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                }
-                
-                @keyframes slideOut {
-                    from {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                    to {
-                        transform: translateX(100%);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-
-        document.body.appendChild(successMessage);
-
-        // 3 saniye sonra mesajı kaldır
-        setTimeout(() => {
-            const messageDiv = successMessage.querySelector('div');
-            messageDiv.style.animation = 'slideOut 0.3s ease-in';
-            setTimeout(() => {
-                successMessage.remove();
-            }, 300);
-        }, 3000);
-    }
-
-    // Input alanlarına gerçek zamanlı validasyon ekle
-    const inputs = form.querySelectorAll('input[required], textarea[required]');
-    inputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            if (!this.value.trim()) {
-                this.style.borderColor = '#e74c3c';
-            } else {
-                this.style.borderColor = '#27ae60';
-            }
-        });
-
-        input.addEventListener('input', function() {
-            if (this.value.trim()) {
-                this.style.borderColor = '#27ae60';
-            } else {
-                this.style.borderColor = '#CCCCCC';
-            }
-        });
-    });
-
-    // Textarea otomatik yükseklik ayarlama
-    const textarea = document.getElementById('aciklama');
-    textarea.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-    });
-});
