@@ -48,7 +48,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/admin', adminRoutes);
 
 // PORT
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;0,
 app.listen(PORT, () => {
   console.log(`🚀 Sunucu ${PORT} portunda çalışıyor`);
 });

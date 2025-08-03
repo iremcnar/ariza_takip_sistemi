@@ -95,6 +95,26 @@
         </div>
     </section>
 
+
+ <script>
+  async function sendMessage() {
+    const userInput = document.getElementById("userInput").value;
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer API_ANAHTARINIZ"
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages: [{role: "user", content: userInput}]
+      })
+    });
+    const data = await response.json();
+    console.log(data.choices[0].message.content);
+  }
+</script>
+
 <!-- Arıza Kayıt Bölümü -->
  
 <div id="yenikayit-section" style="height: 80px;"></div>
@@ -231,3 +251,6 @@
     
 </body>
 </html>
+
+
+
