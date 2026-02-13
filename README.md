@@ -52,30 +52,20 @@ Geleneksel yöntemlerle (e-posta veya sözlü) iletilen arıza bildirimlerinin t
 
 
 ### 📝 Kullanıcı İşlemleri (Arıza & Destek)
-<p align="center">
-  <a href="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/kayıtyap.jpeg"><img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/kayıtyap.jpeg" width="49%" alt="Arıza Kaydı"></a>
-  <a href="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/destek.jpeg"><img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/destek.jpeg" width="49%" alt="Destek Talebi"></a>
-</p>
+![destek](https://github.com/user-attachments/assets/fb1f0114-a6ae-4315-b88c-5a240805d896)
+![kayıtyap](https://github.com/user-attachments/assets/959c204a-30db-40ce-94e4-514f3d39b036)
 
 ### 📋 Takip ve Yönetim
-<p align="center">
-  <a href="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/kayıtlar.jpeg">
-    <img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/kayıtlar.jpeg" width="100%" alt="Kayıtlarım">
-  </a>
-</p>
+![kayıtlar](https://github.com/user-attachments/assets/ebfeeef5-66bc-4f8d-9d54-5627db72d3e3)
+
 
 **Admin Paneli:** Dashboard üzerinde son arıza kayıtları ve son destek mesajları anlık olarak listelenir.
-<p align="center">
-  <a href="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/son_arıza_kayıtları.jpeg">
-    <img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/son_arıza_kayıtları.jpeg" width="60%" alt="Admin Dashboard">
-  </a>
-</p>
+![arıza_kayıtları](https://github.com/user-attachments/assets/da16b775-dfac-4f4c-9dca-83915b7cbdf5)
+![kullanıcı_listesi](https://github.com/user-attachments/assets/c4bd6928-5ecd-48c6-95c2-0ebea186fa18)
 
-<p align="center">
-  <a href="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/arıza_kayıtları.jpeg"><img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/arıza_kayıtları.jpeg" width="32%" alt="Tüm Arızalar"></a>
-  <a href="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/destek_talepleri.jpeg"><img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/destek_talepleri.jpeg" width="32%" alt="Destek Listesi"></a>
-  <a href="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/kullanıcı_listesi.jpeg"><img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/kullanıcı_listesi.jpeg" width="32%" alt="Kullanıcılar"></a>
-</p>
+![destek_talepleri](https://github.com/user-attachments/assets/14e13461-bcc0-40e3-b401-93b6e3cd41b3)
+![son_arıza_kayıtları](https://github.com/user-attachments/assets/de203874-d3de-4a39-bed6-a2e388aae538)
+
 
 ### 👤 Profil Yönetimi
 - **Hesabım:** Kullanıcılar ad, mail ve şifre bilgilerini güncelleyebilir; yapılan her değişiklik eş zamanlı olarak veritabanına yansıtılır.
