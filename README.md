@@ -68,30 +68,7 @@ Geleneksel yöntemlerle (e-posta veya sözlü) iletilen arıza bildirimlerinin t
 
 
 ### 👤 Profil Yönetimi
-- **Hesabım:** Kullanıcılar ad, mail ve şifre bilgilerini güncelleyebilir; yapılan her değişiklik eş zamanlı olarak veritabanına yansıtılır.
-<p align="center">
-  <a href="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/hesabımm.jpeg">
-    <img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/hesabımm.jpeg" width="50%" alt="Hesabım">
-  </a>
-</p>
 
----
+![hesabımm](https://github.com/user-attachments/assets/09097ceb-ee7b-40ea-9703-33825c9cb117)
 
-## 📁 Proje Klasör Yapısı (MVC)
 
-```bash
-ARIZA_TAKIP_SISTEMI/
-├── BACKEND/                    # Sunucu Tarafı
-│   ├── Admin/                  # Admin paneli mantığı
-│   ├── config/                 # db.js yapılandırması
-│   ├── controllers/            # Ana mantık katmanı (admin, ariza, auth, destek, user)
-│   ├── middleware/             # Auth ve Upload ara yazılımları
-│   ├── models/                 # MongoDB Şemaları (Ariza, Destek, User)
-│   ├── routes/                 # API Endpoints
-│   ├── uploads/                # Ekli dosyalar
-│   └── server.js               # Ana giriş
-├── FRONTEND/                   # İstemci Tarafı
-│   ├── sections/               # HTML Sayfaları
-│   ├── styles/                 # CSS Tasarımları
-│   └── assets/                 # Görseller
-└── README.md
