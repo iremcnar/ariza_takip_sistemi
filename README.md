@@ -41,7 +41,8 @@ Geleneksel yöntemlerle (e-posta veya sözlü) iletilen arıza bildirimlerinin t
 
 ### 🏠 Ana Sayfa
 <p align="center">
-  <a href="C:\Users\PC\OneDrive\Belgeler\arıza_takipsis\ariza_takip_sistemi\proje_görselleri\main.jpeg"
+  <a href="C:\Users\PC\OneDrive\Belgeler\arıza_takipsis\ariza_takip_sistemi\proje_görselleri\main.jpeg
+    "
 >
     <img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/main.jpeg" width="100%" alt="Ana Sayfa">
   </a>
