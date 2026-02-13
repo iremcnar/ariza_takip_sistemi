@@ -5,7 +5,35 @@
 ![NodeJS](https://img.shields.io/badge/Node.js-v18.x-6DA55F?logo=node.js)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Latest-47A248?logo=mongodb)
 
-**Arıza Takip Sistemi**, Hayat Kimya bünyesinde gerçekleştirdiğim yaz stajı süresince, kurum içi teknik operasyonların dijitalleşmesi amacıyla geliştirilmiştir. Sistem, çalışanların teknik aksaklıkları hızlıca raporlamasını ve teknik ekibin bu talepleri merkezi bir panelden yönetmesini sağlar.
+**Arıza Takip Sistemi**, Hayat Kimya bünyesinde gerçekleştirdiğim yaz stajı süresince, kurum içi teknik operasyonların dijitalleşmesi amacıyla geliştirilmiştir. Sistem, çalışanların karşılaştıkları teknik aksaklıkları hızlıca raporlamasını, teknik ekibin ise bu talepleri merkezi bir panelden yönetmesini sağlar.
+
+---
+
+## 🎯 Projenin Amacı ve Kapsamı
+Geleneksel yöntemlerle (e-posta veya sözlü) iletilen arıza bildirimlerinin takibindeki zorlukları gidermek adına;
+* Süreçleri otomatize etmek,
+* Arızaların çözüm sürelerini (SLA) öncelik seviyelerine göre optimize etmek,
+* Geçmişe dönük veri analizi için düzenli bir veritabanı yapısı oluşturmak hedeflenmiştir.
+
+---
+
+## ✨ Temel Özellikler
+
+### 👤 Kullanıcı Modülü
+- **Gelişmiş Kayıt & Giriş:** Güvenli kimlik doğrulama sistemi.
+- **Arıza Bildirimi:** Konu başlığı, detaylı açıklama ve görsel/dosya eki desteği.
+- **Dinamik Önceliklendirme:** Arızanın aciliyetine göre *Düşük, Orta, Yüksek* seçim imkanı.
+- **Talep Takibi:** Oluşturulan kayıtların durumunu (Beklemede, İşlemde, Çözüldü) canlı izleme.
+
+### 🔑 Admin & Yönetim Modülü
+- **Merkezi Dashboard:** Sistemdeki tüm arıza ve destek taleplerinin listelenmesi.
+- **Durum Güncelleme:** Kayıtlara admin tarafından çözüm notu eklenmesi ve durumun değiştirilmesi.
+- **Mail Entegrasyonu:** Destek taleplerine doğrudan admin paneli üzerinden e-posta ile yanıt verme.
+- **Veri Yönetimi:** MongoDB Compass üzerinde tüm süreçlerin şeffaf takibi.
+
+### 🛡️ Güvenlik ve Servisler
+- **Şifre Kurtarma:** Unutulan şifreler için sisteme tanımlı özel mail hesabı üzerinden otomatik, rastgele ve güvenli yeni şifre gönderimi.
+- **Input Validation:** Form verilerinin sunucu tarafında doğrulanması.
 
 ---
 
