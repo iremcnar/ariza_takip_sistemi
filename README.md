@@ -44,13 +44,12 @@ Geleneksel yöntemlerle (e-posta veya sözlü) iletilen arıza bildirimlerinin t
 ![main](https://github.com/user-attachments/assets/e24ef41d-d1ee-41b2-9c8e-46ee4051e789)
 
 ### 🔐 Erişim Sayfaları
-<p align="center">
+
  ![adming](https://github.com/user-attachments/assets/e3d555a1-8e27-411b-bfe4-963dde47e426)
 ![giriş](https://github.com/user-attachments/assets/3d73db99-0f12-42d7-b366-62c6d13752d3)
 ![kayıt](https://github.com/user-attachments/assets/ac323836-0a2c-4d43-8ae7-134952d9f5d0)
 
-  
-</p>
+
 
 ### 📝 Kullanıcı İşlemleri (Arıza & Destek)
 <p align="center">
