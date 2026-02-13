@@ -41,7 +41,8 @@ Geleneksel yöntemlerle (e-posta veya sözlü) iletilen arıza bildirimlerinin t
 
 ### 🏠 Ana Sayfa
 <p align="center">
-  <a href="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/main.jpeg">
+  <a href="![main](https://github.com/user-attachments/assets/0defb8da-dbbe-46fc-a10c-a2fd973de32f)"
+>
     <img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/main.jpeg" width="100%" alt="Ana Sayfa">
   </a>
 </p>
