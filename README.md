@@ -45,9 +45,11 @@ Geleneksel yöntemlerle (e-posta veya sözlü) iletilen arıza bildirimlerinin t
 
 ### 🔐 Erişim Sayfaları
 <p align="center">
-  <a href="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/adming.jpeg"><img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/adming.jpeg" width="32%" alt="Admin Giriş"></a>
-  <a href="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/kayıt.jpeg"><img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/kayıt.jpeg" width="32%" alt="Kayıt Ol"></a>
-  <a href="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/giriş.jpeg"><img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/giriş.jpeg" width="32%" alt="Giriş Yap"></a>
+ ![adming](https://github.com/user-attachments/assets/e3d555a1-8e27-411b-bfe4-963dde47e426)
+![giriş](https://github.com/user-attachments/assets/3d73db99-0f12-42d7-b366-62c6d13752d3)
+![kayıt](https://github.com/user-attachments/assets/ac323836-0a2c-4d43-8ae7-134952d9f5d0)
+
+  
 </p>
 
 ### 📝 Kullanıcı İşlemleri (Arıza & Destek)
