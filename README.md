@@ -6,7 +6,7 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-Latest-47A248?logo=mongodb)
 
 **Arıza Takip Sistemi**, Hayat Kimya bünyesinde gerçekleştirdiğim yaz stajı süresince, kurum içi teknik operasyonların dijitalleşmesi amacıyla geliştirilmiştir. Sistem, çalışanların karşılaştıkları teknik aksaklıkları hızlıca raporlamasını, teknik ekibin ise bu talepleri merkezi bir panelden yönetmesini sağlar.
-![main](https://github.com/user-attachments/assets/e24ef41d-d1ee-41b2-9c8e-46ee4051e789)
+
 
 ---
 
@@ -41,13 +41,7 @@ Geleneksel yöntemlerle (e-posta veya sözlü) iletilen arıza bildirimlerinin t
 ## 📸 Uygulama Arayüzü (Galeri)
 
 ### 🏠 Ana Sayfa
-<p align="center">
-  <a href="C:\Users\PC\OneDrive\Belgeler\arıza_takipsis\ariza_takip_sistemi\proje_görselleri\main.jpeg
-    "
->
-    <img src="https://raw.githubusercontent.com/iremcnar/anza_takip_sistemi/main/main.jpeg" width="100%" alt="Ana Sayfa">
-  </a>
-</p>
+![main](https://github.com/user-attachments/assets/e24ef41d-d1ee-41b2-9c8e-46ee4051e789)
 
 ### 🔐 Erişim Sayfaları
 <p align="center">
