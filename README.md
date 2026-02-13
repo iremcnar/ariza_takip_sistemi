@@ -34,6 +34,7 @@ Geleneksel yöntemlerle (e-posta veya sözlü) iletilen arıza bildirimlerinin t
 ### 🛡️ Güvenlik ve Servisler
 - **Şifre Kurtarma:** Unutulan şifreler için sisteme tanımlı özel mail hesabı üzerinden otomatik, rastgele ve güvenli yeni şifre gönderimi.
 - **Input Validation:** Form verilerinin sunucu tarafında doğrulanması.
+![anasayfa](https://github.com/user-attachments/assets/dc26618e-1d9c-4a0c-941e-ffdb8054902e)
 
 ---
 
@@ -63,20 +64,3 @@ Geleneksel yöntemlerle (e-posta veya sözlü) iletilen arıza bildirimlerinin t
 * **MongoDB:** JSON tabanlı esnek veri depolama.
 * **Mongoose:** Veri modelleme ve şema yönetimi.
 
----
-
-## 📁 Proje Klasör Yapısı
-
-```bash
-ARIZA_TAKIP_SISTEMI/
-├── BACKEND/
-│   ├── models/          # Veritabanı şemaları (User, Fault, Support)
-│   ├── routes/          # API uç noktaları
-│   ├── services/        # Mail gönderim servisleri
-│   ├── config/          # Veritabanı ve SMTP yapılandırmaları
-│   └── server.js        # Uygulama giriş noktası
-├── FRONTEND/
-│   ├── sections/        # HTML sayfaları (index, login, kayitlarim, destek)
-│   ├── styles/          # CSS tasarım dosyaları
-│   └── assets/          # İkonlar ve görseller
-└── README.md
